@@ -2,7 +2,7 @@
 PRG2201 Object-Oriented Programming — Coursework #3  
 INTI International University • August 2025 Session  
 
-📘 **[Chinese Version / 中文版本](README_CN.md)**
+📘 **[简体中文](README_CN.md) | English**
 
 ---
 
