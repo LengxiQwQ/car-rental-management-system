@@ -61,13 +61,6 @@ If database cannot be implemented, a justification must be provided for using fi
 - **Pass (50–64%)**: Basic requirements met  
 - **Fail (<50%)**: Incomplete or major issues  
 
----
-
-## 📚 Learning Outcome
-**CLO3:** Demonstrate lifelong learning skills in creating programming solutions for real-world problems.
-
----
-
 ## 👨‍🏫 Module Info
 - **Module:** PRG2201 - Object Oriented Programming 
 - **Session:** August 2025  
