@@ -2,7 +2,7 @@
 PRG2201 Object-Oriented Programming — Coursework #3  
 INTI International University • August 2025 Session  
 
-📘 **[Click here for Chinese Version / 中文版](README_CN.md)**
+📘 **[Chinese Version / 中文版本](README_CN.md)**
 
 ---
 
@@ -69,8 +69,5 @@ If database cannot be implemented, a justification must be provided for using fi
 ---
 
 ## 👨‍🏫 Module Info
-- **Module:** PRG2201  
-- **Programme:** BCSI/BITI  
-- **Lecturer:** Harprith Kaur  
-- **Email:** harprith.randhawa@newinti.edu.my  
+- **Module:** PRG2201 - Object Oriented Programming 
 - **Session:** August 2025  
