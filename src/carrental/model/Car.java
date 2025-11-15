@@ -26,21 +26,6 @@ public class Car {
     }
 
     /**
-     * 比较两个车辆对象是否相等
-     * @param o 要比较的对象
-     * @return 如果两个车辆的ID相同则返回true，否则返回false
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Car car = (Car) o;
-
-        return CarID != null ? CarID.equals(car.CarID) : car.CarID == null;
-    }
-
-    /**
      * 检查车辆是否可租用
      * @return 如果车辆状态为可用且库存大于0则返回true，否则返回false
      */
