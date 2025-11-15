@@ -1,5 +1,7 @@
 package carrental.model;
 
+import java.util.Objects;
+
 public class Users {
     private String username;
     private String UserID;
@@ -52,6 +54,22 @@ public class Users {
     public void setPassword(String password) {
 
         Password = password;
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Users user = (Users) o;
+        return Objects.equals(UserID, user.UserID);
+    }
+
+
+    public String toString() {
+        return "Users{" +
+                "UserID=" + UserID +
+                ", username='" + username + '\'' +
+                ", role=" + Role +
+                '}';
     }
 }
 
