@@ -25,6 +25,59 @@ public class Car {
         this.stock = stock;
     }
 
+    /**
+     * 比较两个车辆对象是否相等
+     * @param o 要比较的对象
+     * @return 如果两个车辆的ID相同则返回true，否则返回false
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Car car = (Car) o;
+
+        return CarID != null ? CarID.equals(car.CarID) : car.CarID == null;
+    }
+
+    /**
+     * 检查车辆是否可租用
+     * @return 如果车辆状态为可用且库存大于0则返回true，否则返回false
+     */
+    public boolean isAvailable() {
+        return Status.equals("available") && stock > 0;
+    }
+
+    /**
+     * 租车时减少库存数量
+     */
+    public void rentCar() {
+        if (stock > 0) {
+            stock--;
+            if (stock == 0) {
+                Status = "unavailable";
+            }
+        }
+    }
+
+    // 还车时增加库存数量
+    public void returnCar() {
+        stock++;
+        if (stock > 0) {
+            Status = "available";
+        }
+    }
+
+    /**
+     * 根据租赁天数计算租金
+     * @param days 租赁天数
+     * @return 总租金 = 单价 × 天数
+     */
+    public double calculateRentalCost(int days) {
+        return Price * days;
+    }
+
+
 
     //Getter & Setter
     public Car() {
@@ -128,55 +181,4 @@ public class Car {
                 '}';
     }
 
-    /**
-     * 比较两个车辆对象是否相等
-     * @param o 要比较的对象
-     * @return 如果两个车辆的ID相同则返回true，否则返回false
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Car car = (Car) o;
-
-        return CarID != null ? CarID.equals(car.CarID) : car.CarID == null;
-    }
-
-    /**
-     * 检查车辆是否可租用
-     * @return 如果车辆状态为可用且库存大于0则返回true，否则返回false
-     */
-    public boolean isAvailable() {
-        return Status.equals("available") && stock > 0;
-    }
-
-    /**
-     * 租车时减少库存数量
-     */
-    public void rentCar() {
-        if (stock > 0) {
-            stock--;
-            if (stock == 0) {
-                Status = "unavailable";
-            }
-        }
-    }
-
-     // 还车时增加库存数量
-    public void returnCar() {
-        stock++;
-        if (stock > 0) {
-            Status = "available";
-        }
-    }
-
-    /**
-     * 根据租赁天数计算租金
-     * @param days 租赁天数
-     * @return 总租金 = 单价 × 天数
-     */
-    public double calculateRentalCost(int days) {
-        return Price * days;
-    }
 }
