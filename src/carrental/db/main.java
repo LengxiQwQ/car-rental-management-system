@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class main {
     // 1. 数据库连接参数（替换成你的信息！）
-    private static final String URL = "jdbc:mysql://localhost:3306/test?useSSL=false&serverTimezone=UTC";
+    private static final String URL = "jdbc:mysql://localhost:3308/mydb?useSSL=false&serverTimezone=UTC";
     private static final String USER = "root"; // 你的MySQL用户名
     private static final String PASSWORD = "123456"; // 你的密码
 
@@ -33,7 +33,7 @@ public class main {
         Connection conn = getConnection();
         if (conn == null) return;
 
-        String sql = "INSERT INTO student (name, age) VALUES (?, ?)";
+        String sql = "INSERT INTO users (name, age) VALUES (?, ?)";
         PreparedStatement pstmt = null;
         try {
             pstmt = conn.prepareStatement(sql);
