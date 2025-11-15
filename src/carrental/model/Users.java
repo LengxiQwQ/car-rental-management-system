@@ -3,16 +3,27 @@ package carrental.model;
 public class Users {
     private String username;
     private String UserID;
-    private userRole Role;
     private String Password;
+    private userRole Role;
+    private String details;
 
     public Users() {
     }
-    public Users(String username, String UserID, userRole Role, String Password) {
+
+    public Users(String username, String UserID, userRole Role, String Password, String details) {
         this.username = username;
         this.UserID = UserID;
         this.Role = Role;
         this.Password = Password;
+        this.details = "";
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
     }
 
     public String getUsername() {
