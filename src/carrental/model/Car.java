@@ -5,9 +5,9 @@ public class Car {
     private String Model;
     private String Brand;
     private String Color;
-    private String Status; //available, rented, maintenance
+    private String Status; //available, unavailable, rented, maintenance
     private String description;
-    private String licensePlate;
+    private String licensePlate; // 车牌
     private double Price;
     private int year;
     private int stock;
@@ -25,17 +25,12 @@ public class Car {
         this.stock = stock;
     }
 
-    /**
-     * 检查车辆是否可租用
-     * @return 如果车辆状态为可用且库存大于0则返回true，否则返回false
-     */
+    // 检查车辆是否可租用，return 如果车辆状态为可用且库存大于0则返回true，否则返回false
     public boolean isAvailable() {
         return Status.equals("available") && stock > 0;
     }
 
-    /**
-     * 租车时减少库存数量
-     */
+    // 租车时减少库存数量
     public void rentCar() {
         if (stock > 0) {
             stock--;
@@ -53,11 +48,7 @@ public class Car {
         }
     }
 
-    /**
-     * 根据租赁天数计算租金
-     * @param days 租赁天数
-     * @return 总租金 = 单价 × 天数
-     */
+    // 根据租赁天数计算租金 @param days 租赁天数 @return 总租金 = 单价 × 天数
     public double calculateRentalCost(int days) {
         return Price * days;
     }
@@ -149,7 +140,7 @@ public class Car {
     }
 
 
-    //返回车辆的字符串表示形式
+    //返回车辆的信息
     @Override
     public String toString() {
         return "Car{" +
