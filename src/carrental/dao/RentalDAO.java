@@ -142,7 +142,7 @@ public class RentalDAO {
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     // 这里的逻辑与 findAll 中的 while 循环内的逻辑基本一致
-                    int carId = rs.getInt("car_id");
+                    String carId = rs.getString("car_id");
                     String customerId = rs.getString("customer_id");
                     LocalDate startDate = LocalDate.parse(rs.getString("start_date"));
                     LocalDate expectedReturnDate = LocalDate.parse(rs.getString("due_date"));
