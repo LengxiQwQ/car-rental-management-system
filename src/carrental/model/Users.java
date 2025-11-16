@@ -67,14 +67,6 @@ public class Users {
         Password = password;
     }
 
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Users user = (Users) o;
-        return Objects.equals(UserID, user.UserID);
-    }
-
-
     public String toString() {
         return "Users{" +
                 "UserID=" + UserID +
