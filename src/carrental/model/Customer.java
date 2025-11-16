@@ -1,11 +1,11 @@
 package carrental.model;
 
 public class Customer {
-    
-    private int customerID;
+
     private int phone;
     private int driverLicenseNumber;
     private int idCardNumber;
+    private String customerID;
     private String name;
     private String email;
     private String address;
@@ -15,7 +15,7 @@ public class Customer {
     }
 
     // 基本信息构造函数
-    public Customer(int customerID, String name, int phone, String email, String address) {
+    public Customer(String customerID, String name, int phone, String email, String address) {
         this.customerID = customerID;
         this.name = name;
         this.phone = phone;
@@ -24,8 +24,8 @@ public class Customer {
     }
 
     // 完整客户信息构造函数
-    public Customer(int customerID, String name, int phone, String email, String address, 
-                   int driverLicenseNumber, int idCardNumber) {
+    public Customer(String customerID, String name, int phone, String email, String address,
+                    int driverLicenseNumber, int idCardNumber) {
         this.customerID = customerID;
         this.name = name;
         this.phone = phone;
@@ -57,11 +57,11 @@ public class Customer {
 
 
     // Getter & setter
-    public int getCustomerID() {
+    public String getCustomerID() {
         return customerID;
     }
 
-    public void setCustomerID(int customerID) {
+    public void setCustomerID(String customerID) {
         this.customerID = customerID;
     }
 

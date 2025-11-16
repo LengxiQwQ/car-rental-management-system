@@ -38,7 +38,7 @@ public class Rental {
     }
 
     // 完整信息构造函数
-    public Rental(int rentalID, Customer customer, Car car, LocalDate startDate, LocalDate expectedReturnDate, 
+    public Rental(int rentalID, Customer customer, Car car, LocalDate startDate, LocalDate expectedReturnDate,
                   LocalDate actualReturnDate, String status, double totalCost) {
         this.rentalID = rentalID;
         this.customer = customer;
