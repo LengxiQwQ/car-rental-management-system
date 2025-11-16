@@ -5,24 +5,26 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * 数据库连接工具类：提供SQLite连接（无需额外配置）
+ * 数据库连接工具类：提供MySQL连接
  */
 public class DBConnection {
-    // SQLite数据库文件（项目根目录下）
-    private static final String URL = "jdbc:sqlite:car_rental.db";
+    // MySQL数据库连接参数
+    private static final String URL = "jdbc:mysql://localhost:3308/mydb?useSSL=false&serverTimezone=UTC";
+    private static final String USER = "root";
+    private static final String PASSWORD = "123456";
 
-    // 加载SQLite驱动
+    // 加载MySQL驱动
     static {
         try {
-            Class.forName("org.sqlite.JDBC");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException("SQLite驱动加载失败", e);
+            throw new RuntimeException("MySQL驱动加载失败", e);
         }
     }
 
     // 获取数据库连接
     public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL);
+        return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 
     // 关闭连接

@@ -13,12 +13,17 @@ import java.sql.SQLException;
  * 用户DAO：负责users表的CRUD操作
  */
 public class UserDAO {
-    private DBConnection dbConn; // 更改字段名以避免歧义
+    private DBConnection dbConn; // 数据库连接对象
+
+    // 构造函数，初始化数据库连接
+    public UserDAO() {
+        this.dbConn = new DBConnection();
+    }
 
     // 根据用户名查询用户（登录核心方法）
     public User findByUsername(String username) {
         String sql = "SELECT id, username, password, role FROM users WHERE username = ?";
-        try (Connection conn = dbConn.getConnection(); // 修改调用方式
+        try (Connection conn = DBConnection.getConnection(); // 使用静态方法获取连接
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, username);
             try (ResultSet rs = pstmt.executeQuery()) { // 显式声明 ResultSet 关闭
@@ -47,7 +52,7 @@ public class UserDAO {
     // 添加用户（管理员功能）
     public boolean insert(User user) {
         String sql = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
-        try (Connection conn = dbConn.getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, user.getUsername());
             pstmt.setString(2, user.getPassword());
@@ -64,7 +69,7 @@ public class UserDAO {
     // 删除用户（管理员功能）
     public boolean delete(int userId) {
         String sql = "DELETE FROM users WHERE id = ?";
-        try (Connection conn = dbConn.getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, userId);
             int rowsAffected = pstmt.executeUpdate();

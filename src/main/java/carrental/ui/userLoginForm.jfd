@@ -6,7 +6,7 @@ new FormModel {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 			"$layoutConstraints": "hidemode 3"
 			"$columnConstraints": "[163,fill][168,fill]"
-			"$rowConstraints": "[][][18][][][][][][][][][]"
+			"$rowConstraints": "[][][18][][][][][][][][]"
 		} ) {
 			name: "this2"
 			"visible": true

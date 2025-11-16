@@ -15,6 +15,16 @@ import net.miginfocom.swing.*;
 public class userRegisterForm extends JFrame {
     public userRegisterForm() {
         initComponents();
+        // 初始化界面时根据默认选项显示正确的面板
+        updatePanelVisibility();
+    }
+
+    private void updatePanelVisibility() {
+        String selectedRole = (String) roleComboBox.getSelectedItem();
+        boolean isCustomer = "Customer".equals(selectedRole);
+        boolean isAdminOrStaff = "Admin".equals(selectedRole) || "Staff".equals(selectedRole);
+        panelCustomer.setVisible(isCustomer);
+        panelStaffAdmin.setVisible(isAdminOrStaff);
     }
 
     private void userRoleItemStateChanged(ItemEvent e) {
@@ -67,6 +77,8 @@ public class userRegisterForm extends JFrame {
         buttonRegister = new JButton();
 
         //======== this ========
+        setTitle("Register");
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
         var contentPane = getContentPane();
         contentPane.setLayout(new MigLayout(
@@ -78,7 +90,6 @@ public class userRegisterForm extends JFrame {
             "[]" +
             "[]" +
             "[18]" +
-            "[]" +
             "[]" +
             "[]" +
             "[]" +
@@ -196,6 +207,7 @@ public class userRegisterForm extends JFrame {
 
         //---- buttonGoToLogin ----
         buttonGoToLogin.setText("Go to Login");
+        buttonGoToLogin.addActionListener(e -> buttonGoToLoginActionPerformed(e));
         contentPane.add(buttonGoToLogin, "cell 0 10");
 
         //---- buttonRegister ----
