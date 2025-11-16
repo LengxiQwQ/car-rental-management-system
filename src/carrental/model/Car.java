@@ -11,6 +11,9 @@ public class Car {
     private double Price;
     private int year;
     private int stock;
+    public enum CarStatus {
+        AVAILABLE, RENTED, MAINTENANCE
+    }
 
     public Car(String carID, String model, String brand, String color, String status, String description, String licensePlate, double price, int year, int stock) {
         CarID = carID;
@@ -62,6 +65,9 @@ public class Car {
     public String getCarID() {
         return CarID;
     }
+    public int getId() {
+        return Integer.parseInt(this.CarID); // 假设 CarID 是数字字符串
+    }
 
     public void setCarID(String carID) {
         CarID = carID;
@@ -95,8 +101,8 @@ public class Car {
         return Status;
     }
 
-    public void setStatus(String status) {
-        Status = status;
+    public void setStatus(CarStatus status) {
+        Status = String.valueOf(status);
     }
 
     public String getDescription() {

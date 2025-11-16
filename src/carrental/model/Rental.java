@@ -21,6 +21,7 @@ public class Rental {
     private String status;
     // 总费用
     private double totalCost;
+    private int staffId;
 
     // 无参构造函数
     public Rental() {
@@ -28,13 +29,14 @@ public class Rental {
     }
 
     // 基本信息构造函数
-    public Rental(int rentalID, Customer customer, Car car, LocalDate startDate, LocalDate expectedReturnDate) {
+    public Rental(int rentalID, Customer customer, Car car, LocalDate startDate, LocalDate expectedReturnDate,int staffId) {
         this.rentalID = rentalID;
         this.customer = customer;
         this.car = car;
         this.startDate = startDate;
         this.expectedReturnDate = expectedReturnDate;
-        this.status = "active"; // 初始状态为进行中
+        this.status = "active";
+        this.staffId = staffId; // 初始状态为进行中
     }
 
     // 完整信息构造函数
@@ -178,5 +180,11 @@ public class Rental {
         this.totalCost = totalCost;
     }
 
+    public int getStaffId() {
+        return staffId;
+    }
+    public void setStaffId(int staffId) {
+        this.staffId = staffId;
+    }
 
 }
