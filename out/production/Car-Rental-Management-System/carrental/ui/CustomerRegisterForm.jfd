@@ -6,7 +6,7 @@ new FormModel {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 			"$layoutConstraints": "hidemode 3"
 			"$columnConstraints": "[fill][fill][fill][fill][fill][9,fill][163,fill][168,fill][fill][fill][fill][fill][fill][fill]"
-			"$rowConstraints": "[][][][][][][][][][][][][][][][][][][][][]"
+			"$rowConstraints": "[][][][][][][][][][][][][][][][][][][][][][]"
 		} ) {
 			name: "this"
 			add( new FormComponent( "javax.swing.JLabel" ) {
@@ -121,7 +121,7 @@ new FormModel {
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3"
 				"$columnConstraints": "[154,fill][166,fill]"
-				"$rowConstraints": "[][][][][][]"
+				"$rowConstraints": "[][][]"
 			} ) {
 				name: "panelDefault"
 				add( new FormComponent( "javax.swing.JLabel" ) {
@@ -164,13 +164,13 @@ new FormModel {
 				name: "buttonGoToLogin"
 				"text": "Go to Login"
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 6 14"
+				"value": "cell 6 9"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "buttonRegister"
 				"text": "Register"
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 7 14"
+				"value": "cell 7 9"
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 10 )

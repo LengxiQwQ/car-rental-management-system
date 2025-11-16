@@ -17,18 +17,19 @@ public class CustomerRegisterForm extends JFrame {
     }
 
     private void userRoleItemStateChanged(ItemEvent e) {
-        // 加这3行打印，运行后看IDE的Console（控制台）
-        String selectedRole = (String) roleComboBox.getSelectedItem();
-        System.out.println("当前选中的角色：" + selectedRole); // 看获取到的角色对不对
-        System.out.println("是否是客户：" + "Customer".equals(selectedRole)); // 看判断结果是true还是false
-        System.out.println("是否是Admin/Staff：" + ("Admin".equals(selectedRole) || "Staff".equals(selectedRole)));
+        // 监听选择项
+        if (e.getStateChange() == ItemEvent.SELECTED) {
+            String selectedRole = (String) roleComboBox.getSelectedItem();
+            System.out.println("Currently selected Role: " + selectedRole);
 
-        // 你的原逻辑
-        boolean isCustomer = "Customer".equals(selectedRole);
-        boolean isAdminOrStaff = "Admin".equals(selectedRole) || "Staff".equals(selectedRole);
-        panelCustomer.setVisible(isCustomer);
-        panelStaffAdmin.setVisible(isAdminOrStaff);
+            // 显示或隐藏
+            boolean isCustomer = "Customer".equals(selectedRole);
+            boolean isAdminOrStaff = "Admin".equals(selectedRole) || "Staff".equals(selectedRole);
+            panelCustomer.setVisible(isCustomer);
+            panelStaffAdmin.setVisible(isAdminOrStaff);
+        }
     }
+
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
@@ -79,6 +80,7 @@ public class CustomerRegisterForm extends JFrame {
             "[fill]" +
             "[fill]",
             // rows
+            "[]" +
             "[]" +
             "[]" +
             "[]" +
@@ -187,9 +189,6 @@ public class CustomerRegisterForm extends JFrame {
                 // rows
                 "[]" +
                 "[]" +
-                "[]" +
-                "[]" +
-                "[]" +
                 "[]"));
 
             //---- label3 ----
@@ -211,11 +210,11 @@ public class CustomerRegisterForm extends JFrame {
 
         //---- buttonGoToLogin ----
         buttonGoToLogin.setText("Go to Login");
-        contentPane.add(buttonGoToLogin, "cell 6 14");
+        contentPane.add(buttonGoToLogin, "cell 6 9");
 
         //---- buttonRegister ----
         buttonRegister.setText("Register");
-        contentPane.add(buttonRegister, "cell 7 14");
+        contentPane.add(buttonRegister, "cell 7 9");
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
