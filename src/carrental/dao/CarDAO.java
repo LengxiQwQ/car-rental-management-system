@@ -74,7 +74,7 @@ public class CarDAO {
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, status.name());
-            pstmt.setInt(2, carId);
+            pstmt.setString(2, carId);
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
