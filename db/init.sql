@@ -1,15 +1,36 @@
--- 创建数据库
-CREATE DATABASE IF NOT EXISTS mydb;
+-- Create database
+CREATE DATABASE IF NOT EXISTS car_rental_db;
 
-USE mydb;
+USE car_rental_db;
 
--- 示例表
-CREATE TABLE IF NOT EXISTS users (
-                                     id INT AUTO_INCREMENT PRIMARY KEY,
-                                     name VARCHAR(50),
-    age INT
-    );
+-- Create User table
+CREATE TABLE IF NOT EXISTS Users (
+    UserID VARCHAR(50) PRIMARY KEY,
+    username VARCHAR(100) NOT NULL,
+    Password VARCHAR(100) NOT NULL,
+    Role ENUM('admin', 'staff') NOT NULL,
+    details TEXT
+);
 
--- 示例数据
-INSERT INTO users (name, age) VALUES ('Alice', 20);
-INSERT INTO users (name, age) VALUES ('Bob', 22);
+-- Create Cars table
+CREATE TABLE IF NOT EXISTS Cars (
+    CarID VARCHAR(50) PRIMARY KEY,
+    Model VARCHAR(100) NOT NULL,
+    Brand VARCHAR(100) NOT NULL,
+    Color VARCHAR(50),
+    Status ENUM('available', 'unavailable', 'rented', 'maintenance') NOT NULL,
+    description TEXT,
+    licensePlate VARCHAR(20) UNIQUE,
+    Price DECIMAL(10, 2) NOT NULL,
+    year INT,
+    stock INT DEFAULT 0
+);
+
+-- Insert sample data
+INSERT INTO Users (UserID, username, Password, Role, details) VALUES 
+('U001', 'Alice', 'password123', 'admin', 'System administrator'),
+('U002', 'Bob', 'password456', 'staff', 'Sales representative');
+
+INSERT INTO Cars (CarID, Model, Brand, Color, Status, description, licensePlate, Price, year, stock) VALUES 
+('C001', 'Camry', 'Toyota', 'White', 'available', 'Sedan with great fuel economy', 'ABC123', 50.00, 2022, 2),
+('C002', 'Civic', 'Honda', 'Red', 'rented', 'Compact car', 'XYZ789', 40.00, 2021, 0);

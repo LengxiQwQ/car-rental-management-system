@@ -2,17 +2,17 @@ package carrental.model;
 
 import java.util.Objects;
 
-public class Users {
+public class User {
     private String username;
     private String UserID;
     private String Password;
     private userRole Role;
     private String details;
 
-    public Users() {
+    public User() {
     }
 
-    public Users(String username, String UserID, userRole Role, String Password, String details) {
+    public User(String username, String UserID, userRole Role, String Password, String details) {
         this.username = username;
         this.UserID = UserID;
         this.Role = Role;
@@ -70,13 +70,13 @@ public class Users {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Users user = (Users) o;
+        User user = (User) o;
         return Objects.equals(UserID, user.UserID);
     }
 
 
     public String toString() {
-        return "Users{" +
+        return "User{" +
                 "UserID=" + UserID +
                 ", username='" + username + '\'' +
                 ", role=" + Role +
