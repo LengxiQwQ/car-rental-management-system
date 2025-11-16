@@ -102,7 +102,7 @@ public class Rental {
     public String toString() {
         return "Rental{" +
                 "rentalID=" + rentalID +
-                ", customer=" + customer.getName() +
+                ", customer=" + customer.getcustomerName() +
                 ", car=" + car.getModel() +
                 ", startDate=" + startDate +
                 ", expectedReturnDate=" + expectedReturnDate +

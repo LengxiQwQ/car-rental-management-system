@@ -6,31 +6,33 @@ public class Customer {
     private int driverLicenseNumber;
     private int idCardNumber;
     private String customerID;
-    private String name;
+    private String customerName;
     private String email;
     private String address;
+    private String password;
 
     // 无参构造函数
     public Customer() {
     }
 
     // 基本信息构造函数
-    public Customer(String customerID, String name, int phone, String email, String address) {
+    public Customer(String customerID, String name, int phone, String email, String address, String password) {
         this.customerID = customerID;
-        this.name = name;
+        this.customerName = customerName;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.password = password;
     }
 
     // 完整客户信息构造函数
-    public Customer(String customerID, String name, int phone, String email, String address,
-                    int driverLicenseNumber, int idCardNumber) {
+    public Customer(String customerID, String customerName, int phone, String email, String address, String password, int driverLicenseNumber, int idCardNumber) {
         this.customerID = customerID;
-        this.name = name;
+        this.customerName = customerName;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.password = password;
         this.driverLicenseNumber = driverLicenseNumber;
         this.idCardNumber = idCardNumber;
     }
@@ -49,14 +51,14 @@ public class Customer {
                 ", phone=" + phone +
                 ", driverLicenseNumber=" + driverLicenseNumber +
                 ", idCardNumber=" + idCardNumber +
-                ", name='" + name + '\'' +
+                ", customerName='" + customerName + '\'' +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
                 '}';
     }
 
 
-    // Getter & setter
+    // Getter & Setter
     public String getCustomerID() {
         return customerID;
     }
@@ -73,8 +75,8 @@ public class Customer {
         this.phone = phone;
     }
 
-    public String getName() {
-        return name;
+    public String getcustomerName() {
+        return customerName;
     }
 
     public void setName(String name) {
@@ -111,6 +113,14 @@ public class Customer {
 
     public void setIdCardNumber(int idCardNumber) {
         this.idCardNumber = idCardNumber;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 

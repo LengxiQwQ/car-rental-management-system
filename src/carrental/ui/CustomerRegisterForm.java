@@ -4,6 +4,7 @@
 
 package carrental.ui;
 
+import java.awt.event.*;
 import javax.swing.*;
 import net.miginfocom.swing.*;
 
@@ -15,23 +16,46 @@ public class CustomerRegisterForm extends JFrame {
         initComponents();
     }
 
+    private void userRoleItemStateChanged(ItemEvent e) {
+        // 加这3行打印，运行后看IDE的Console（控制台）
+        String selectedRole = (String) roleComboBox.getSelectedItem();
+        System.out.println("当前选中的角色：" + selectedRole); // 看获取到的角色对不对
+        System.out.println("是否是客户：" + "Customer".equals(selectedRole)); // 看判断结果是true还是false
+        System.out.println("是否是Admin/Staff：" + ("Admin".equals(selectedRole) || "Staff".equals(selectedRole)));
+
+        // 你的原逻辑
+        boolean isCustomer = "Customer".equals(selectedRole);
+        boolean isAdminOrStaff = "Admin".equals(selectedRole) || "Staff".equals(selectedRole);
+        panelCustomer.setVisible(isCustomer);
+        panelStaffAdmin.setVisible(isAdminOrStaff);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         label1 = new JLabel();
-        label3 = new JLabel();
-        textName = new JTextField();
-        label8 = new JLabel();
-        textID = new JTextField();
+        label12 = new JLabel();
+        roleComboBox = new JComboBox<>();
+        panelCustomer = new JPanel();
         label2 = new JLabel();
-        textUserName = new JTextField();
+        textCustomerID = new JTextField();
+        label10 = new JLabel();
+        textDriverLicenseNumber = new JTextField();
         label4 = new JLabel();
         textPhoneNumber = new JTextField();
         label5 = new JLabel();
         textEmail = new JTextField();
         label6 = new JLabel();
         textAddress = new JTextField();
-        label10 = new JLabel();
-        textDriverLicenseNumber = new JTextField();
+        panelStaffAdmin = new JPanel();
+        label7 = new JLabel();
+        textUserID = new JTextField();
+        panelDefault = new JPanel();
+        label3 = new JLabel();
+        textName = new JTextField();
+        label9 = new JLabel();
+        textPassword = new JTextField();
+        label11 = new JLabel();
+        textPasswordConfirm = new JTextField();
         buttonGoToLogin = new JButton();
         buttonRegister = new JButton();
 
@@ -45,10 +69,9 @@ public class CustomerRegisterForm extends JFrame {
             "[fill]" +
             "[fill]" +
             "[fill]" +
-            "[fill]" +
-            "[fill]" +
-            "[fill]" +
-            "[222,fill]" +
+            "[9,fill]" +
+            "[163,fill]" +
+            "[168,fill]" +
             "[fill]" +
             "[fill]" +
             "[fill]" +
@@ -70,54 +93,129 @@ public class CustomerRegisterForm extends JFrame {
             "[]" +
             "[]" +
             "[]" +
+            "[]" +
+            "[]" +
+            "[]" +
+            "[]" +
+            "[]" +
+            "[]" +
             "[]"));
 
         //---- label1 ----
-        label1.setText("Customer Register Page");
-        contentPane.add(label1, "cell 6 1 3 2");
+        label1.setText("Register Page");
+        contentPane.add(label1, "cell 6 1 2 2");
 
-        //---- label3 ----
-        label3.setText("Name");
-        contentPane.add(label3, "cell 6 4");
-        contentPane.add(textName, "cell 8 4");
+        //---- label12 ----
+        label12.setText("Select your Role");
+        contentPane.add(label12, "cell 6 3");
 
-        //---- label8 ----
-        label8.setText("ID Number");
-        contentPane.add(label8, "cell 6 5");
-        contentPane.add(textID, "cell 8 5");
+        //---- roleComboBox ----
+        roleComboBox.setModel(new DefaultComboBoxModel<>(new String[] {
+            "Customer",
+            "Staff",
+            "Admin"
+        }));
+        roleComboBox.addItemListener(e -> userRoleItemStateChanged(e));
+        contentPane.add(roleComboBox, "cell 7 3");
 
-        //---- label2 ----
-        label2.setText("User Name");
-        contentPane.add(label2, "cell 6 6");
-        contentPane.add(textUserName, "cell 8 6");
+        //======== panelCustomer ========
+        {
+            panelCustomer.setLayout(new MigLayout(
+                "hidemode 3",
+                // columns
+                "[154,fill]" +
+                "[166,fill]",
+                // rows
+                "[]" +
+                "[]" +
+                "[]" +
+                "[]" +
+                "[]"));
 
-        //---- label4 ----
-        label4.setText("Phone Number");
-        contentPane.add(label4, "cell 6 7");
-        contentPane.add(textPhoneNumber, "cell 8 7");
+            //---- label2 ----
+            label2.setText("Customer ID");
+            panelCustomer.add(label2, "cell 0 0");
+            panelCustomer.add(textCustomerID, "cell 1 0");
 
-        //---- label5 ----
-        label5.setText("Email");
-        contentPane.add(label5, "cell 6 8");
-        contentPane.add(textEmail, "cell 8 8");
+            //---- label10 ----
+            label10.setText("Driver License Number");
+            panelCustomer.add(label10, "cell 0 1");
+            panelCustomer.add(textDriverLicenseNumber, "cell 1 1");
 
-        //---- label6 ----
-        label6.setText("Address");
-        contentPane.add(label6, "cell 6 9");
-        contentPane.add(textAddress, "cell 8 9");
+            //---- label4 ----
+            label4.setText("Phone Number");
+            panelCustomer.add(label4, "cell 0 2");
+            panelCustomer.add(textPhoneNumber, "cell 1 2");
 
-        //---- label10 ----
-        label10.setText("Driver License Number");
-        contentPane.add(label10, "cell 6 10");
-        contentPane.add(textDriverLicenseNumber, "cell 8 10");
+            //---- label5 ----
+            label5.setText("Email");
+            panelCustomer.add(label5, "cell 0 3");
+            panelCustomer.add(textEmail, "cell 1 3");
+
+            //---- label6 ----
+            label6.setText("Address");
+            panelCustomer.add(label6, "cell 0 4");
+            panelCustomer.add(textAddress, "cell 1 4");
+        }
+        contentPane.add(panelCustomer, "cell 6 5 2 1");
+
+        //======== panelStaffAdmin ========
+        {
+            panelStaffAdmin.setVisible(false);
+            panelStaffAdmin.setLayout(new MigLayout(
+                "hidemode 3",
+                // columns
+                "[154,fill]" +
+                "[166,fill]",
+                // rows
+                "[]"));
+
+            //---- label7 ----
+            label7.setText("Your ID");
+            panelStaffAdmin.add(label7, "cell 0 0");
+            panelStaffAdmin.add(textUserID, "cell 1 0");
+        }
+        contentPane.add(panelStaffAdmin, "cell 6 6 2 1");
+
+        //======== panelDefault ========
+        {
+            panelDefault.setLayout(new MigLayout(
+                "hidemode 3",
+                // columns
+                "[154,fill]" +
+                "[166,fill]",
+                // rows
+                "[]" +
+                "[]" +
+                "[]" +
+                "[]" +
+                "[]" +
+                "[]"));
+
+            //---- label3 ----
+            label3.setText("Name");
+            panelDefault.add(label3, "cell 0 0");
+            panelDefault.add(textName, "cell 1 0");
+
+            //---- label9 ----
+            label9.setText("Password");
+            panelDefault.add(label9, "cell 0 1");
+            panelDefault.add(textPassword, "cell 1 1");
+
+            //---- label11 ----
+            label11.setText("Confirm");
+            panelDefault.add(label11, "cell 0 2");
+            panelDefault.add(textPasswordConfirm, "cell 1 2");
+        }
+        contentPane.add(panelDefault, "cell 6 7 2 1");
 
         //---- buttonGoToLogin ----
         buttonGoToLogin.setText("Go to Login");
-        contentPane.add(buttonGoToLogin, "cell 6 12");
+        contentPane.add(buttonGoToLogin, "cell 6 14");
 
         //---- buttonRegister ----
         buttonRegister.setText("Register");
-        contentPane.add(buttonRegister, "cell 8 12");
+        contentPane.add(buttonRegister, "cell 7 14");
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
@@ -125,20 +223,29 @@ public class CustomerRegisterForm extends JFrame {
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     private JLabel label1;
-    private JLabel label3;
-    private JTextField textName;
-    private JLabel label8;
-    private JTextField textID;
+    private JLabel label12;
+    private JComboBox<String> roleComboBox;
+    private JPanel panelCustomer;
     private JLabel label2;
-    private JTextField textUserName;
+    private JTextField textCustomerID;
+    private JLabel label10;
+    private JTextField textDriverLicenseNumber;
     private JLabel label4;
     private JTextField textPhoneNumber;
     private JLabel label5;
     private JTextField textEmail;
     private JLabel label6;
     private JTextField textAddress;
-    private JLabel label10;
-    private JTextField textDriverLicenseNumber;
+    private JPanel panelStaffAdmin;
+    private JLabel label7;
+    private JTextField textUserID;
+    private JPanel panelDefault;
+    private JLabel label3;
+    private JTextField textName;
+    private JLabel label9;
+    private JTextField textPassword;
+    private JLabel label11;
+    private JTextField textPasswordConfirm;
     private JButton buttonGoToLogin;
     private JButton buttonRegister;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on

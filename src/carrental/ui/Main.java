@@ -1,14 +1,15 @@
 package carrental.ui;
 
-import carrental.model.Car;
-import carrental.model.User;
+import javax.swing.SwingUtilities;
 
-public class Main {  // 修改类名为大写开头
-    static void main(String[] args) {
-        Car car = new Car();
-        User user = new User();
-
-        System.out.println(car);
+public class Main {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            // 显示客户注册表单
+            new CustomerRegisterForm().setVisible(true);
+            
+            // 如果需要显示登录表单，可以取消下面这行的注释
+            // new CustomerLoginForm().setVisible(true);
+        });
     }
-
 }
