@@ -1,14 +1,11 @@
 package carrental.model;
 
-import java.util.Objects;
-
-// Customer类表示汽车租赁系统中的客户，包含客户信息和相关功能
 public class Customer {
-    
-    private int customerID;
+
     private int phone;
     private int driverLicenseNumber;
     private int idCardNumber;
+    private String customerID;
     private String name;
     private String email;
     private String address;
@@ -18,7 +15,7 @@ public class Customer {
     }
 
     // 基本信息构造函数
-    public Customer(int customerID, String name, int phone, String email, String address) {
+    public Customer(String customerID, String name, int phone, String email, String address) {
         this.customerID = customerID;
         this.name = name;
         this.phone = phone;
@@ -27,8 +24,8 @@ public class Customer {
     }
 
     // 完整客户信息构造函数
-    public Customer(int customerID, String name, int phone, String email, String address, 
-                   int driverLicenseNumber, int idCardNumber) {
+    public Customer(String customerID, String name, int phone, String email, String address,
+                    int driverLicenseNumber, int idCardNumber) {
         this.customerID = customerID;
         this.name = name;
         this.phone = phone;
@@ -38,12 +35,33 @@ public class Customer {
         this.idCardNumber = idCardNumber;
     }
 
+    // 更新客户联系信息
+    public void updateContactInfo(int phone, String email, String address) {
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "customerID=" + customerID +
+                ", phone=" + phone +
+                ", driverLicenseNumber=" + driverLicenseNumber +
+                ", idCardNumber=" + idCardNumber +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
+
+
     // Getter & setter
-    public int getCustomerID() {
+    public String getCustomerID() {
         return customerID;
     }
 
-    public void setCustomerID(int customerID) {
+    public void setCustomerID(String customerID) {
         this.customerID = customerID;
     }
 
@@ -95,45 +113,5 @@ public class Customer {
         this.idCardNumber = idCardNumber;
     }
 
-    // 验证客户是否拥有所有必需的信息
-    // @return 如果客户拥有所有必需信息则返回true，否则返回false
-    public boolean isValid() {
-        return name != null && !name.isEmpty();
-    }
 
-    // 更新客户联系信息
-    // @param phone 新的电话号码
-    // @param email 新的电子邮件地址
-    // @param address 新的地址
-    public void updateContactInfo(int phone, String email, String address) {
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Customer customer = (Customer) o;
-        return customerID == customer.customerID;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(customerID);
-    }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "customerID=" + customerID +
-                ", phone=" + phone +
-                ", driverLicenseNumber=" + driverLicenseNumber +
-                ", idCardNumber=" + idCardNumber +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                '}';
-    }
 }
