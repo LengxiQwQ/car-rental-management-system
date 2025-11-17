@@ -47,6 +47,8 @@ public class RegisterPanel extends JPanel {
         textRegisterPassword = new JTextField();
         buttonGoToLogin = new JButton();
         buttonRegister = new JButton();
+        label5 = new JLabel();
+        textRegisterConfirm = new JTextField();
 
         //======== this ========
 
@@ -78,6 +80,9 @@ public class RegisterPanel extends JPanel {
         //---- buttonRegister ----
         buttonRegister.setText("Register");
 
+        //---- label5 ----
+        label5.setText("Confirm");
+
         GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
         layout.setHorizontalGroup(
@@ -95,13 +100,17 @@ public class RegisterPanel extends JPanel {
                             .addGap(32, 32, 32)
                             .addComponent(textRegisterUserID, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(label2)
-                            .addGap(32, 32, 32)
-                            .addComponent(textRegisterPassword, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
                             .addComponent(buttonGoToLogin, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
                             .addGap(32, 32, 32)
-                            .addComponent(buttonRegister, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(buttonRegister, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup()
+                                .addComponent(label2)
+                                .addComponent(label5))
+                            .addGap(32, 32, 32)
+                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                .addComponent(textRegisterPassword, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                                .addComponent(textRegisterConfirm, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup()
@@ -124,11 +133,15 @@ public class RegisterPanel extends JPanel {
                             .addGap(3, 3, 3)
                             .addComponent(label2))
                         .addComponent(textRegisterPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(31, 31, 31)
+                    .addGap(4, 4, 4)
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(label5)
+                        .addComponent(textRegisterConfirm, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 18, 18)
                     .addGroup(layout.createParallelGroup()
-                        .addComponent(buttonGoToLogin)
-                        .addComponent(buttonRegister))
-                    .addContainerGap(51, Short.MAX_VALUE))
+                        .addComponent(buttonRegister)
+                        .addComponent(buttonGoToLogin))
+                    .addContainerGap(36, Short.MAX_VALUE))
         );
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
@@ -143,6 +156,8 @@ public class RegisterPanel extends JPanel {
     private JTextField textRegisterPassword;
     private JButton buttonGoToLogin;
     private JButton buttonRegister;
+    private JLabel label5;
+    private JTextField textRegisterConfirm;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 
     // 在类内部的末尾添加（不要放在类外面）

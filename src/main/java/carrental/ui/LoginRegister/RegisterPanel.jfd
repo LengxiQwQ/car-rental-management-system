@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {comp label1:::p:347:p, seq {space :81:81:p, par l {seq {comp label4:::p:50:p, space :59:59:p, comp comboBoxRegisterRole:::p:103:p}, seq {comp label3:::p:50:p, space :32:32:p, comp textRegisterUserID:::p:130:p}, seq {comp label2:::p::p, space :32:32:p, comp textRegisterPassword:::p:130:p}, seq l {comp buttonGoToLogin:::p:104:p, space :32:32:p, comp buttonRegister:::p:76:p}}}}"
-			"$verticalGroup": "par l {seq {space :26:26:p, comp label1:::p::p, space :31:31:p, par l {comp label4:::p:24:p, comp comboBoxRegisterRole:::p::p}, space :15:15:p, par l {seq {space :3:3:p, comp label3:::p::p}, comp textRegisterUserID:::p::p}, space :5:5:p, par l {seq {space :3:3:p, comp label2:::p::p}, comp textRegisterPassword:::p::p}, space :31:31:p, par l {comp buttonGoToLogin:::p::p, comp buttonRegister:::p::p}, space ::51:x}}"
+			"$horizontalGroup": "par l {comp label1:::p:347:p, seq l {space :81:81:p, par l {seq {comp label4:::p:50:p, space :59:59:p, comp comboBoxRegisterRole:::p:103:p}, seq {comp label3:::p:50:p, space :32:32:p, comp textRegisterUserID:::p:130:p}, seq l {comp buttonGoToLogin:::p:104:p, space :p:32:p, comp buttonRegister:::p:76:p}, seq l {par l {comp label2::l:p::p, comp label5::l:p::p}, space :p:32:p, par l:::p {comp textRegisterPassword::::130:x, comp textRegisterConfirm::::130:x}}}}}"
+			"$verticalGroup": "par l {seq {space :26:26:p, comp label1:::p::p, space :31:31:p, par l {comp label4:::p:24:p, comp comboBoxRegisterRole:::p::p}, space :15:15:p, par l {seq {space :3:3:p, comp label3:::p::p}, comp textRegisterUserID:::p::p}, space :5:5:p, par l {seq {space :3:3:p, comp label2:::p::p}, comp textRegisterPassword:::p::p}, space :p:4:p, par b {comp label5::b:p::p, comp textRegisterConfirm::b:p::p}, space s:::p, par l {comp buttonRegister:::p::p, comp buttonGoToLogin::l:p::p}, space ::36:x}}"
 		} ) {
 			name: "this"
 			add( new FormComponent( "javax.swing.JLabel" ) {
@@ -49,6 +49,13 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "buttonRegister"
 				"text": "Register"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label5"
+				"text": "Confirm"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textRegisterConfirm"
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
