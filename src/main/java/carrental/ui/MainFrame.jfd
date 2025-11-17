@@ -5,8 +5,10 @@ new FormModel {
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.CardLayout ) ) {
 			name: "cardPanel"
+			"title": "Car Rental Management System "
 			add( new FormComponent( "carrental.ui.LoginPanel" ) {
 				name: "loginPanel1"
+				"preferredSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "card1"
 			} )

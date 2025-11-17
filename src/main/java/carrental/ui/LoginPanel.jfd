@@ -3,38 +3,83 @@ JFDML JFormDesigner: "8.2.4.0.393" Java: "21.0.8" encoding: "UTF-8"
 new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
-		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {space :p:45:p, par t {seq {comp label1:::p:61:p, space :p:61:p}, par l:t::p {seq {comp buttonGoToRegister:::p::p, space :::x, comp buttonLogin:::p::p}, seq {par l {comp label3::l:p:50:p, comp label2::l:p::p}, space :p:45:p, par l {comp textLoginPassword:::p:146:p, comp textLoginUserID:::p:146:p}}}}, space ::119:x}}"
-			"$verticalGroup": "par l {seq l {space :p:12:p, comp label1:::p:33:p, space :p:38:p, par l {comp label3:::p::p, comp textLoginUserID:::p::p}, space :p:18:p, par b {comp label2::b:p::p, comp textLoginPassword::b:p::p}, space ::29:x, par b {comp buttonGoToRegister::b:p::p, comp buttonLogin::b:p::p}, space :p:78:p}}"
+		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+			"$columnSpecs": "default, labelcompgap, default, labelcompgap, default, labelcompgap, default, labelcompgap, default, labelcompgap, default, labelcompgap, default, labelcompgap, default, labelcompgap, default, labelcompgap, 16dlu, labelcompgap, default, labelcompgap, default, labelcompgap, default"
+			"$rowSpecs": "fill:default, linegap, fill:default, linegap, fill:default, linegap, fill:default, pargap, default, linegap, default, linegap, default, linegap, default, linegap, default, linegap, default"
 		} ) {
 			name: "this"
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label1"
 				"text": "Login"
 				"font": new java.awt.Font( "Segoe UI", 1, 18 )
-			} )
-			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textLoginPassword"
+				"horizontalAlignment": 0
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridY": 3
+				"gridWidth": 24
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label2"
-				"text": "Password"
+				name: "label4"
+				"text": "Role"
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 7
+				"gridY": 7
+			} )
+			add( new FormComponent( "javax.swing.JComboBox" ) {
+				name: "comboBoxLoginRole"
+				"model": new javax.swing.DefaultComboBoxModel {
+					selectedItem: "Staff"
+					addElement( "Staff" )
+					addElement( "Admin" )
+				}
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 13
+				"gridY": 7
+				"gridWidth": 7
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label3"
 				"text": "User ID"
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 7
+				"gridY": 9
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "textLoginUserID"
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 11
+				"gridY": 9
+				"gridWidth": 9
 			} )
-			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "buttonLogin"
-				"text": "Login"
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label2"
+				"text": "Password"
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 7
+				"gridY": 11
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textLoginPassword"
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 11
+				"gridY": 11
+				"gridWidth": 9
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "buttonGoToRegister"
 				"text": "Go to Register"
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "goToRegister", true ) )
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 7
+				"gridY": 15
+				"gridWidth": 6
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "buttonLogin"
+				"text": "Login"
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridX": 15
+				"gridY": 15
+				"gridWidth": 5
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )

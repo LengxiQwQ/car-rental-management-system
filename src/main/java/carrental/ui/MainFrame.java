@@ -28,8 +28,12 @@ public class MainFrame extends JFrame {
 
         //======== cardPanel ========
         {
+            cardPanel.setTitle("Car Rental Management System ");
             var cardPanelContentPane = cardPanel.getContentPane();
             cardPanelContentPane.setLayout(new CardLayout());
+
+            //---- loginPanel1 ----
+            loginPanel1.setPreferredSize(null);
             cardPanelContentPane.add(loginPanel1, "card1");
             cardPanelContentPane.add(registerPanel1, "card2");
             cardPanel.pack();

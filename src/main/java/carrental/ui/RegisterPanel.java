@@ -8,6 +8,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.GroupLayout;
+import com.jgoodies.forms.factories.*;
+import com.jgoodies.forms.layout.*;
 
 /**
  * @author LengxiQwQ
@@ -34,87 +36,68 @@ public class RegisterPanel extends JPanel {
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         label1 = new JLabel();
-        textRegisterPassword = new JTextField();
-        label2 = new JLabel();
+        label4 = new JLabel();
+        comboBoxRegisterRole = new JComboBox<>();
         label3 = new JLabel();
         textRegisterUserID = new JTextField();
-        buttonRegister = new JButton();
+        label2 = new JLabel();
+        textRegisterPassword = new JTextField();
         buttonGoToLogin = new JButton();
+        buttonRegister = new JButton();
 
         //======== this ========
+        setLayout(new FormLayout(
+            "11*(default, $lcgap), default",
+            "3*(fill:default, $lgap), fill:default, $pgap, 4*(default, $lgap), default"));
 
         //---- label1 ----
         label1.setText("Register");
         label1.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        label1.setHorizontalTextPosition(SwingConstants.LEADING);
+        label1.setHorizontalAlignment(SwingConstants.CENTER);
+        add(label1, CC.xywh(1, 3, 23, 1));
 
-        //---- label2 ----
-        label2.setText("Password");
+        //---- label4 ----
+        label4.setText("Role");
+        add(label4, CC.xy(7, 7));
+
+        //---- comboBoxRegisterRole ----
+        comboBoxRegisterRole.setModel(new DefaultComboBoxModel<>(new String[] {
+            "Staff",
+            "Admin"
+        }));
+        add(comboBoxRegisterRole, CC.xywh(13, 7, 7, 1));
 
         //---- label3 ----
         label3.setText("User ID");
+        add(label3, CC.xy(7, 9));
+        add(textRegisterUserID, CC.xywh(11, 9, 9, 1));
 
-        //---- buttonRegister ----
-        buttonRegister.setText("Register");
+        //---- label2 ----
+        label2.setText("Password");
+        add(label2, CC.xy(7, 11));
+        add(textRegisterPassword, CC.xywh(11, 11, 9, 1));
 
         //---- buttonGoToLogin ----
         buttonGoToLogin.setText("Go to Login");
         buttonGoToLogin.addActionListener(e -> GoToLogin(e));
+        add(buttonGoToLogin, CC.xywh(7, 15, 5, 1));
 
-        GroupLayout layout = new GroupLayout(this);
-        setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup()
-                .addGroup(layout.createSequentialGroup()
-                    .addGroup(layout.createParallelGroup()
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(32, 32, 32)
-                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(buttonGoToLogin)
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(buttonRegister))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup()
-                                        .addComponent(label3, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(label2))
-                                    .addGap(45, 45, 45)
-                                    .addGroup(layout.createParallelGroup()
-                                        .addComponent(textRegisterPassword, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(textRegisterUserID, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE)))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(146, 146, 146)
-                            .addComponent(label1, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap(132, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup()
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(22, 22, 22)
-                    .addComponent(label1, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
-                    .addGap(28, 28, 28)
-                    .addGroup(layout.createParallelGroup()
-                        .addComponent(label3)
-                        .addComponent(textRegisterUserID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
-                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(label2)
-                        .addComponent(textRegisterPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(37, 37, 37)
-                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(buttonGoToLogin)
-                        .addComponent(buttonRegister))
-                    .addContainerGap(70, Short.MAX_VALUE))
-        );
+        //---- buttonRegister ----
+        buttonRegister.setText("Register");
+        add(buttonRegister, CC.xywh(15, 15, 5, 1));
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     private JLabel label1;
-    private JTextField textRegisterPassword;
-    private JLabel label2;
+    private JLabel label4;
+    private JComboBox<String> comboBoxRegisterRole;
     private JLabel label3;
     private JTextField textRegisterUserID;
-    private JButton buttonRegister;
+    private JLabel label2;
+    private JTextField textRegisterPassword;
     private JButton buttonGoToLogin;
+    private JButton buttonRegister;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }
