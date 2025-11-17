@@ -28,7 +28,18 @@
         <dependency>
             <groupId>com.formdev</groupId>
             <artifactId>flatlaf</artifactId>
+            <version>3.2.5</version> <!-- 使用最新版本，可在 Maven 中央仓库查询 -->
+        </dependency>
+        <!-- 可选：如果需要 IntelliJ 风格主题（如 Darcula），需额外引入 -->
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf-intellij-themes</artifactId>
             <version>3.2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jgoodies</groupId>
+            <artifactId>jgoodies-forms</artifactId>
+            <version>1.9.0</version>
         </dependency>
 
     </dependencies>

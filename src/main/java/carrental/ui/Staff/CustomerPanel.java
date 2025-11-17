@@ -1,10 +1,11 @@
 /*
- * Created by JFormDesigner on Tue Nov 18 00:21:40 SGT 2025
+ * Created by JFormDesigner on Tue Nov 18 00:37:45 SGT 2025
  */
 
 package carrental.ui.Staff;
 
 import javax.swing.*;
+import com.jgoodies.forms.factories.*;
 import com.jgoodies.forms.layout.*;
 
 /**
