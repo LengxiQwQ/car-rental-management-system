@@ -2,18 +2,16 @@
  * Created by JFormDesigner on Mon Nov 17 22:45:16 SGT 2025
  */
 
-package carrental.ui;
+package carrental.ui.LoginRegister;
 
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.GroupLayout;
-import net.miginfocom.swing.*;
 
 /**
  * @author LengxiQwQ
  */
-public class MainFrame extends JFrame {
-    public MainFrame() {
+public class LoginRegisterFrame extends JFrame {
+    public LoginRegisterFrame() {
         initComponents();
         // 设置面板间的引用关系，用于切换面板
         loginPanel1.setMainFrame(this);
