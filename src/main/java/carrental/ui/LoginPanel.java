@@ -1,13 +1,11 @@
 /*
- * Created by JFormDesigner on Mon Nov 17 14:20:05 SGT 2025
+ * Created by JFormDesigner on Mon Nov 17 22:32:30 SGT 2025
  */
 
 package carrental.ui;
 
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import net.miginfocom.swing.*;
+import javax.swing.GroupLayout;
 
 /**
  * @author LengxiQwQ
@@ -17,88 +15,87 @@ public class LoginPanel extends JPanel {
         initComponents();
     }
 
-    private void userRoleItemStateChanged(ItemEvent e) {
-        // TODO add your code here
-    }
-
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        titleLogin = new JLabel();
-        buttonLogin = new JButton();
-        buttonGoToRegister = new JButton();
-        label9 = new JLabel();
-        textPassword = new JTextField();
-        textUserID = new JTextField();
-        label12 = new JLabel();
-        roleComboBox = new JComboBox<>();
-        label8 = new JLabel();
+        label1 = new JLabel();
+        textLoginPassword = new JTextField();
+        label2 = new JLabel();
+        label3 = new JLabel();
+        textLoginUserID = new JTextField();
+        button1 = new JButton();
+        button2 = new JButton();
 
         //======== this ========
-        setLayout(new MigLayout(
-            "hidemode 3",
-            // columns
-            "[fill]" +
-            "[fill]" +
-            "[138,fill]" +
-            "[fill]",
-            // rows
-            "[]" +
-            "[]" +
-            "[]" +
-            "[]" +
-            "[]" +
-            "[]" +
-            "[]" +
-            "[]" +
-            "[]"));
 
-        //---- titleLogin ----
-        titleLogin.setText("Login Page");
-        titleLogin.setFont(new Font("Segoe UI", Font.BOLD, 20));
-        titleLogin.setHorizontalAlignment(SwingConstants.CENTER);
-        add(titleLogin, "cell 1 2 2 1");
+        //---- label1 ----
+        label1.setText("Login");
 
-        //---- buttonLogin ----
-        buttonLogin.setText("Login");
-        add(buttonLogin, "cell 2 7");
+        //---- label2 ----
+        label2.setText("Password");
 
-        //---- buttonGoToRegister ----
-        buttonGoToRegister.setText("Go To Register");
-        add(buttonGoToRegister, "cell 1 7");
+        //---- label3 ----
+        label3.setText("User ID");
 
-        //---- label9 ----
-        label9.setText("Password");
-        add(label9, "cell 1 5");
-        add(textPassword, "cell 2 5");
-        add(textUserID, "cell 2 4");
+        //---- button1 ----
+        button1.setText("Login");
 
-        //---- label12 ----
-        label12.setText("Select your Role");
-        add(label12, "cell 1 3");
+        //---- button2 ----
+        button2.setText("Go to Register");
 
-        //---- roleComboBox ----
-        roleComboBox.setModel(new DefaultComboBoxModel<>(new String[] {
-            "Staff",
-            "Admin"
-        }));
-        roleComboBox.addItemListener(e -> userRoleItemStateChanged(e));
-        add(roleComboBox, "cell 2 3");
-
-        //---- label8 ----
-        label8.setText("Your ID");
-        add(label8, "cell 1 4");
+        GroupLayout layout = new GroupLayout(this);
+        setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup()
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(45, 45, 45)
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(label1, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+                            .addGap(61, 61, 61))
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(button2)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(button1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup()
+                                    .addComponent(label3, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(label2))
+                                .addGap(45, 45, 45)
+                                .addGroup(layout.createParallelGroup()
+                                    .addComponent(textLoginPassword, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(textLoginUserID, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE)))))
+                    .addContainerGap(119, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup()
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(12, 12, 12)
+                    .addComponent(label1, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+                    .addGap(38, 38, 38)
+                    .addGroup(layout.createParallelGroup()
+                        .addComponent(label3)
+                        .addComponent(textLoginUserID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 18, 18)
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(label2)
+                        .addComponent(textLoginPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(button2)
+                        .addComponent(button1))
+                    .addGap(78, 78, 78))
+        );
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    private JLabel titleLogin;
-    private JButton buttonLogin;
-    private JButton buttonGoToRegister;
-    private JLabel label9;
-    private JTextField textPassword;
-    private JTextField textUserID;
-    private JLabel label12;
-    private JComboBox<String> roleComboBox;
-    private JLabel label8;
+    private JLabel label1;
+    private JTextField textLoginPassword;
+    private JLabel label2;
+    private JLabel label3;
+    private JTextField textLoginUserID;
+    private JButton button1;
+    private JButton button2;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

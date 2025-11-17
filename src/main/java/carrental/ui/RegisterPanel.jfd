@@ -3,96 +3,40 @@ JFDML JFormDesigner: "8.2.4.0.393" Java: "21.0.8" encoding: "UTF-8"
 new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
-		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
-			"$layoutConstraints": "hidemode 3"
-			"$columnConstraints": "[fill][149,fill]"
-			"$rowConstraints": "[34][][][][][][][][][][][10][][][]"
+		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space :p:32:p, par t {seq {comp label1:::p:61:p, space :p:48:p}, par l:t::p {seq {comp button2:::p::p, space :::x, comp button1:::p::p}, seq {par l {comp label3::l:p:50:p, comp label2::l:p::p}, space :p:45:p, par l {comp textLoginPassword:::p:146:p, comp textLoginUserID:::p:146:p}}}}, space ::132:x}}"
+			"$verticalGroup": "par l {seq l {space :p:12:p, comp label1:::p:33:p, space :p:38:p, par l {comp label3:::p::p, comp textLoginUserID:::p::p}, space :p:18:p, par b {comp label2::b:p::p, comp textLoginPassword::b:p::p}, space :p:37:p, par b {comp button2::b:p::p, comp button1::b:p::p}, space ::70:x}}"
 		} ) {
 			name: "this"
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "titleRegister"
-				"text": "Register Page"
-				"font": new java.awt.Font( "Segoe UI", 1, 20 )
-				"horizontalAlignment": 0
-			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 0 1 2 1"
-			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label12"
-				"text": "Select your Role"
-			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 0 4"
-			} )
-			add( new FormComponent( "javax.swing.JComboBox" ) {
-				name: "roleComboBox"
-				"model": new javax.swing.DefaultComboBoxModel {
-					selectedItem: "Staff"
-					addElement( "Staff" )
-					addElement( "Admin" )
-				}
-				addEvent( new FormEvent( "java.awt.event.ItemListener", "itemStateChanged", "userRoleItemStateChanged", true ) )
-			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 1 4"
-			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label8"
-				"text": "Your ID"
-			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 0 6"
+				name: "label1"
+				"text": "Register"
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textUserID"
-			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 1 6"
+				name: "textLoginPassword"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label2"
+				"text": "Password"
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label3"
-				"text": "Name"
-			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 0 7"
+				"text": "User ID"
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textName"
-			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 1 7"
-			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label9"
-				"text": "Password"
-			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 0 8"
-			} )
-			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textPassword"
-			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 1 8"
-			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label11"
-				"text": "Confirm"
-			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 0 9"
-			} )
-			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textPasswordConfirm"
-			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 1 9"
+				name: "textLoginUserID"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "buttonGoToLogin"
-				"text": "Go to Login"
-			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 0 12"
-			} )
-			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "buttonRegister"
+				name: "button1"
 				"text": "Register"
-			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 1 12"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button2"
+				"text": "Go to Login"
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 340, 330 )
+			"size": new java.awt.Dimension( 405, 280 )
 		} )
 	}
 }
