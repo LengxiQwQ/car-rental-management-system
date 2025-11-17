@@ -4,6 +4,10 @@
 
 package carrental.ui.LoginRegister;
 
+import carrental.model.User;
+import carrental.service.AuthService;
+import carrental.ui.Staff.StaffDashboardFrame;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -17,6 +21,7 @@ public class LoginPanel extends JPanel {
     
     public LoginPanel() {
         initComponents();
+        addLoginListener();
     }
 
     private void goToRegister(ActionEvent e) {
@@ -141,4 +146,50 @@ public class LoginPanel extends JPanel {
     private JButton buttonGoToRegister;
     private JButton buttonLogin;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
+    // 在类内部的末尾添加（不要放在类外面）
+    private void addLoginListener() {
+        // 使用原有代码中的实际按钮变量名 buttonLogin
+        buttonLogin.addActionListener(e -> {
+            // 使用实际的组件变量名
+            String role = (String) comboBoxLoginRole.getSelectedItem(); // 正确变量名：角色下拉框
+            String username = textLoginUserID.getText().trim(); // 正确变量名：用户名输入框
+            String password = textLoginPassword.getText().trim(); // 正确变量名：密码输入框
+
+            // 验证输入是否为空
+            if (username.isEmpty() || password.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "请输入用户名和密码");
+                return;
+            }
+
+            // 调用AuthService进行登录验证
+            AuthService authService = new AuthService();
+            User user = authService.login(username, password);
+
+            if (user == null) {
+                JOptionPane.showMessageDialog(this, "用户名或密码错误");
+                return;
+            }
+
+            // 验证角色是否匹配
+            if (!authService.isAdmin(user) && "Admin".equals(role)) {
+                JOptionPane.showMessageDialog(this, "无管理员权限");
+                return;
+            }
+
+            // 登录成功：关闭登录窗口，打开主面板
+            JOptionPane.showMessageDialog(this, "登录成功");
+            // 获取父窗口（LoginRegisterFrame）并关闭
+            Window window = SwingUtilities.getWindowAncestor(this);
+            if (window != null) {
+                window.dispose();
+            }
+            // 打开对应的主面板（根据角色判断）
+//           if (authService.isAdmin(user)) {
+//                new AdminDashboardFrame().setVisible(true); // 管理员面板
+//            } else {
+//                new StaffDashboardFrame().setVisible(true); // 员工面板
+//            }
+            new StaffDashboardFrame().setVisible(true); // 员工面板
+        });
+    }
 }

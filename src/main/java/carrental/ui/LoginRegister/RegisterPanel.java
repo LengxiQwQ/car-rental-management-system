@@ -4,6 +4,10 @@
 
 package carrental.ui.LoginRegister;
 
+import carrental.model.User;
+import carrental.model.userRole;
+import carrental.service.AuthService;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -17,6 +21,7 @@ public class RegisterPanel extends JPanel {
     
     public RegisterPanel() {
         initComponents();
+        addRegisterListener();
     }
 
     private void GoToLogin(ActionEvent e) {
@@ -139,4 +144,34 @@ public class RegisterPanel extends JPanel {
     private JButton buttonGoToLogin;
     private JButton buttonRegister;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
+
+    // 在类内部的末尾添加（不要放在类外面）
+    private void addRegisterListener() {
+        // 使用原有代码中的实际按钮变量名 buttonRegister
+        buttonRegister.addActionListener(e -> {
+            // 使用实际的组件变量名
+            String role = (String) comboBoxRegisterRole.getSelectedItem(); // 正确变量名
+            String username = textRegisterUserID.getText().trim(); // 正确变量名
+            String password = textRegisterPassword.getText().trim(); // 正确变量名
+
+            // 简单验证（如果没有Validator类，可先注释或替换为基础判断）
+            if (username.isEmpty() || password.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "用户名或密码不能为空");
+                return;
+            }
+
+            User user = new User();
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setRole(userRole.valueOf(role.equals("admin") ? "admin" : "staff"));
+
+            AuthService authService = new AuthService();
+            if (authService.register(user)) {
+                JOptionPane.showMessageDialog(this, "注册成功");
+                GoToLogin(e); // 传递事件参数e，匹配原有方法定义
+            } else {
+                JOptionPane.showMessageDialog(this, "注册失败，用户名已存在");
+            }
+        });
+    }
 }

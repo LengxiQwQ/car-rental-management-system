@@ -3,6 +3,7 @@ package carrental.dao;
 import carrental.db.DBConnection;
 import carrental.model.User;
 import carrental.model.userRole;
+import carrental.util.DBUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -79,5 +80,47 @@ public class UserDAO {
             e.printStackTrace(); // 同样建议替换为日志记录
             return false;
         }
+    }
+    // 在现有类中添加以下两个方法（不修改原有方法）
+    public boolean register(User user) {
+        Connection conn = null;
+        try {
+            conn = DBUtil.getConnection();
+            String sql = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getPassword());
+            ps.setString(3, user.getRole().name());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            DBUtil.closeConnection(conn);
+        }
+    }
+
+    public User login(String username, String password) {
+        Connection conn = null;
+        try {
+            conn = DBUtil.getConnection();
+            String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setUserID(rs.getString("id"));
+                user.setUsername(rs.getString("username"));
+                user.setRole(userRole.valueOf(rs.getString("role")));
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBUtil.closeConnection(conn);
+        }
+        return null;
     }
 }

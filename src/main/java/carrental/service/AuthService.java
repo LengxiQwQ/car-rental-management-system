@@ -33,6 +33,14 @@ public class AuthService {
         return user;
     }
 
+    public boolean register(User user) {
+        // 检查用户名是否已存在（假设已有findByUsername方法，若无则需新增）
+        if (userDAO.findByUsername(user.getUsername()) != null) {
+            return false;
+        }
+        return userDAO.register(user);
+    }
+
     // 判断是否为管理员
     public boolean isAdmin(User user) {
         return user != null && user.getRole() == userRole.admin;
