@@ -11,6 +11,7 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label1"
 				"text": "Login"
+				"font": new java.awt.Font( "Segoe UI", 1, 18 )
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "textLoginPassword"
@@ -41,4 +42,3 @@ new FormModel {
 		} )
 	}
 }
-

@@ -4,13 +4,14 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq l {space :p:32:p, par t {seq {comp label1:::p:61:p, space :p:48:p}, par l:t::p {seq {comp buttonGoToLogin:::p::p, space :::x, comp buttonRegister:::p::p}, seq {par l {comp label3::l:p:50:p, comp label2::l:p::p}, space :p:45:p, par l {comp textRegisterPassword:::p:146:p, comp textRegisterUserID:::p:146:p}}}}, space ::132:x}}"
-			"$verticalGroup": "par l {seq l {space :p:12:p, comp label1:::p:33:p, space :p:38:p, par l {comp label3:::p::p, comp textRegisterUserID:::p::p}, space :p:18:p, par b {comp label2::b:p::p, comp textRegisterPassword::b:p::p}, space :p:37:p, par b {comp buttonGoToLogin::b:p::p, comp buttonRegister::b:p::p}, space ::70:x}}"
+			"$horizontalGroup": "par l {seq {par l {seq {space :p:32:p, par l:::p {seq {comp buttonGoToLogin:::p::p, space :::x, comp buttonRegister:::p::p}, seq {par l {comp label3::l:p:50:p, comp label2::l:p::p}, space :p:45:p, par l {comp textRegisterPassword:::p:146:p, comp textRegisterUserID:::p:146:p}}}}, seq l {space :p:146:p, comp label1:::p:109:p}}, space ::132:x}}"
+			"$verticalGroup": "par l {seq l {space :p:22:p, comp label1:::p:33:p, space :p:28:p, par l {comp label3:::p::p, comp textRegisterUserID:::p::p}, space :p:18:p, par b {comp label2::b:p::p, comp textRegisterPassword::b:p::p}, space :p:37:p, par b {comp buttonGoToLogin::b:p::p, comp buttonRegister::b:p::p}, space ::70:x}}"
 		} ) {
 			name: "this"
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label1"
 				"text": "Register"
+				"font": new java.awt.Font( "Segoe UI", 1, 18 )
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "textRegisterPassword"

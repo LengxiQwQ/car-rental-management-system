@@ -4,6 +4,7 @@
 
 package carrental.ui;
 
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.GroupLayout;
@@ -44,6 +45,7 @@ public class LoginPanel extends JPanel {
 
         //---- label1 ----
         label1.setText("Login");
+        label1.setFont(new Font("Segoe UI", Font.BOLD, 18));
 
         //---- label2 ----
         label2.setText("Password");
