@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq l {space :p:32:p, par t {seq {comp label1:::p:61:p, space :p:48:p}, par l:t::p {seq {comp button2:::p::p, space :::x, comp button1:::p::p}, seq {par l {comp label3::l:p:50:p, comp label2::l:p::p}, space :p:45:p, par l {comp textLoginPassword:::p:146:p, comp textLoginUserID:::p:146:p}}}}, space ::132:x}}"
-			"$verticalGroup": "par l {seq l {space :p:12:p, comp label1:::p:33:p, space :p:38:p, par l {comp label3:::p::p, comp textLoginUserID:::p::p}, space :p:18:p, par b {comp label2::b:p::p, comp textLoginPassword::b:p::p}, space :p:37:p, par b {comp button2::b:p::p, comp button1::b:p::p}, space ::70:x}}"
+			"$horizontalGroup": "par l {seq l {space :p:32:p, par t {seq {comp label1:::p:61:p, space :p:48:p}, par l:t::p {seq {comp buttonGoToLogin:::p::p, space :::x, comp buttonRegister:::p::p}, seq {par l {comp label3::l:p:50:p, comp label2::l:p::p}, space :p:45:p, par l {comp textRegisterPassword:::p:146:p, comp textRegisterUserID:::p:146:p}}}}, space ::132:x}}"
+			"$verticalGroup": "par l {seq l {space :p:12:p, comp label1:::p:33:p, space :p:38:p, par l {comp label3:::p::p, comp textRegisterUserID:::p::p}, space :p:18:p, par b {comp label2::b:p::p, comp textRegisterPassword::b:p::p}, space :p:37:p, par b {comp buttonGoToLogin::b:p::p, comp buttonRegister::b:p::p}, space ::70:x}}"
 		} ) {
 			name: "this"
 			add( new FormComponent( "javax.swing.JLabel" ) {
@@ -13,7 +13,7 @@ new FormModel {
 				"text": "Register"
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textLoginPassword"
+				name: "textRegisterPassword"
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label2"
@@ -24,15 +24,16 @@ new FormModel {
 				"text": "User ID"
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textLoginUserID"
+				name: "textRegisterUserID"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button1"
+				name: "buttonRegister"
 				"text": "Register"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button2"
+				name: "buttonGoToLogin"
 				"text": "Go to Login"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "GoToLogin", true ) )
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )

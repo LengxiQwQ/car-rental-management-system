@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {space :p:45:p, par t {seq {comp label1:::p:61:p, space :p:61:p}, par l:t::p {seq {comp button2:::p::p, space :::x, comp button1:::p::p}, seq {par l {comp label3::l:p:50:p, comp label2::l:p::p}, space :p:45:p, par l {comp textLoginPassword:::p:146:p, comp textLoginUserID:::p:146:p}}}}, space ::119:x}}"
-			"$verticalGroup": "par l {seq l {space :p:12:p, comp label1:::p:33:p, space :p:38:p, par l {comp label3:::p::p, comp textLoginUserID:::p::p}, space :p:18:p, par b {comp label2::b:p::p, comp textLoginPassword::b:p::p}, space ::29:x, par b {comp button2::b:p::p, comp button1::b:p::p}, space :p:78:p}}"
+			"$horizontalGroup": "par l {seq {space :p:45:p, par t {seq {comp label1:::p:61:p, space :p:61:p}, par l:t::p {seq {comp buttonGoToRegister:::p::p, space :::x, comp buttonLogin:::p::p}, seq {par l {comp label3::l:p:50:p, comp label2::l:p::p}, space :p:45:p, par l {comp textLoginPassword:::p:146:p, comp textLoginUserID:::p:146:p}}}}, space ::119:x}}"
+			"$verticalGroup": "par l {seq l {space :p:12:p, comp label1:::p:33:p, space :p:38:p, par l {comp label3:::p::p, comp textLoginUserID:::p::p}, space :p:18:p, par b {comp label2::b:p::p, comp textLoginPassword::b:p::p}, space ::29:x, par b {comp buttonGoToRegister::b:p::p, comp buttonLogin::b:p::p}, space :p:78:p}}"
 		} ) {
 			name: "this"
 			add( new FormComponent( "javax.swing.JLabel" ) {
@@ -27,12 +27,13 @@ new FormModel {
 				name: "textLoginUserID"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button1"
+				name: "buttonLogin"
 				"text": "Login"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button2"
+				name: "buttonGoToRegister"
 				"text": "Go to Register"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "goToRegister", true ) )
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
@@ -40,3 +41,4 @@ new FormModel {
 		} )
 	}
 }
+

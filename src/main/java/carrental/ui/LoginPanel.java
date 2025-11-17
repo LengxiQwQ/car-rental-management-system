@@ -4,6 +4,7 @@
 
 package carrental.ui;
 
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 
@@ -11,8 +12,22 @@ import javax.swing.GroupLayout;
  * @author LengxiQwQ
  */
 public class LoginPanel extends JPanel {
+    private MainFrame mainFrame;
+    
     public LoginPanel() {
         initComponents();
+    }
+
+    private void goToRegister(ActionEvent e) {
+        // 切换到注册面板
+        if (mainFrame != null) {
+            mainFrame.showRegisterPanel();
+        }
+    }
+    
+    // 添加设置MainFrame引用的方法
+    public void setMainFrame(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
     }
 
     private void initComponents() {
@@ -22,8 +37,8 @@ public class LoginPanel extends JPanel {
         label2 = new JLabel();
         label3 = new JLabel();
         textLoginUserID = new JTextField();
-        button1 = new JButton();
-        button2 = new JButton();
+        buttonLogin = new JButton();
+        buttonGoToRegister = new JButton();
 
         //======== this ========
 
@@ -36,11 +51,12 @@ public class LoginPanel extends JPanel {
         //---- label3 ----
         label3.setText("User ID");
 
-        //---- button1 ----
-        button1.setText("Login");
+        //---- buttonLogin ----
+        buttonLogin.setText("Login");
 
-        //---- button2 ----
-        button2.setText("Go to Register");
+        //---- buttonGoToRegister ----
+        buttonGoToRegister.setText("Go to Register");
+        buttonGoToRegister.addActionListener(e -> goToRegister(e));
 
         GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
@@ -54,9 +70,9 @@ public class LoginPanel extends JPanel {
                             .addGap(61, 61, 61))
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(button2)
+                                .addComponent(buttonGoToRegister)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(button1))
+                                .addComponent(buttonLogin))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup()
                                     .addComponent(label3, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
@@ -82,8 +98,8 @@ public class LoginPanel extends JPanel {
                         .addComponent(textLoginPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(button2)
-                        .addComponent(button1))
+                        .addComponent(buttonGoToRegister)
+                        .addComponent(buttonLogin))
                     .addGap(78, 78, 78))
         );
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
@@ -95,7 +111,7 @@ public class LoginPanel extends JPanel {
     private JLabel label2;
     private JLabel label3;
     private JTextField textLoginUserID;
-    private JButton button1;
-    private JButton button2;
+    private JButton buttonLogin;
+    private JButton buttonGoToRegister;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }
