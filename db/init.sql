@@ -1,47 +1,182 @@
--- Create tables for Car Rental Management System
+DROP DATABASE IF EXISTS test;
+CREATE DATABASE test;
+USE test;
 
--- Users table
+-- -------------------------------
+-- 1. 用户表 (users)
+-- -------------------------------
 CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(50) UNIQUE NOT NULL,
+                                     id INT PRIMARY KEY AUTO_INCREMENT,
+                                     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    role VARCHAR(20) NOT NULL
-);
+    role ENUM('ADMIN', 'STAFF') NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
 
--- Customers table
-CREATE TABLE IF NOT EXISTS customers (
-    id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    customer_id VARCHAR(50) UNIQUE NOT NULL,
-    driver_license_number VARCHAR(50),
-    phone_number VARCHAR(20),
-    email VARCHAR(100),
-    address TEXT
-);
+INSERT INTO users (username, password, role) VALUES
+                                                 ('admin', 'admin123', 'ADMIN'),
+                                                 ('system_admin', 'sys2024', 'ADMIN'),
+                                                 ('staff_li', 'li123456', 'STAFF'),
+                                                 ('staff_wang', 'wang654321', 'STAFF'),
+                                                 ('staff_zhang', 'zhang789', 'STAFF'),
+                                                 ('staff_chen', 'chen2024', 'STAFF'),
+                                                 ('staff_zhao', 'zhao5678', 'STAFF'),
+                                                 ('staff_qian', 'qian8765', 'STAFF'),
+                                                 ('staff_sun', 'sun1357', 'STAFF'),
+                                                 ('staff_zhou', 'zhou2468', 'STAFF'),
+                                                 ('staff_wu', 'wu9876', 'STAFF'),
+                                                 ('staff_hu', 'hu5432', 'STAFF'),
+                                                 ('staff_guo', 'guo1122', 'STAFF'),
+                                                 ('staff_he', 'he3344', 'STAFF'),
+                                                 ('staff_gao', 'gao5566', 'STAFF'),
+                                                 ('staff_lin', 'lin7788', 'STAFF'),
+                                                 ('staff_ma', 'ma9900', 'STAFF'),
+                                                 ('staff_yang', 'yang4455', 'STAFF'),
+                                                 ('staff_huang', 'huang6677', 'STAFF'),
+                                                 ('staff_xu', 'xu8899', 'STAFF'),
+                                                 ('staff_new', 'temp001', 'STAFF'); -- 对应 logs 里的 id=21
 
--- Cars table
+
+-- -------------------------------
+-- 2. 车辆表 (cars)
+-- -------------------------------
 CREATE TABLE IF NOT EXISTS cars (
-    id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    make VARCHAR(50) NOT NULL,
+                                    id VARCHAR(20) PRIMARY KEY,
+    brand VARCHAR(50) NOT NULL,
     model VARCHAR(50) NOT NULL,
-    year INTEGER NOT NULL,
-    license_plate VARCHAR(20) UNIQUE NOT NULL,
+    year INT NOT NULL,
+    license_plate VARCHAR(20) NOT NULL UNIQUE,
     color VARCHAR(30),
-    status VARCHAR(20) NOT NULL DEFAULT 'available'
-);
+    status ENUM('AVAILABLE', 'RENTED', 'MAINTENANCE') NOT NULL DEFAULT 'AVAILABLE',
+    daily_fee DECIMAL(10, 2) NOT NULL,
+    stock INT NOT NULL DEFAULT 1
+    );
 
--- Rentals table
+INSERT INTO cars (id, brand, model, year, license_plate, color, status, daily_fee, stock) VALUES
+                                                                                              ('C001', 'Toyota', 'Corolla', 2022, 'CA12345', 'White', 'AVAILABLE', 180.00, 2),
+                                                                                              ('C002', 'Honda', 'Civic', 2023, 'CA67890', 'Black', 'AVAILABLE', 200.00, 1),
+                                                                                              ('C003', 'Volkswagen', 'Jetta', 2021, 'NY11223', 'Silver', 'RENTED', 160.00, 1),
+                                                                                              ('C004', 'Nissan', 'Sylphy', 2023, 'NY44556A', 'Blue', 'AVAILABLE', 190.00, 3),
+                                                                                              ('C005', 'Hyundai', 'Elantra', 2022, 'TX77889', 'Gray', 'MAINTENANCE', 170.00, 1),
+                                                                                              ('C006', 'Toyota', 'Camry', 2023, 'TX99001', 'White', 'AVAILABLE', 300.00, 2),
+                                                                                              ('C007', 'Honda', 'Accord', 2022, 'IL22334', 'Black', 'RENTED', 320.00, 1),
+                                                                                              ('C008', 'Audi', 'A4L', 2023, 'IL55667', 'Silver', 'AVAILABLE', 450.00, 1),
+                                                                                              ('C009', 'BMW', '3 Series', 2022, 'MI88990', 'Blue', 'AVAILABLE', 480.00, 1),
+                                                                                              ('C010', 'Mercedes-Benz', 'C-Class', 2023, 'MI11223', 'White', 'MAINTENANCE', 500.00, 1),
+                                                                                              ('C011', 'Toyota', 'RAV4', 2022, 'OH33445', 'Black', 'AVAILABLE', 350.00, 2),
+                                                                                              ('C012', 'Honda', 'CR-V', 2023, 'OH66778', 'White', 'RENTED', 380.00, 1),
+                                                                                              ('C013', 'Volkswagen', 'Tiguan', 2021, 'TX99002', 'Gray', 'AVAILABLE', 330.00, 1),
+                                                                                              ('C014', 'Ford', 'Escape', 2023, 'CA22334', 'Red', 'AVAILABLE', 340.00, 2),
+                                                                                              ('C015', 'Jeep', 'Cherokee', 2022, 'AZ55667', 'Green', 'MAINTENANCE', 360.00, 1),
+                                                                                              ('C016', 'Audi', 'A6L', 2023, 'AZ88990', 'Black', 'AVAILABLE', 600.00, 1),
+                                                                                              ('C017', 'BMW', '5 Series', 2022, 'CA11223', 'White', 'RENTED', 650.00, 1),
+                                                                                              ('C018', 'Mercedes-Benz', 'E-Class', 2023, 'NY44556B', 'Silver', 'AVAILABLE', 680.00, 1),
+                                                                                              ('C019', 'Lexus', 'ES', 2022, 'IL77889', 'Blue', 'AVAILABLE', 580.00, 2),
+                                                                                              ('C020', 'Cadillac', 'CT6', 2023, 'MI99001', 'Black', 'MAINTENANCE', 550.00, 1);
+
+
+-- -------------------------------
+-- 3. 客户表 (customers)
+-- -------------------------------
+CREATE TABLE IF NOT EXISTS customers (
+                                         customer_id VARCHAR(20) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    phone VARCHAR(50) NOT NULL,
+    email VARCHAR(100),
+    address VARCHAR(255),
+    driver_license_number VARCHAR(50) NOT NULL UNIQUE,
+    id_card_number VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+    );
+
+INSERT INTO customers VALUES
+                          ('CUS001', 'Zhang San', '13800138000', 'zhangsan@example.com', 'Beijing ...', '12365678', '110101199001011234', 'zhangsan123'),
+                          ('CUS002', 'Li Si', '13900139000', 'lisi@example.com', 'Shanghai ...', '87684321', '310101199205123456', 'lisi456'),
+                          ('CUS003', 'Wang Wu', '13700137000', 'wangwu@example.com', 'Guangzhou ...', '11223744', '440101198803256789', 'wangwu789'),
+                          ('CUS004', 'Zhao Liu', '13600136000', 'zhaoliu@example.com', 'Shenzhen ...', '44332211', '440301199507189012', 'zhaoliu2024'),
+                          ('CUS005', 'Qian Qi', '13500135000', 'qianqi@example.com', 'Hangzhou ...', '55663788', '330101199309054321', 'qianqi333'),
+                          ('CUS006', 'Sun Ba', '13400134000', 'sunba@example.com', 'Nanjing ...', '88776355', '320101199102178901', 'sunba444'),
+                          ('CUS007', 'Zhou Jiu', '13300133000', 'zhoujiu@example.com', 'Chengdu ...', '93001122', '510101198906234567', 'zhoujiu555'),
+                          ('CUS008', 'Wu Shi', '13200132000', 'wushi@example.com', 'Wuhan ...', '22334455', '420101199404156789', 'wushi666'),
+                          ('CUS009', 'Zheng Shiyi', '13100131000', 'zheng@example.com', 'Xi’an ...', '55423322', '610101199008213456', 'zheng777'),
+                          ('CUS010', 'Wang Shier', '13000130000', 'wang12@example.com', 'Chongqing ...', '66773899', '500101198711056789', 'wang888'),
+                          ('CUS011', 'Li Shisan', '18900189000', 'lishi13@example.com', 'Tianjin ...', '77886900', '120101199203145678', 'li999'),
+                          ('CUS012', 'Zhao Shisi', '18800188000', 'zhao@example.com', 'Suzhou ...', '33445566', '320501199501234567', 'zhao000'),
+                          ('CUS013', 'Qian Shiwu', '18700187000', 'qian@example.com', 'Wuxi ...', '44556677', '320201199305167890', 'qian111'),
+                          ('CUS014', 'Sun Shiliu', '18600186000', 'sun@example.com', 'Ningbo ...', '55667788', '330201199107289012', 'sun222'),
+                          ('CUS015', 'Zhou Shiqi', '18500185000', 'zhou@example.com', 'Qingdao ...', '66778899', '370201198809154321', 'zhou333'),
+                          ('CUS016', 'Beijing XX Technology Co.', '01088888888', 'contact@xxtech.com', 'Beijing ...', '99006122', '911101199503012345', 'company123'),
+                          ('CUS017', 'Shanghai XX Trading Co.', '02166666666', 'trade@xxgroup.com', 'Shanghai ...', '88773655', '913101199205123456', 'company456'),
+                          ('CUS018', 'Guangzhou XX Auto Service', '02099999999', 'service@xxauto.com', 'Guangzhou ...', '77665544', '914401199007234567', 'company789'),
+                          ('CUS019', 'Shenzhen XX Logistics', '075577777777', 'logistics@xxwl.com', 'Shenzhen ...', '66553433', '914403199309156789', 'company2024'),
+                          ('CUS020', 'Hangzhou XX Tourism', '057155555555', 'travel@xxtour.com', 'Hangzhou ...', '55443622', '913301198904267890', 'company333');
+
+
+-- -------------------------------
+-- 4. 租赁记录表 (rentals)
+-- -------------------------------
 CREATE TABLE IF NOT EXISTS rentals (
-    id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    customer_id VARCHAR(50) NOT NULL,
-    car_id INTEGER NOT NULL,
-    rental_start_date DATE NOT NULL,
-    rental_end_date DATE,
-    status VARCHAR(20) NOT NULL DEFAULT 'active',
+                                       id INT PRIMARY KEY AUTO_INCREMENT,
+                                       car_id VARCHAR(20) NOT NULL,
+    customer_id VARCHAR(20) NOT NULL,
+    staff_id INT NOT NULL,
+    start_date DATE NOT NULL,
+    due_date DATE NOT NULL,
+    actual_return_date DATE,
+    total_fee DECIMAL(10, 2),
+    FOREIGN KEY (car_id) REFERENCES cars(id),
     FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
-    FOREIGN KEY (car_id) REFERENCES cars(id)
-);
+    FOREIGN KEY (staff_id) REFERENCES users(id)
+    );
 
--- Insert default admin user
-INSERT INTO users (username, password, role) VALUES 
-    ('admin', 'admin123', 'admin'),
-    ('staff', 'staff123', 'staff');
+INSERT INTO rentals (car_id, customer_id, staff_id, start_date, due_date, actual_return_date, total_fee) VALUES
+                                                                                                             ('C001', 'CUS001', 3, '2024-01-05', '2024-01-10', '2024-01-10', 900.00),
+                                                                                                             ('C003', 'CUS002', 4, '2024-01-12', '2024-01-15', '2024-01-15', 480.00),
+                                                                                                             ('C006', 'CUS003', 5, '2024-02-01', '2024-02-07', '2024-02-07', 2100.00),
+                                                                                                             ('C011', 'CUS004', 6, '2024-02-10', '2024-02-15', '2024-02-15', 1750.00),
+                                                                                                             ('C016', 'CUS005', 7, '2024-03-05', '2024-03-08', '2024-03-08', 1800.00),
+                                                                                                             ('C002', 'CUS006', 8, '2024-03-12', '2024-03-16', '2024-03-16', 800.00),
+                                                                                                             ('C008', 'CUS007', 9, '2024-04-01', '2024-04-04', '2024-04-04', 1350.00),
+                                                                                                             ('C012', 'CUS008', 10, '2024-04-10', '2024-04-13', '2024-04-13', 1140.00),
+                                                                                                             ('C017', 'CUS009', 11, '2024-05-02', '2024-05-05', '2024-05-05', 1950.00),
+                                                                                                             ('C019', 'CUS010', 12, '2024-05-10', '2024-05-14', '2024-05-14', 2320.00),
+                                                                                                             ('C004', 'CUS011', 13, '2024-06-01', '2024-06-05', NULL, NULL),
+                                                                                                             ('C007', 'CUS012', 14, '2024-06-08', '2024-06-12', NULL, NULL),
+                                                                                                             ('C009', 'CUS013', 15, '2024-06-15', '2024-06-20', NULL, NULL),
+                                                                                                             ('C013', 'CUS014', 16, '2024-06-22', '2024-06-25', NULL, NULL),
+                                                                                                             ('C018', 'CUS015', 17, '2024-07-01', '2024-07-04', NULL, NULL),
+                                                                                                             ('C005', 'CUS016', 18, '2024-07-06', '2024-07-10', NULL, NULL),
+                                                                                                             ('C010', 'CUS017', 19, '2024-07-12', '2024-07-16', NULL, NULL),
+                                                                                                             ('C014', 'CUS018', 20, '2024-07-18', '2024-07-22', NULL, NULL),
+                                                                                                             ('C020', 'CUS019', 3, '2024-07-25', '2024-07-28', NULL, NULL),
+                                                                                                             ('C015', 'CUS020', 4, '2024-08-01', '2024-08-05', NULL, NULL);
+
+
+-- -------------------------------
+-- 5. 系统日志表 (system_logs)
+-- -------------------------------
+CREATE TABLE IF NOT EXISTS system_logs (
+                                           id INT PRIMARY KEY AUTO_INCREMENT,
+                                           user_id INT NOT NULL,
+                                           operation VARCHAR(100) NOT NULL,
+    operation_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    details TEXT,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+    );
+
+INSERT INTO system_logs (user_id, operation, details) VALUES
+                                                          (3, 'User Login', 'Staff li (ID:3) logged in'),
+                                                          (4, 'User Login', 'Staff wang (ID:4) logged in'),
+                                                          (5, 'User Login', 'Staff zhang (ID:5) logged in'),
+                                                          (2, 'User Login', 'Admin logged in'),
+                                                          (3, 'Car Rental', 'Rented car C001'),
+                                                          (4, 'Car Rental', 'Rented car C003'),
+                                                          (5, 'Car Rental', 'Rented car C006'),
+                                                          (6, 'Car Rental', 'Rented car C011'),
+                                                          (7, 'Car Rental', 'Rented car C016'),
+                                                          (3, 'Car Return', 'Customer returned C001'),
+                                                          (4, 'Car Return', 'Customer returned C003'),
+                                                          (5, 'Car Return', 'Customer returned C006'),
+                                                          (2, 'System Maintenance', 'Performed system maintenance'),
+                                                          (2, 'Data Backup', 'Database backup completed'),
+                                                          (21, 'User Creation', 'New staff account created');
