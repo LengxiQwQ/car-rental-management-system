@@ -86,6 +86,7 @@ public class StaffDashboardFrame {
 
         //======== freamRoot ========
         {
+            freamRoot.setTitle("Staff Dashboard");
             var freamRootContentPane = freamRoot.getContentPane();
 
             //======== cardPanel ========
