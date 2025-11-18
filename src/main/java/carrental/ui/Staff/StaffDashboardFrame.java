@@ -12,7 +12,7 @@ import javax.swing.*;
 /**
  * @author LengxiQwQ
  */
-public class StaffDashboardFrame {
+public class StaffDashboardFrame extends JFrame {
     public StaffDashboardFrame() {
         initComponents();
         initEventListeners();

@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * 租车服务：核心业务逻辑
@@ -17,6 +18,16 @@ import java.time.LocalDate;
 public class RentalService {
     private final RentalDAO rentalDAO = new RentalDAO();
     private final CarDAO carDAO = new CarDAO();
+
+    // 获取所有租赁记录
+    public List<Rental> getAllRentals() throws SQLException {
+        return rentalDAO.findAll();
+    }
+
+    // 添加租赁记录
+    public boolean addRental(Rental rental) throws SQLException {
+        return rentalDAO.insert(rental);
+    }
 
     // 租车操作（事务控制）
     public boolean checkoutCar(Rental rental, User operator) {
@@ -66,7 +77,7 @@ public class RentalService {
     }
 
     // 还车操作（事务控制）
-    public BigDecimal returnCar(int rentalId, LocalDate actualReturnDate, User operator) {
+    public BigDecimal returnCar(String rentalId, LocalDate actualReturnDate, User operator) {
         if (operator == null) {
             throw new RuntimeException("请先登录");
         }
@@ -82,7 +93,7 @@ public class RentalService {
 
             // 查询租车记录
             Rental rental = rentalDAO.findAll().stream()
-                    .filter(r -> r.getCar().getId() == rentalId)
+                    .filter(r -> r.getCar().getCarID() == rentalId)
                     .findFirst()
                     .orElseThrow(() -> new RuntimeException("租车记录不存在"));
 

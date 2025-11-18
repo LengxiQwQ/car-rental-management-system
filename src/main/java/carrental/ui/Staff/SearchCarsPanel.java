@@ -7,13 +7,18 @@ package carrental.ui.Staff;
 import javax.swing.*;
 import com.jgoodies.forms.factories.*;
 import com.jgoodies.forms.layout.*;
-
+import java.util.List;
+import java.util.Collections;
+import javax.swing.table.DefaultTableModel;
+import carrental.model.Car;
+import carrental.service.CarService;
 /**
  * @author LengxiQwQ
  */
 public class SearchCarsPanel extends JPanel {
     public SearchCarsPanel() {
         initComponents();
+        initListeners();
     }
 
     private void initComponents() {
@@ -88,4 +93,45 @@ public class SearchCarsPanel extends JPanel {
     private JScrollPane scrollPane1;
     private JTable tableCarInfo;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
+    // 在SearchCarsPanel类中添加
+    private void initListeners() {
+        buttonSearchCar.addActionListener(e -> searchCars());
+    }
+
+    private void searchCars() {
+        String searchType = (String) comboBoxSearchType.getSelectedItem();
+        String content = textSearchContent.getText().trim();
+
+        new SwingWorker<List<Car>, Void>() {
+            @Override
+            protected List<Car> doInBackground() throws Exception {
+                CarService service = new CarService();
+                switch (searchType) {
+                    case "ID": return service.getCarById(content);
+                    case "License": return service.getCarByLicense(content);
+                    case "Model": return service.getCarsByModel(content);
+                    default: return Collections.emptyList();
+                }
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    List<Car> cars = get();
+                    DefaultTableModel model = (DefaultTableModel) tableCarInfo.getModel();
+                    model.setColumnIdentifiers(new String[]{"ID", "车牌", "型号", "颜色", "状态"});
+                    model.setRowCount(0);
+                    for (Car car : cars) {
+                        model.addRow(new Object[]{
+                                car.getId(), car.getLicensePlate(), car.getModel(),
+                                car.getColor(), car.getStatus()
+                        });
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(SearchCarsPanel.this, "搜索失败: " + ex.getMessage());
+                }
+            }
+        }.execute();
+    }
+
 }

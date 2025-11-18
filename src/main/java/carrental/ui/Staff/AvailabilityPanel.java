@@ -5,8 +5,12 @@
 package carrental.ui.Staff;
 
 import java.awt.*;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.table.*;
+
+import carrental.model.Car;
+import carrental.service.CarService;
 import com.jgoodies.forms.factories.*;
 import com.jgoodies.forms.layout.*;
 
@@ -16,6 +20,8 @@ import com.jgoodies.forms.layout.*;
 public class AvailabilityPanel extends JPanel {
     public AvailabilityPanel() {
         initComponents();
+        initListeners();
+        loadCars(); // 初始加载
     }
 
     private void initComponents() {
@@ -136,4 +142,42 @@ public class AvailabilityPanel extends JPanel {
     private JScrollPane scrollPane1;
     private JTable tableCarAvailability;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
+    // 在AvailabilityPanel类中添加
+    private void initListeners() {
+        buttonRefresh.addActionListener(e -> loadCars());
+        comboBoxFilter.addActionListener(e -> loadCars()); // 筛选变化时刷新
+    }
+
+    private void loadCars() {
+        String status = (String) comboBoxFilter.getSelectedItem();
+        new SwingWorker<List<Car>, Void>() {
+            @Override
+            protected List<Car> doInBackground() throws Exception {
+                CarService service = new CarService();
+                if ("All".equals(status)) {
+                    return service.getAllCars();
+                } else {
+                    return service.getCarsByStatus(status);
+                }
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    List<Car> cars = get();
+                    DefaultTableModel model = (DefaultTableModel) tableCarAvailability.getModel();
+                    model.setColumnIdentifiers(new String[]{"ID", "车牌", "型号", "年份", "颜色", "状态", "租金/天"});
+                    model.setRowCount(0);
+                    for (Car car : cars) {
+                        model.addRow(new Object[]{
+                                car.getCarID(), car.getLicensePlate(), car.getModel(),
+                                car.getYear(), car.getColor(), car.getStatus(), car.getPrice()
+                        });
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(AvailabilityPanel.this, "加载车辆失败: " + ex.getMessage());
+                }
+            }
+        }.execute();
+    }
 }

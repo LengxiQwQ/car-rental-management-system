@@ -9,7 +9,7 @@ import java.sql.SQLException;
  */
 public class DBConnection {
     // MySQL数据库连接参数
-    private static final String URL = "jdbc:mysql://localhost:3308/mydb?useSSL=false&serverTimezone=UTC";
+    private static final String URL = "jdbc:mysql://localhost:3306/test?useSSL=false&serverTimezone=UTC";
     private static final String USER = "root";
     private static final String PASSWORD = "123456";
 

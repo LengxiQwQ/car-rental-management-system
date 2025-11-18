@@ -58,14 +58,14 @@ public class RentalDAO {
      * @param totalFee 总费用
      * @return 是否更新成功
      */
-    public boolean updateReturn(int rentalId, LocalDate actualReturnDate, BigDecimal totalFee) {
+    public boolean updateReturn(String rentalId, LocalDate actualReturnDate, BigDecimal totalFee) {
         String sql = "UPDATE rentals SET actual_return_date = ?, total_fee = ? WHERE id = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, actualReturnDate.toString());
             pstmt.setBigDecimal(2, totalFee);
-            pstmt.setInt(3, rentalId);
+            pstmt.setString(3, rentalId);
 
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {

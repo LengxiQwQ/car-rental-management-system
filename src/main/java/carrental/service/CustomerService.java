@@ -1,0 +1,59 @@
+package carrental.service;
+
+import carrental.dao.CustomerDAO;
+import carrental.model.Customer;
+import java.sql.SQLException;
+import java.util.List;
+
+public class CustomerService {
+    // 依赖注入DAO层（直接使用你已有的CustomerDAO）
+    private CustomerDAO customerDAO = new CustomerDAO();
+
+    /**
+     * 获取所有客户（从数据库查询）
+     */
+    public List<Customer> getAllCustomers() throws SQLException {
+        return customerDAO.findAll();
+    }
+
+    /**
+     * 根据关键词搜索客户
+     * 搜索范围：客户ID、姓名、电话、邮箱
+     */
+    public List<Customer> searchCustomers(String keyword) throws SQLException {
+        return customerDAO.search(keyword);
+    }
+
+    /**
+     * 保存客户信息（新增或更新）
+     * @param customer 客户对象
+     * @return 操作成功返回true，失败返回false
+     */
+    public boolean saveCustomer(Customer customer) throws SQLException {
+        // 数据验证
+        if (customer == null ||
+                customer.getCustomerID() == null ||
+                customer.getCustomerID().trim().isEmpty() ||
+                customer.getcustomerName() == null ||
+                customer.getcustomerName().trim().isEmpty()) {
+            return false;
+        }
+
+        // 调用DAO层：存在ID则更新，否则新增
+        if (customerDAO.findById(customer.getCustomerID()) != null) {
+            return customerDAO.update(customer);
+        } else {
+            return customerDAO.insert(customer);
+        }
+    }
+
+    /**
+     * 根据ID获取客户
+     */
+    public Customer getCustomerById(String id) throws SQLException {
+        if (id == null || id.trim().isEmpty()) {
+            return null;
+        }
+        return customerDAO.findById(id);
+    }
+}

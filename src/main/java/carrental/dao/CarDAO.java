@@ -68,6 +68,104 @@ public class CarDAO {
         return cars;
     }
 
+    // 根据状态查找
+    public List<Car> findByStatus(String status) throws SQLException {
+        List<Car> cars = new ArrayList<>();
+        String sql = "SELECT * FROM cars WHERE status = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, status);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Car car = new Car();
+                    car.setCarID(rs.getString("id"));
+                    car.setBrand(rs.getString("Brand"));
+                    car.setModel(rs.getString("model"));
+                    car.setYear(rs.getInt("year"));
+                    car.setLicensePlate(rs.getString("license_plate"));
+                    car.setColor(rs.getString("color"));
+                    car.setStatus(Car.CarStatus.valueOf(rs.getString("status")));
+                    car.setPrice(rs.getDouble("daily_fee"));
+                    cars.add(car);
+                }
+            }
+        }
+        return cars;
+    }
+
+    // 根据ID查找
+    public Car findById(String id) throws SQLException {
+        String sql = "SELECT * FROM cars WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    Car car = new Car();
+                    car.setCarID(rs.getString("id"));
+                    car.setBrand(rs.getString("Brand"));
+                    car.setModel(rs.getString("model"));
+                    car.setYear(rs.getInt("year"));
+                    car.setLicensePlate(rs.getString("license_plate"));
+                    car.setColor(rs.getString("color"));
+                    car.setStatus(Car.CarStatus.valueOf(rs.getString("status")));
+                    car.setPrice(rs.getDouble("daily_fee"));
+                    return car;
+                }
+            }
+        }
+        return null;
+    }
+
+    // 根据车牌号查找
+    public Car findByLicense(String license) throws SQLException {
+        String sql = "SELECT * FROM cars WHERE license_plate = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, license);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    Car car = new Car();
+                    car.setCarID(rs.getString("id"));
+                    car.setBrand(rs.getString("Brand"));
+                    car.setModel(rs.getString("model"));
+                    car.setYear(rs.getInt("year"));
+                    car.setLicensePlate(rs.getString("license_plate"));
+                    car.setColor(rs.getString("color"));
+                    car.setStatus(Car.CarStatus.valueOf(rs.getString("status")));
+                    car.setPrice(rs.getDouble("daily_fee"));
+                    return car;
+                }
+            }
+        }
+        return null;
+    }
+
+    // 根据车型查找
+    public List<Car> findByModel(String model) throws SQLException {
+        List<Car> cars = new ArrayList<>();
+        String sql = "SELECT * FROM cars WHERE model LIKE ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, "%" + model + "%");
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Car car = new Car();
+                    car.setCarID(rs.getString("id"));
+                    car.setBrand(rs.getString("Brand"));
+                    car.setModel(rs.getString("model"));
+                    car.setYear(rs.getInt("year"));
+                    car.setLicensePlate(rs.getString("license_plate"));
+                    car.setColor(rs.getString("color"));
+                    car.setStatus(Car.CarStatus.valueOf(rs.getString("status")));
+                    car.setPrice(rs.getDouble("daily_fee"));
+                    cars.add(car);
+                }
+            }
+        }
+        return cars;
+    }
+
     // 更新车辆状态
     public boolean updateStatus(String carId, Car.CarStatus status) {
         String sql = "UPDATE cars SET status = ? WHERE id = ?";
@@ -81,29 +179,14 @@ public class CarDAO {
             return false;
         }
     }
-
-    // 根据ID查询车辆
-    public Car findById(String carId) {
-        String sql = "SELECT * FROM cars WHERE id = ?";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, carId);
-            ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                Car car = new Car();
-                car.setCarID(rs.getString("id"));
-                car.setBrand(rs.getString("Brand"));
-                car.setModel(rs.getString("model"));
-                car.setYear(rs.getInt("year"));
-                car.setLicensePlate(rs.getString("license_plate"));
-                car.setColor(rs.getString("color"));
-                car.setStatus(Car.CarStatus.valueOf(rs.getString("status")));
-                car.setPrice(rs.getDouble("Price"));
-                return car;
-            }
-        } catch (SQLException e) {
+    
+    // 更新车辆状态（重载方法，用于CarService中的字符串状态）
+    public boolean updateStatus(String carId, String status) {
+        try {
+            return updateStatus(carId, Car.CarStatus.valueOf(status.toUpperCase()));
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
+            return false;
         }
-        return null;
     }
 }

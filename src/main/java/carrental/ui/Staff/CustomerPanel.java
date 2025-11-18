@@ -5,8 +5,12 @@
 package carrental.ui.Staff;
 
 import java.awt.*;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.table.*;
+
+import carrental.model.Customer;
+import carrental.service.CustomerService;
 import com.jgoodies.forms.factories.*;
 import com.jgoodies.forms.layout.*;
 
@@ -16,6 +20,7 @@ import com.jgoodies.forms.layout.*;
 public class CustomerPanel extends JPanel {
     public CustomerPanel() {
         initComponents();
+        initData();
     }
 
     private void initComponents() {
@@ -224,4 +229,127 @@ public class CustomerPanel extends JPanel {
     private JButton buttonSearch;
     private JLabel label9;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
+// 在CustomerPanel类的initComponents()后添加初始化方法
+    private void initData() {
+        // 加载客户列表到表格
+        loadCustomerTable();
+        // 为搜索按钮添加监听
+        buttonSearch.addActionListener(e -> searchCustomer());
+        // 为保存按钮添加监听
+        buttonSave.addActionListener(e -> saveCustomer());
+        // 为表格添加选中监听（选中行时填充表单）
+        tableCustomerInfo.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                int selectedRow = tableCustomerInfo.getSelectedRow();
+                if (selectedRow != -1) {
+                    fillCustomerForm(selectedRow);
+                }
+            }
+        });
+    }
+
+    // 加载客户数据到表格
+    private void loadCustomerTable() {
+        new SwingWorker<List<Customer>, Void>() {
+            @Override
+            protected List<Customer> doInBackground() throws Exception {
+                return new CustomerService().getAllCustomers(); // 调用Service层
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    List<Customer> customers = get();
+                    DefaultTableModel model = (DefaultTableModel) tableCustomerInfo.getModel();
+                    model.setColumnIdentifiers(new String[]{"ID", "姓名", "电话", "身份证", "邮箱", "地址", "驾照号"});
+                    model.setRowCount(0); // 清空表格
+                    for (Customer c : customers) {
+                        model.addRow(new Object[]{
+                                c.getCustomerID(), c.getcustomerName(), c.getPhone(),
+                                c.getIdCardNumber(), c.getEmail(), c.getAddress(), c.getDriverLicenseNumber()
+                        });
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(CustomerPanel.this, "加载客户失败: " + ex.getMessage());
+                    ex.printStackTrace();
+                }
+            }
+        }.execute();
+    }
+
+    // 搜索客户
+    private void searchCustomer() {
+        String keyword = textSearch.getText().trim();
+        new SwingWorker<List<Customer>, Void>() {
+            @Override
+            protected List<Customer> doInBackground() throws Exception {
+                return new CustomerService().searchCustomers(keyword);
+            }
+
+            @Override
+            protected void done() {
+                // 与loadCustomerTable()类似，更新表格数据
+            }
+        }.execute();
+    }
+
+    // 保存客户信息
+    private void saveCustomer() {
+        Customer customer = new Customer();
+        customer.setCustomerID(textInputCustomerID.getText());
+        customer.setName(textInputName.getText());
+        try {
+            customer.setPhone(Integer.parseInt(textInputPhone.getText()));
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "电话号码格式不正确");
+            return;
+        }
+        try {
+            customer.setIdCardNumber(Integer.parseInt(textInputIDCardNumber.getText()));
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "身份证号码格式不正确");
+            return;
+        }
+        customer.setEmail(textInputEmail.getText());
+        customer.setAddress(textInputAddress.getText());
+        try {
+            customer.setDriverLicenseNumber(Integer.parseInt(textInputDriverLicenseNumber.getText()));
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "驾照号码格式不正确");
+            return;
+        }
+
+        new SwingWorker<Boolean, Void>() {
+            @Override
+            protected Boolean doInBackground() throws Exception {
+                return new CustomerService().saveCustomer(customer); // 新增或更新客户
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    if (get()) {
+                        JOptionPane.showMessageDialog(CustomerPanel.this, "保存成功");
+                        loadCustomerTable(); // 刷新表格
+                    } else {
+                        JOptionPane.showMessageDialog(CustomerPanel.this, "保存失败");
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(CustomerPanel.this, "保存出错: " + ex.getMessage());
+                }
+            }
+        }.execute();
+    }
+
+    // 填充表单（从选中的表格行）
+    private void fillCustomerForm(int row) {
+        DefaultTableModel model = (DefaultTableModel) tableCustomerInfo.getModel();
+        textInputCustomerID.setText(model.getValueAt(row, 0).toString());
+        textInputName.setText(model.getValueAt(row, 1).toString());
+        textInputPhone.setText(model.getValueAt(row, 2).toString());
+        textInputIDCardNumber.setText(model.getValueAt(row, 3).toString());
+        textInputEmail.setText(model.getValueAt(row, 4).toString());
+        textInputAddress.setText(model.getValueAt(row, 5).toString());
+        textInputDriverLicenseNumber.setText(model.getValueAt(row, 6).toString());
+    }
 }
