@@ -19,14 +19,9 @@ public class AuthService {
         }
 
         // 查询用户
-        User user = userDAO.findByUsername(username);
+        User user = userDAO.login(username, password);
         if (user == null) {
-            throw new RuntimeException("用户名不存在");
-        }
-
-        // 明文密码对比（无加密）
-        if (!password.equals(user.getPassword())) {
-            throw new RuntimeException("密码错误");
+            throw new RuntimeException("用户名或密码错误"); // 合并错误信息，避免泄露用户存在性
         }
 
         System.out.println("用户[" + username + "]登录成功");

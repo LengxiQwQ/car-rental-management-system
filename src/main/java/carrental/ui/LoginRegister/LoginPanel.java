@@ -169,10 +169,16 @@ public class LoginPanel extends JPanel {
             }
 
             // 验证角色是否匹配
-            if (!authService.isAdmin(user) && "Admin".equals(role)) {
-                JOptionPane.showMessageDialog(this, "无管理员权限");
-                return;
+            // 正确的权限判断逻辑
+// 1. 如果用户选择了 "Admin" 角色登录
+            if ("Admin".equals(role)) {
+                // 2. 检查该用户是否真的是管理员
+                if (!authService.isAdmin(user)) {
+                    JOptionPane.showMessageDialog(this, "无管理员权限，无法以管理员身份登录");
+                    return;
+                }
             }
+// 如果选择的是 "Staff" 角色，则不需要额外检查，直接放行
 
             // 登录成功：关闭登录窗口，打开主面板
             JOptionPane.showMessageDialog(this, "登录成功");

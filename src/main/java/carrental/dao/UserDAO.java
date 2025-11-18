@@ -35,7 +35,7 @@ public class UserDAO {
                     user.setPassword(rs.getString("password"));
                     String roleName = rs.getString("role");
                     try {
-                        user.setRole(userRole.valueOf(roleName));
+                        user.setRole(userRole.valueOf(roleName.toLowerCase()));
                     } catch (IllegalArgumentException ex) {
                         throw new SQLException("Invalid user role: " + roleName, ex);
                     }
@@ -113,7 +113,7 @@ public class UserDAO {
                 User user = new User();
                 user.setUserID(rs.getString("id"));
                 user.setUsername(rs.getString("username"));
-                user.setRole(userRole.valueOf(rs.getString("role")));
+                user.setRole(userRole.valueOf(rs.getString("role").toLowerCase()));
                 return user;
             }
         } catch (SQLException e) {
