@@ -57,15 +57,6 @@ public class CustomerPanel extends JPanel {
                 new Object[][] {
                     {null, null, null, null, null, null, null},
                     {null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null},
                 },
                 new String[] {
                     null, null, null, null, null, null, null

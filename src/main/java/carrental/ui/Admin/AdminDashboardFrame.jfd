@@ -12,6 +12,26 @@ new FormModel {
 			"title": "Car Rental Management System - Administer Dashboard"
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.CardLayout ) ) {
 				name: "cardPanel"
+				add( new FormComponent( "carrental.ui.Admin.ManageStaff" ) {
+					name: "manageStaff1"
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "card1"
+				} )
+				add( new FormComponent( "carrental.ui.Admin.ManageCars" ) {
+					name: "manageCars1"
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "card2"
+				} )
+				add( new FormComponent( "carrental.ui.Admin.Reports" ) {
+					name: "reports1"
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "card3"
+				} )
+				add( new FormComponent( "carrental.ui.Admin.SystemLogs" ) {
+					name: "systemLogs1"
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "card4"
+				} )
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
 				"$horizontalGroup": "par l {seq l {space :p:22:p, comp toggleButtonManageStaff:::p:233:p, space s:::p, comp toggleButtonManageCars:::p:234:p, space s:::p, comp toggleButtonReports:::p:232:p, space s:::p, comp toggleButtonSystemLogs:::p:220:p, space :::p}}"

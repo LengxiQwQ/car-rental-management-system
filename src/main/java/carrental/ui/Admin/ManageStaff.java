@@ -19,60 +19,75 @@ public class ManageStaff extends JPanel {
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         label1 = new JLabel();
-        comboBoxSearchType = new JComboBox<>();
-        textSearchContent = new JTextField();
-        buttonSearchCar = new JButton();
+        comboBoxSearchStaffType = new JComboBox<>();
+        textSearchStaffContent = new JTextField();
+        buttonSearchStaff = new JButton();
         scrollPane1 = new JScrollPane();
-        tableCarInfo = new JTable();
+        tableStaffInfo = new JTable();
+        buttonAddStaff = new JButton();
+        buttonDeleteSelected = new JButton();
 
         //======== this ========
 
         //---- label1 ----
-        label1.setText("Search Type");
+        label1.setText("Search Staff");
 
-        //---- comboBoxSearchType ----
-        comboBoxSearchType.setModel(new DefaultComboBoxModel<>(new String[] {
-            "ID",
-            "License",
-            "Model"
+        //---- comboBoxSearchStaffType ----
+        comboBoxSearchStaffType.setModel(new DefaultComboBoxModel<>(new String[] {
+            "Name",
+            "Staff ID"
         }));
 
-        //---- buttonSearchCar ----
-        buttonSearchCar.setText("Search Car");
+        //---- buttonSearchStaff ----
+        buttonSearchStaff.setText("Search Staff");
 
         //======== scrollPane1 ========
         {
-            scrollPane1.setViewportView(tableCarInfo);
+            scrollPane1.setViewportView(tableStaffInfo);
         }
+
+        //---- buttonAddStaff ----
+        buttonAddStaff.setText("Add Staff");
+
+        //---- buttonDeleteSelected ----
+        buttonDeleteSelected.setText("Delete Selected");
 
         GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup()
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(27, 27, 27)
-                    .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 965, GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(27, 27, 27)
+                            .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 965, GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(66, 66, 66)
+                            .addComponent(label1, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(comboBoxSearchStaffType, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(textSearchStaffContent, GroupLayout.PREFERRED_SIZE, 189, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(buttonSearchStaff)
+                            .addGap(108, 108, 108)
+                            .addComponent(buttonDeleteSelected)
+                            .addGap(18, 18, 18)
+                            .addComponent(buttonAddStaff)
+                            .addGap(34, 34, 34)))
                     .addContainerGap(28, Short.MAX_VALUE))
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(113, 113, 113)
-                    .addComponent(label1, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(comboBoxSearchType, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
-                    .addComponent(textSearchContent, GroupLayout.PREFERRED_SIZE, 226, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(buttonSearchCar, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
-                    .addGap(106, 106, 106))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup()
                 .addGroup(layout.createSequentialGroup()
                     .addGap(28, 28, 28)
                     .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(comboBoxSearchType, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textSearchStaffContent, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonSearchStaff)
+                        .addComponent(comboBoxSearchStaffType, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addComponent(label1)
-                        .addComponent(buttonSearchCar)
-                        .addComponent(textSearchContent, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(buttonAddStaff)
+                        .addComponent(buttonDeleteSelected))
                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                     .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 512, GroupLayout.PREFERRED_SIZE)
                     .addGap(23, 23, 23))
@@ -82,10 +97,12 @@ public class ManageStaff extends JPanel {
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     private JLabel label1;
-    private JComboBox<String> comboBoxSearchType;
-    private JTextField textSearchContent;
-    private JButton buttonSearchCar;
+    private JComboBox<String> comboBoxSearchStaffType;
+    private JTextField textSearchStaffContent;
+    private JButton buttonSearchStaff;
     private JScrollPane scrollPane1;
-    private JTable tableCarInfo;
+    private JTable tableStaffInfo;
+    private JButton buttonAddStaff;
+    private JButton buttonDeleteSelected;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

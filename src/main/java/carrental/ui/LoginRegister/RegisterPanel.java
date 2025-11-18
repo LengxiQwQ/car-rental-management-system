@@ -171,38 +171,54 @@ public class RegisterPanel extends JPanel {
 
     // 在类内部的末尾添加（不要放在类外面）
     private void addRegisterListener() {
-        // 使用原有代码中的实际按钮变量名 buttonRegister
-        buttonRegister.addActionListener(e -> {
-            // 使用实际的组件变量名
-            String role = (String) comboBoxRegisterRole.getSelectedItem(); // 正确变量名
-            String username = textRegisterUserID.getText().trim(); // 正确变量名
-            String password = textRegisterPassword.getText().trim(); // 正确变量名
-            String confirmPassword = textRegisterConfirm.getText().trim();
-            // 简单验证（如果没有Validator类，可先注释或替换为基础判断）
-            if (username.isEmpty() || password.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Username or password cannot be empty");
-                return;
-            }
-            if (!password.equals(confirmPassword)) {
-                JOptionPane.showMessageDialog(this, "Passwords do not match");
-                return; // 终止注册
-            }
-
-            User user = new User();
-            user.setUsername(username);
-            user.setPassword(password);
-            // 根据下拉框选择的角色（"Admin" 或 "Staff"）来设置用户角色
-            user.setRole(userRole.valueOf(role.toLowerCase()));
-
-            AuthService authService = new AuthService();
-            if (authService.register(user)) {
-                JOptionPane.showMessageDialog(this, "Registration successfully");
-                System.out.println(TimestampUtil.getCurrentTimestamp() + " User [" + username + "] registered successfully");
-                GoToLogin(e); // 传递事件参数e，匹配原有方法定义
-            } else {
-                JOptionPane.showMessageDialog(this, "Registration failed, username already exists");
-                System.out.println(TimestampUtil.getCurrentTimestamp() + " Registration failed, username [" + username + "] already exists");
+        // 添加回车键监听器到确认密码输入框
+        textRegisterConfirm.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    performRegister();
+                }
             }
         });
+        
+        // 使用原有代码中的实际按钮变量名 buttonRegister
+        buttonRegister.addActionListener(e -> performRegister());
+    }
+    
+    // 将注册逻辑提取到独立方法中
+    private void performRegister() {
+        // 使用实际的组件变量名
+        String role = (String) comboBoxRegisterRole.getSelectedItem(); // 正确变量名
+        String username = textRegisterUserID.getText().trim(); // 正确变量名
+        String password = textRegisterPassword.getText().trim(); // 正确变量名
+        String confirmPassword = textRegisterConfirm.getText().trim();
+        // 简单验证（如果没有Validator类，可先注释或替换为基础判断）
+        if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Username or password cannot be empty");
+            return;
+        }
+        if (!password.equals(confirmPassword)) {
+            JOptionPane.showMessageDialog(this, "Passwords do not match");
+            return; // 终止注册
+        }
+
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        // 根据下拉框选择的角色（"Admin" 或 "Staff"）来设置用户角色
+        user.setRole(userRole.valueOf(role.toLowerCase()));
+
+        AuthService authService = new AuthService();
+        if (authService.register(user)) {
+            JOptionPane.showMessageDialog(this, "Registration successfully");
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " User [" + username + "] registered successfully");
+            // 切换到登录面板
+            if (loginRegisterFrame != null) {
+                loginRegisterFrame.showLoginPanel();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Registration failed, username already exists");
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " Registration failed, username [" + username + "] already exists");
+        }
     }
 }

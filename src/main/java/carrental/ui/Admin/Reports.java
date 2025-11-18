@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle;
 import javax.swing.table.*;
+import com.toedter.calendar.*;
 
 /**
  * @author LengxiQwQ
@@ -24,11 +25,7 @@ public class Reports extends JPanel {
         tableCustomerInfo = new JTable();
         label8 = new JLabel();
         label1 = new JLabel();
-        textInputCustomerID = new JTextField();
         label2 = new JLabel();
-        textInputName = new JTextField();
-        label3 = new JLabel();
-        textInputPhone = new JTextField();
         label4 = new JLabel();
         textInputIDCardNumber = new JTextField();
         label5 = new JLabel();
@@ -38,9 +35,8 @@ public class Reports extends JPanel {
         label7 = new JLabel();
         textInputDriverLicenseNumber = new JTextField();
         buttonSave = new JButton();
-        textSearch = new JTextField();
-        buttonSearch = new JButton();
         label9 = new JLabel();
+        dateChooser1 = new JDateChooser();
 
         //======== this ========
 
@@ -74,13 +70,10 @@ public class Reports extends JPanel {
         label8.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
 
         //---- label1 ----
-        label1.setText("Customer ID");
+        label1.setText("From date");
 
         //---- label2 ----
-        label2.setText("Full name");
-
-        //---- label3 ----
-        label3.setText("Phone number");
+        label2.setText("To date");
 
         //---- label4 ----
         label4.setText("ID card number");
@@ -97,12 +90,10 @@ public class Reports extends JPanel {
         //---- buttonSave ----
         buttonSave.setText("Save Change");
 
-        //---- buttonSearch ----
-        buttonSearch.setText("Search");
-
         //---- label9 ----
-        label9.setText("Customer Manager");
+        label9.setText("Reports");
         label9.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 16));
+        label9.setHorizontalAlignment(SwingConstants.CENTER);
 
         GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
@@ -111,11 +102,13 @@ public class Reports extends JPanel {
                 .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(27, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup()
-                        .addGroup(layout.createParallelGroup()
+                        .addComponent(label8, GroupLayout.Alignment.TRAILING)
+                        .addComponent(buttonSave, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(label9, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 254, GroupLayout.PREFERRED_SIZE)
+                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createParallelGroup()
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(label2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(label3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(label4, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(label5, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(label6, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -125,27 +118,12 @@ public class Reports extends JPanel {
                                     .addComponent(textInputEmail)
                                     .addComponent(textInputAddress)
                                     .addComponent(textInputIDCardNumber)
-                                    .addComponent(textInputPhone)
-                                    .addComponent(textInputName)
-                                    .addComponent(textInputCustomerID, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(dateChooser1, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)))
                             .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(1, 1, 1)
-                                .addGroup(layout.createParallelGroup()
-                                    .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(label7)
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(textInputDriverLicenseNumber, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(textSearch, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(buttonSearch)))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(68, 68, 68)
-                            .addComponent(buttonSave, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE))
-                        .addComponent(label8)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(60, 60, 60)
-                            .addComponent(label9)))
+                                .addComponent(label7)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textInputDriverLicenseNumber, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE))))
                     .addGap(18, 18, 18)
                     .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 697, GroupLayout.PREFERRED_SIZE)
                     .addGap(21, 21, 21))
@@ -155,27 +133,18 @@ public class Reports extends JPanel {
                 .addGroup(layout.createSequentialGroup()
                     .addGroup(layout.createParallelGroup()
                         .addGroup(layout.createSequentialGroup()
+                            .addGap(19, 19, 19)
+                            .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 571, GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
                             .addGap(39, 39, 39)
                             .addComponent(label9)
-                            .addGap(44, 44, 44)
-                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(buttonSearch)
-                                .addComponent(textSearch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addComponent(label8)
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addGap(32, 32, 32)
+                            .addGroup(layout.createParallelGroup()
                                 .addComponent(label1)
-                                .addComponent(textInputCustomerID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(label2)
-                                .addComponent(textInputName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(label3)
-                                .addComponent(textInputPhone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
+                                .addComponent(dateChooser1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addGap(22, 22, 22)
+                            .addComponent(label2)
+                            .addGap(63, 63, 63)
                             .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(label4)
                                 .addComponent(textInputIDCardNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
@@ -191,11 +160,10 @@ public class Reports extends JPanel {
                             .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(label7)
                                 .addComponent(textInputDriverLicenseNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addGap(54, 54, 54)
-                            .addComponent(buttonSave, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(19, 19, 19)
-                            .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 571, GroupLayout.PREFERRED_SIZE)))
+                            .addGap(107, 107, 107)
+                            .addComponent(label8)
+                            .addGap(22, 22, 22)
+                            .addComponent(buttonSave, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)))
                     .addContainerGap(25, Short.MAX_VALUE))
         );
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
@@ -206,11 +174,7 @@ public class Reports extends JPanel {
     private JTable tableCustomerInfo;
     private JLabel label8;
     private JLabel label1;
-    private JTextField textInputCustomerID;
     private JLabel label2;
-    private JTextField textInputName;
-    private JLabel label3;
-    private JTextField textInputPhone;
     private JLabel label4;
     private JTextField textInputIDCardNumber;
     private JLabel label5;
@@ -220,8 +184,7 @@ public class Reports extends JPanel {
     private JLabel label7;
     private JTextField textInputDriverLicenseNumber;
     private JButton buttonSave;
-    private JTextField textSearch;
-    private JButton buttonSearch;
     private JLabel label9;
+    private JDateChooser dateChooser1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

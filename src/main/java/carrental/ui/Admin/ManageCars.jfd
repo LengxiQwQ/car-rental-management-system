@@ -4,25 +4,27 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {space :p:27:p, comp scrollPane1:::p:965:p, space ::28:x}, seq l {space :p:113:p, comp label1:::p:73:p, space :::p, comp comboBoxSearchType:::p:177:p, space ::189:x, comp textSearchContent:::p:226:p, space u:::p, comp buttonSearchCar:::p:118:p, space :p:106:p}}"
-			"$verticalGroup": "par l {seq l {space :p:28:p, par b {comp comboBoxSearchType::b:p::p, comp label1::b:p::p, comp buttonSearchCar::b:p::p, comp textSearchContent::b:p::p}, space ::28:x, comp scrollPane1:::p:512:p, space :p:23:p}}"
+			"$horizontalGroup": "par l {seq {space :p:27:p, comp scrollPane1:::p:965:p, space ::28:x}, seq l {space :p:77:p, comp label1:::p:93:p, space :::p, comp comboBoxSearchCarType:::p:121:p, space :p:73:p, comp textSearchCarContent:::p:165:p, space u:::p, comp buttonSearchCar:::p::p, space ::101:x, comp buttonDeleteSelectedCar:::p::p, space :18:18:p, comp buttonAddCar:::p::p, space :p:78:p}}"
+			"$verticalGroup": "par l {seq l {space :p:28:p, par b {comp label1::b:p::p, comp comboBoxSearchCarType::b:p::p, par b:b {comp buttonDeleteSelectedCar::l:p::p, comp buttonAddCar::l:p::p}, comp textSearchCarContent::b:p::p, comp buttonSearchCar::b:p::p}, space ::28:x, comp scrollPane1:::p:512:p, space :p:23:p}}"
 		} ) {
 			name: "this"
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label1"
-				"text": "Search Type"
+				"text": "Search Car Type"
 			} )
 			add( new FormComponent( "javax.swing.JComboBox" ) {
-				name: "comboBoxSearchType"
+				name: "comboBoxSearchCarType"
 				"model": new javax.swing.DefaultComboBoxModel {
-					selectedItem: "ID"
-					addElement( "ID" )
+					selectedItem: "Car ID"
+					addElement( "Car ID" )
 					addElement( "License" )
 					addElement( "Model" )
+					addElement( "Color" )
+					addElement( "Year" )
 				}
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textSearchContent"
+				name: "textSearchCarContent"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "buttonSearchCar"
@@ -33,6 +35,14 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JTable" ) {
 					name: "tableCarInfo"
 				} )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "buttonDeleteSelectedCar"
+				"text": "Delete Selected"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "buttonAddCar"
+				"text": "Add Car"
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )

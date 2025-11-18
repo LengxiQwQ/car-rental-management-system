@@ -4,35 +4,42 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {space :p:27:p, comp scrollPane1:::p:965:p, space ::28:x}, seq l {space :p:113:p, comp label1:::p:73:p, space :::p, comp comboBoxSearchType:::p:177:p, space ::189:x, comp textSearchContent:::p:226:p, space u:::p, comp buttonSearchCar:::p:118:p, space :p:106:p}}"
-			"$verticalGroup": "par l {seq l {space :p:28:p, par b {comp comboBoxSearchType::b:p::p, comp label1::b:p::p, comp buttonSearchCar::b:p::p, comp textSearchContent::b:p::p}, space ::28:x, comp scrollPane1:::p:512:p, space :p:23:p}}"
+			"$horizontalGroup": "par l {seq l {par t:::p {seq t {space :p:27:p, comp scrollPane1:::p:965:p}, seq t {space :p:66:p, comp label1:::p:77:p, space :::p, comp comboBoxSearchStaffType:::p:89:p, space :::x, comp textSearchStaffContent:::p:189:p, space :::p, comp buttonSearchStaff:::p::p, space :p:108:p, comp buttonDeleteSelected:::p::p, space s:::p, comp buttonAddStaff:::p::p, space :p:34:p}}, space ::28:x}}"
+			"$verticalGroup": "par l {seq l {space :p:28:p, par b {comp textSearchStaffContent::b:p::p, comp buttonSearchStaff::b:p::p, comp comboBoxSearchStaffType::b:p::p, comp label1::b:p::p, comp buttonAddStaff::b:p::p, comp buttonDeleteSelected::b:p::p}, space ::28:x, comp scrollPane1:::p:512:p, space :p:23:p}}"
 		} ) {
 			name: "this"
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label1"
-				"text": "Search Type"
+				"text": "Search Staff"
 			} )
 			add( new FormComponent( "javax.swing.JComboBox" ) {
-				name: "comboBoxSearchType"
+				name: "comboBoxSearchStaffType"
 				"model": new javax.swing.DefaultComboBoxModel {
-					selectedItem: "ID"
-					addElement( "ID" )
-					addElement( "License" )
-					addElement( "Model" )
+					selectedItem: "Name"
+					addElement( "Name" )
+					addElement( "Staff ID" )
 				}
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textSearchContent"
+				name: "textSearchStaffContent"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "buttonSearchCar"
-				"text": "Search Car"
+				name: "buttonSearchStaff"
+				"text": "Search Staff"
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "scrollPane1"
 				add( new FormComponent( "javax.swing.JTable" ) {
-					name: "tableCarInfo"
+					name: "tableStaffInfo"
 				} )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "buttonAddStaff"
+				"text": "Add Staff"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "buttonDeleteSelected"
+				"text": "Delete Selected"
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
