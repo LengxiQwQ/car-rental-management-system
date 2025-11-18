@@ -6,6 +6,7 @@ import carrental.db.DBConnection;
 import carrental.model.Car;
 import carrental.model.Rental;
 import carrental.model.User;
+import carrental.util.TimestampUtil;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -59,7 +60,7 @@ public class RentalService {
             }
 
             conn.commit();
-            System.out.println("租车成功！车辆ID：" + rental.getCar().getCarID());
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " 租车成功！车辆ID：" + rental.getCar().getCarID());
             return true;
         } catch (SQLException e) {
             if (conn != null) {
@@ -123,7 +124,7 @@ public class RentalService {
             }
 
             conn.commit();
-            System.out.println("还车成功！总费用：" + totalFee);
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " 还车成功！总费用：" + totalFee);
             return totalFee;
         } catch (SQLException e) {
             if (conn != null) {

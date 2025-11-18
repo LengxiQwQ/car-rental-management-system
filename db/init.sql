@@ -1,6 +1,9 @@
-DROP DATABASE IF EXISTS test;
-CREATE DATABASE test;
-USE test;
+DROP DATABASE IF EXISTS Car_Rental_Management_System_DB;
+
+
+
+CREATE DATABASE Car_Rental_Management_System_DB;
+USE Car_Rental_Management_System_DB;
 
 -- -------------------------------
 -- 1. 用户表 (users)

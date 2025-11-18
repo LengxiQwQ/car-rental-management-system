@@ -7,6 +7,7 @@ package carrental.ui.LoginRegister;
 import carrental.model.User;
 import carrental.model.userRole;
 import carrental.service.AuthService;
+import carrental.util.TimestampUtil;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -179,11 +180,11 @@ public class RegisterPanel extends JPanel {
             String confirmPassword = textRegisterConfirm.getText().trim();
             // 简单验证（如果没有Validator类，可先注释或替换为基础判断）
             if (username.isEmpty() || password.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "用户名或密码不能为空");
+                JOptionPane.showMessageDialog(this, "Username or password cannot be empty");
                 return;
             }
             if (!password.equals(confirmPassword)) {
-                JOptionPane.showMessageDialog(this, "两次输入的密码不一致");
+                JOptionPane.showMessageDialog(this, "Passwords do not match");
                 return; // 终止注册
             }
 
@@ -195,10 +196,12 @@ public class RegisterPanel extends JPanel {
 
             AuthService authService = new AuthService();
             if (authService.register(user)) {
-                JOptionPane.showMessageDialog(this, "注册成功");
+                JOptionPane.showMessageDialog(this, "Registration successfully");
+                System.out.println(TimestampUtil.getCurrentTimestamp() + " User [" + username + "] registered successfully");
                 GoToLogin(e); // 传递事件参数e，匹配原有方法定义
             } else {
-                JOptionPane.showMessageDialog(this, "注册失败，用户名已存在");
+                JOptionPane.showMessageDialog(this, "Registration failed, username already exists");
+                System.out.println(TimestampUtil.getCurrentTimestamp() + " Registration failed, username [" + username + "] already exists");
             }
         });
     }
