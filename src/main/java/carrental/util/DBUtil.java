@@ -5,8 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBUtil {
-    // 请修改为你的数据库信息
-    private static final String URL = "jdbc:mysql://localhost:3306/test?useSSL=false&serverTimezone=UTC";
+    // Database connection parameters
+    private static final String URL = "jdbc:mysql://localhost:3306/Car_Rental_Management_System_DB?useSSL=false&serverTimezone=UTC";
     private static final String USER = "root";
     private static final String PASSWORD = "123456";
 

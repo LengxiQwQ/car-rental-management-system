@@ -4,6 +4,7 @@ import carrental.db.DBConnection;
 import carrental.model.Car;
 import carrental.model.Customer;
 import carrental.model.Rental;
+import carrental.util.TimestampUtil;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -104,7 +105,7 @@ public class RentalDAO {
 
                 // 如果关联对象不存在，进行错误处理或跳过
                 if (car == null || customer == null) {
-                    System.err.println("警告：租赁记录ID " + rentalId + " 关联的车辆或客户不存在，已跳过。");
+                    System.err.println(TimestampUtil.getCurrentTimestamp() + " 警告：租赁记录ID " + rentalId + " 关联的车辆或客户不存在，已跳过。");
                     continue;
                 }
 
@@ -154,7 +155,7 @@ public class RentalDAO {
                     Customer customer = customerDAO.findById(customerId);
 
                     if (car == null || customer == null) {
-                        System.err.println("警告：租赁记录ID " + rentalId + " 关联的车辆或客户不存在。");
+                        System.err.println(TimestampUtil.getCurrentTimestamp() + " 警告：租赁记录ID " + rentalId + " 关联的车辆或客户不存在。");
                         return null;
                     }
 

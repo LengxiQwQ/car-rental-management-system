@@ -4,6 +4,7 @@ import carrental.db.DBConnection;
 import carrental.model.User;
 import carrental.model.userRole;
 import carrental.util.DBUtil;
+import carrental.util.TimestampUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,13 +15,6 @@ import java.sql.SQLException;
  * 用户DAO：负责users表的CRUD操作
  */
 public class UserDAO {
-    private DBConnection dbConn; // 数据库连接对象
-
-    // 构造函数，初始化数据库连接
-    public UserDAO() {
-        this.dbConn = new DBConnection();
-    }
-
     // 根据用户名查询用户（登录核心方法）
     public User findByUsername(String username) {
         String sql = "SELECT id, username, password, role FROM users WHERE username = ?";
@@ -44,7 +38,7 @@ public class UserDAO {
             }
         } catch (SQLException e) {
             // 替换 printStackTrace 为更安全的日志记录方式（假设已有 logger）
-            System.err.println("Database error occurred while finding user by username.");
+            System.err.println(TimestampUtil.getCurrentTimestamp() + " Database error occurred while finding user by username.");
             e.printStackTrace(); // 生产环境应替换为 logger.error(e.getMessage(), e);
         }
         return null; // 未找到用户
@@ -61,7 +55,7 @@ public class UserDAO {
             int rowsAffected = pstmt.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
-            System.err.println("Failed to insert user into database.");
+            System.err.println(TimestampUtil.getCurrentTimestamp() + " Failed to insert user into database.");
             e.printStackTrace(); // 同样建议替换为日志记录
             return false;
         }
@@ -76,16 +70,14 @@ public class UserDAO {
             int rowsAffected = pstmt.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
-            System.err.println("Failed to delete user from database.");
+            System.err.println(TimestampUtil.getCurrentTimestamp() + " Failed to delete user from database.");
             e.printStackTrace(); // 同样建议替换为日志记录
             return false;
         }
     }
-    // 在现有类中添加以下两个方法（不修改原有方法）
+    
     public boolean register(User user) {
-        Connection conn = null;
-        try {
-            conn = DBUtil.getConnection();
+        try (Connection conn = DBConnection.getConnection()) {
             String sql = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, user.getUsername());
@@ -95,15 +87,11 @@ public class UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
-        } finally {
-            DBUtil.closeConnection(conn);
         }
     }
 
     public User login(String username, String password) {
-        Connection conn = null;
-        try {
-            conn = DBUtil.getConnection();
+        try (Connection conn = DBConnection.getConnection()) {
             String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, username);
@@ -113,13 +101,12 @@ public class UserDAO {
                 User user = new User();
                 user.setUserID(rs.getString("id"));
                 user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
                 user.setRole(userRole.valueOf(rs.getString("role").toLowerCase()));
                 return user;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            DBUtil.closeConnection(conn);
         }
         return null;
     }

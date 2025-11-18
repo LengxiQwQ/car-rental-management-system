@@ -155,7 +155,7 @@ public class LoginPanel extends JPanel {
 
             // 验证输入是否为空
             if (username.isEmpty() || password.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "请输入用户名和密码");
+                JOptionPane.showMessageDialog(this, "Please enter username and password");
                 return;
             }
 
@@ -164,7 +164,7 @@ public class LoginPanel extends JPanel {
             User user = authService.login(username, password);
 
             if (user == null) {
-                JOptionPane.showMessageDialog(this, "用户名或密码错误");
+                JOptionPane.showMessageDialog(this, "Invalid username or password");
                 return;
             }
 
@@ -174,14 +174,14 @@ public class LoginPanel extends JPanel {
             if ("Admin".equals(role)) {
                 // 2. 检查该用户是否真的是管理员
                 if (!authService.isAdmin(user)) {
-                    JOptionPane.showMessageDialog(this, "无管理员权限，无法以管理员身份登录");
+                    JOptionPane.showMessageDialog(this, "No administrator privileges, cannot login as administrator");
                     return;
                 }
             }
 // 如果选择的是 "Staff" 角色，则不需要额外检查，直接放行
 
             // 登录成功：关闭登录窗口，打开主面板
-            JOptionPane.showMessageDialog(this, "登录成功");
+            JOptionPane.showMessageDialog(this, "Login successfully");
             // 获取父窗口（LoginRegisterFrame）并关闭
             Window window = SwingUtilities.getWindowAncestor(this);
             if (window != null) {
@@ -190,7 +190,7 @@ public class LoginPanel extends JPanel {
             // 打开对应的主面板（根据角色判断）
             if (authService.isAdmin(user)) {
                 // 管理员面板暂未实现，显示提示信息
-                JOptionPane.showMessageDialog(null, "管理员面板尚未实现");
+                JOptionPane.showMessageDialog(null, "Administrator panel not implemented yet");
             } else {
                 // 创建并显示员工面板
                 SwingUtilities.invokeLater(() -> {
