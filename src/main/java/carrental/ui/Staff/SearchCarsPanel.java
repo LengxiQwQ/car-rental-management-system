@@ -47,6 +47,19 @@ public class SearchCarsPanel extends JPanel {
 
         //======== scrollPane1 ========
         {
+
+            //---- tableCarInfo ----
+            tableCarInfo.setModel(new DefaultTableModel(
+                new Object[][] {
+                    {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null},
+                },
+                new String[] {
+                    null, null, null, null
+                }
+            ));
             scrollPane1.setViewportView(tableCarInfo);
         }
 

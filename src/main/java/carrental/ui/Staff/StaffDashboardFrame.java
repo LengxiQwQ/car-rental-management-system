@@ -8,14 +8,18 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle;
 
 /**
  * @author LengxiQwQ
  */
-public class StaffDashboardFrame extends JFrame {
+public class StaffDashboardFrame {
     public StaffDashboardFrame() {
         initComponents();
         initEventListeners();
+        // 初始化默认主题为深色主题
+        applyTheme("Dark");
     }
 
     private void initEventListeners() {
@@ -63,11 +67,34 @@ public class StaffDashboardFrame extends JFrame {
                 toggleButtonSearchCar.setSelected(true);
             }
         });
+        
+        // 主题切换事件监听器
+        comboBoxTheme.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedTheme = (String) comboBoxTheme.getSelectedItem();
+                applyTheme(selectedTheme);
+            }
+        });
     }
 
     private void showCard(String cardName) {
         CardLayout layout = (CardLayout) cardPanel.getLayout();
         layout.show(cardPanel, cardName);
+    }
+    
+    // 应用主题的方法
+    private void applyTheme(String theme) {
+        try {
+            if ("Dark".equals(theme)) {
+                UIManager.setLookAndFeel("com.formdev.flatlaf.FlatDarkLaf");
+            } else {
+                UIManager.setLookAndFeel("com.formdev.flatlaf.FlatLightLaf");
+            }
+            SwingUtilities.updateComponentTreeUI(freamRoot);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void initComponents() {
@@ -84,6 +111,7 @@ public class StaffDashboardFrame extends JFrame {
         toggleButtonRental = new JToggleButton();
         toggleButtonAvailability = new JToggleButton();
         label1 = new JLabel();
+        comboBoxTheme = new JComboBox<>();
 
         //======== freamRoot ========
         {
@@ -118,12 +146,18 @@ public class StaffDashboardFrame extends JFrame {
                 label1.setText("Staff Dashboard");
                 label1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 26));
 
+                //---- comboBoxTheme ----
+                comboBoxTheme.setModel(new DefaultComboBoxModel<>(new String[] {
+                    "Dark",
+                    "Light"
+                }));
+
                 GroupLayout buttonPanelLayout = new GroupLayout(buttonPanel);
                 buttonPanel.setLayout(buttonPanelLayout);
                 buttonPanelLayout.setHorizontalGroup(
                     buttonPanelLayout.createParallelGroup()
                         .addGroup(GroupLayout.Alignment.TRAILING, buttonPanelLayout.createSequentialGroup()
-                            .addGap(123, 123, 123)
+                            .addGap(77, 77, 77)
                             .addComponent(label1)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(toggleButtonAvailability, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
@@ -133,6 +167,8 @@ public class StaffDashboardFrame extends JFrame {
                             .addComponent(toggleButtonSearchCar, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(toggleButtonCustomer, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(comboBoxTheme, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE)
                             .addGap(27, 27, 27))
                 );
                 buttonPanelLayout.setVerticalGroup(
@@ -142,6 +178,7 @@ public class StaffDashboardFrame extends JFrame {
                             .addGroup(buttonPanelLayout.createParallelGroup()
                                 .addComponent(label1, GroupLayout.Alignment.TRAILING)
                                 .addGroup(GroupLayout.Alignment.TRAILING, buttonPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                    .addComponent(comboBoxTheme, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
                                     .addComponent(toggleButtonCustomer, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
                                     .addComponent(toggleButtonSearchCar, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
                                     .addComponent(toggleButtonRental, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
@@ -189,10 +226,10 @@ public class StaffDashboardFrame extends JFrame {
     private JToggleButton toggleButtonRental;
     private JToggleButton toggleButtonAvailability;
     private JLabel label1;
+    private JComboBox<String> comboBoxTheme;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 
     public JFrame getFreamRoot() {
         return freamRoot;
     }
-
 }

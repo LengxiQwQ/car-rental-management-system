@@ -4,14 +4,14 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq t {space ::27:x, par l {comp label8::t:p::p, comp buttonSave::t:p:120:p, comp label9::t:p:254:p, par l:t {seq l {par t:::p {comp label2:::::x, comp label4::l:::x, comp label5::l:::x, comp label6:::::x, comp label1:::p:118:p}, space :::p, par l:::p {comp textInputEmail:::::x, comp textInputAddress:::::x, comp textInputIDCardNumber::l:::x, comp dateChooser1::l:p:133:p}}, seq t {space :p:1:p, comp label7:::p::p, space :::p, comp textInputDriverLicenseNumber:::p:133:p}}}, space s:::p, comp scrollPane1:::p:697:p, space :p:21:p}}"
-			"$verticalGroup": "par l {seq {par l {seq {space :p:19:p, comp scrollPane1:::p:571:p}, seq l {space :p:39:p, comp label9:::p::p, space :p:32:p, par l {comp label1:::p::p, comp dateChooser1:::p::p}, space :p:22:p, comp label2:::p::p, space :p:63:p, par b {comp label4::b:p::p, comp textInputIDCardNumber::b:p::p}, space :p:18:p, par b {comp label5::b:p::p, comp textInputEmail::b:p::p}, space :p:18:p, par b {comp label6::b:p::p, comp textInputAddress::b:p::p}, space :p:18:p, par b {comp label7::b:p::p, comp textInputDriverLicenseNumber::b:p::p}, space :p:107:p, comp label8:::p::p, space :p:22:p, comp buttonSave:::p:38:p}}, space ::25:x}}"
+			"$horizontalGroup": "par l {seq {par l {seq {par l {seq {space :0:30:x, par l {seq l {comp label4:::p::p, space s:::p, comp labelTotalRentals:::p::p}, seq l {comp label5:::p::p, space u:::p, comp labelAvailableCars:::p::p}, comp label9:::p:254:p}}, seq {space :0:31:x, par l:::p {comp label1::::70:x, comp label2::::70:x}, space :::p, par l {comp dateChooserToDate:::::x, comp dateChooserFromDate::::177:x}}}, space :p:18:p}, seq l {space :p:90:p, comp buttonGenerateReport:::p:120:p, space ::92:x}}, par l {seq {space :p:225:p, comp label10:::p:254:p, space :p:239:p}, seq t {comp scrollPane1:::p:671:p, space :p:26:p}}}}"
+			"$verticalGroup": "par l {seq l {space :p:27:p, par b {comp label9::b:p:31:p, comp label10::b:p::p}, par l {seq {space :p:52:p, par b {comp label4::b:p::p, comp labelTotalRentals::b:p::p}, space :p:27:p, par b {comp label5::b:p::p, comp labelAvailableCars::b:p::p}, space :p:54:p, par l {comp dateChooserFromDate::::0:x, seq {comp label1:::p:26:p, space :0:5:x}}, space :p:28:p, par l {comp dateChooserToDate:::p:26:p, comp label2:::p:26:p}, space :p:54:p, comp buttonGenerateReport:::p:38:p, space :p:211:p}, seq l {space :p:21:p, comp scrollPane1:::p:511:p, space ::25:x}}}}"
 		} ) {
 			name: "this"
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "scrollPane1"
 				add( new FormComponent( "javax.swing.JTable" ) {
-					name: "tableCustomerInfo"
+					name: "tableRentalHistory"
 					"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector {
 						add( new java.util.Vector {
 							add( null )
@@ -148,11 +148,6 @@ new FormModel {
 				} )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label8"
-				"text": "Selected Customer Details："
-				"font": new java.awt.Font( "Microsoft YaHei UI", 0, 14 )
-			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label1"
 				"text": "From date"
 			} )
@@ -160,49 +155,46 @@ new FormModel {
 				name: "label2"
 				"text": "To date"
 			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label4"
-				"text": "ID card number"
-			} )
-			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textInputIDCardNumber"
-			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label5"
-				"text": "Email address"
-			} )
-			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textInputEmail"
-			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label6"
-				"text": "Address"
-			} )
-			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textInputAddress"
-			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label7"
-				"text": "Driver license number"
-			} )
-			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textInputDriverLicenseNumber"
-			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "buttonSave"
-				"text": "Save Change"
+				name: "buttonGenerateReport"
+				"text": "Generate Report"
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label9"
 				"text": "Reports"
-				"font": new java.awt.Font( "Microsoft YaHei UI", 1, 16 )
+				"font": &Font0 new java.awt.Font( "Microsoft YaHei UI", 1, 16 )
 				"horizontalAlignment": 0
 			} )
 			add( new FormComponent( "com.toedter.calendar.JDateChooser" ) {
-				name: "dateChooser1"
+				name: "dateChooserFromDate"
+			} )
+			add( new FormComponent( "com.toedter.calendar.JDateChooser" ) {
+				name: "dateChooserToDate"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label4"
+				"text": "Total Rentals: "
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label5"
+				"text": "Available Cars: "
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "labelTotalRentals"
+				"text": "0"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "labelAvailableCars"
+				"text": "0"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label10"
+				"text": "Rental History"
+				"font": #Font0
+				"horizontalAlignment": 0
 			} )
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 0, 0 )
+			"location": new java.awt.Point( 0, 5 )
 			"size": new java.awt.Dimension( 1020, 615 )
 		} )
 	}

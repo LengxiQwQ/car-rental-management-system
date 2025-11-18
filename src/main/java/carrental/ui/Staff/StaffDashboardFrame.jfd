@@ -34,8 +34,8 @@ new FormModel {
 				} )
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-				"$horizontalGroup": "par l {seq t {space :p:123:p, comp label1:::p::p, space :::x, comp toggleButtonAvailability:::p:130:p, space s:::p, comp toggleButtonRental:::p:130:p, space s:::p, comp toggleButtonSearchCar:::p:130:p, space s:::p, comp toggleButtonCustomer:::p:130:p, space :p:27:p}}"
-				"$verticalGroup": "par l {seq {space :0:10:x, par l {comp label1::t:p::p, par b:t {comp toggleButtonCustomer::b:p:41:p, comp toggleButtonSearchCar::b:p:41:p, comp toggleButtonRental::b:p:41:p, comp toggleButtonAvailability::b:p:41:p}}}}"
+				"$horizontalGroup": "par l {seq t {space :p:77:p, comp label1:::p::p, space :::x, comp toggleButtonAvailability:::p:130:p, space s:::p, comp toggleButtonRental:::p:130:p, space s:::p, comp toggleButtonSearchCar:::p:130:p, space s:::p, comp toggleButtonCustomer:::p:130:p, space s:::p, comp comboBoxTheme:::p:68:p, space :p:27:p}}"
+				"$verticalGroup": "par l {seq {space :0:10:x, par l {comp label1::t:p::p, par b:t {comp comboBoxTheme::b:p:37:p, comp toggleButtonCustomer::b:p:41:p, comp toggleButtonSearchCar::b:p:41:p, comp toggleButtonRental::b:p:41:p, comp toggleButtonAvailability::b:p:41:p}}}}"
 			} ) {
 				name: "buttonPanel"
 				add( new FormComponent( "javax.swing.JToggleButton" ) {
@@ -58,6 +58,14 @@ new FormModel {
 					name: "label1"
 					"text": "Staff Dashboard"
 					"font": new java.awt.Font( "Microsoft YaHei UI", 1, 26 )
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "comboBoxTheme"
+					"model": new javax.swing.DefaultComboBoxModel {
+						selectedItem: "Dark"
+						addElement( "Dark" )
+						addElement( "Light" )
+					}
 				} )
 			} )
 		}, new FormLayoutConstraints( null ) {

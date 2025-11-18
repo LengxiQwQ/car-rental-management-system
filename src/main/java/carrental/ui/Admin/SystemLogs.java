@@ -4,10 +4,12 @@
 
 package carrental.ui.Admin;
 
+import java.awt.*;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle;
 import javax.swing.table.*;
+import com.toedter.calendar.*;
 
 /**
  * @author LengxiQwQ
@@ -20,48 +22,26 @@ public class SystemLogs extends JPanel {
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         label1 = new JLabel();
-        comboBoxRentalCustomer = new JComboBox();
-        label3 = new JLabel();
-        comboBoxRentalStartDate = new JComboBox();
+        comboBoxFilterbyUser = new JComboBox();
         label2 = new JLabel();
-        comboBoxRentalCar = new JComboBox();
-        label4 = new JLabel();
-        comboBoxRentalEndDate = new JComboBox();
-        buttonRentalAdd = new JButton();
-        buttonRentalReturn = new JButton();
-        label5 = new JLabel();
-        textComment = new JTextField();
         scrollPane1 = new JScrollPane();
-        table1 = new JTable();
+        tableLogRecords = new JTable();
+        dateChooserFilterbyDate = new JDateChooser();
+        label10 = new JLabel();
 
         //======== this ========
 
         //---- label1 ----
-        label1.setText("Customer");
-
-        //---- label3 ----
-        label3.setText("Start Date");
+        label1.setText("Filter by User");
 
         //---- label2 ----
-        label2.setText("Car");
-
-        //---- label4 ----
-        label4.setText("End Date");
-
-        //---- buttonRentalAdd ----
-        buttonRentalAdd.setText("Add Rental");
-
-        //---- buttonRentalReturn ----
-        buttonRentalReturn.setText("Return Car");
-
-        //---- label5 ----
-        label5.setText("Comment");
+        label2.setText("Filter by Date");
 
         //======== scrollPane1 ========
         {
 
-            //---- table1 ----
-            table1.setModel(new DefaultTableModel(
+            //---- tableLogRecords ----
+            tableLogRecords.setModel(new DefaultTableModel(
                 new Object[][] {
                     {null, null, null, null, null},
                     {null, null, null, null, null},
@@ -74,40 +54,30 @@ public class SystemLogs extends JPanel {
                     null, null, null, null, null
                 }
             ));
-            scrollPane1.setViewportView(table1);
+            scrollPane1.setViewportView(tableLogRecords);
         }
+
+        //---- label10 ----
+        label10.setText("Log Records");
+        label10.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 16));
+        label10.setHorizontalAlignment(SwingConstants.CENTER);
 
         GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup()
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(66, 66, 66)
-                    .addGroup(layout.createParallelGroup()
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                            .addComponent(label2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(label1, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE))
-                        .addComponent(label5, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE))
+                    .addGap(67, 67, 67)
+                    .addComponent(label1, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
                     .addGap(18, 18, 18)
-                    .addGroup(layout.createParallelGroup()
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup()
-                                .addComponent(comboBoxRentalCustomer, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(comboBoxRentalCar, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE))
-                            .addGap(60, 60, 60)
-                            .addGroup(layout.createParallelGroup()
-                                .addComponent(label3, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(label4, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(layout.createParallelGroup()
-                                .addComponent(comboBoxRentalStartDate, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(comboBoxRentalEndDate, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
-                            .addComponent(buttonRentalAdd, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
-                            .addGap(71, 71, 71)
-                            .addComponent(buttonRentalReturn, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE))
-                        .addComponent(textComment, GroupLayout.DEFAULT_SIZE, 798, Short.MAX_VALUE))
-                    .addGap(65, 65, 65))
+                    .addComponent(comboBoxFilterbyUser, GroupLayout.PREFERRED_SIZE, 189, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                    .addComponent(label10, GroupLayout.PREFERRED_SIZE, 254, GroupLayout.PREFERRED_SIZE)
+                    .addGap(24, 24, 24)
+                    .addComponent(label2, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(dateChooserFilterbyDate, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
+                    .addGap(82, 82, 82))
                 .addGroup(layout.createSequentialGroup()
                     .addGap(23, 23, 23)
                     .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 968, GroupLayout.PREFERRED_SIZE)
@@ -116,36 +86,15 @@ public class SystemLogs extends JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup()
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(17, 17, 17)
-                    .addGroup(layout.createParallelGroup()
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonRentalReturn, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonRentalAdd, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(comboBoxRentalCustomer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(label1))
-                            .addGap(5, 5, 5)
-                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(comboBoxRentalCar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(label2)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(label3)
-                                .addComponent(comboBoxRentalStartDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addGap(5, 5, 5)
-                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(label4)
-                                .addComponent(comboBoxRentalEndDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createParallelGroup()
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(15, 15, 15)
-                            .addComponent(textComment, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(18, 18, 18)
-                            .addComponent(label5)))
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                    .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 453, GroupLayout.PREFERRED_SIZE)
+                    .addGap(25, 25, 25)
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE, false)
+                        .addComponent(label1)
+                        .addComponent(label10)
+                        .addComponent(comboBoxFilterbyUser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dateChooserFilterbyDate, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                        .addComponent(label2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGap(18, 18, 18)
+                    .addComponent(scrollPane1, GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
                     .addGap(24, 24, 24))
         );
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
@@ -153,18 +102,11 @@ public class SystemLogs extends JPanel {
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     private JLabel label1;
-    private JComboBox comboBoxRentalCustomer;
-    private JLabel label3;
-    private JComboBox comboBoxRentalStartDate;
+    private JComboBox comboBoxFilterbyUser;
     private JLabel label2;
-    private JComboBox comboBoxRentalCar;
-    private JLabel label4;
-    private JComboBox comboBoxRentalEndDate;
-    private JButton buttonRentalAdd;
-    private JButton buttonRentalReturn;
-    private JLabel label5;
-    private JTextField textComment;
     private JScrollPane scrollPane1;
-    private JTable table1;
+    private JTable tableLogRecords;
+    private JDateChooser dateChooserFilterbyDate;
+    private JLabel label10;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

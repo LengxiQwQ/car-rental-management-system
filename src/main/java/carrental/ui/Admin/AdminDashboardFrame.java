@@ -18,6 +18,8 @@ public class AdminDashboardFrame {
     public AdminDashboardFrame() {
         initComponents();
         initEventListeners();
+        // 初始化默认主题为深色主题
+        applyTheme("Dark");
     }
 
     private void initEventListeners() {
@@ -34,7 +36,7 @@ public class AdminDashboardFrame {
         });
 
         toggleButtonManageCars.addActionListener(new ActionListener() {
-            @Override
+            @Override  // 重写父类的actionPerformed方法，处理按钮点击事件
             public void actionPerformed(ActionEvent e) {
                 showCard("card2");
                 toggleButtonManageStaff.setSelected(false);
@@ -65,11 +67,34 @@ public class AdminDashboardFrame {
                 toggleButtonSystemLogs.setSelected(true);
             }
         });
+        
+        // 主题切换事件监听器
+        comboBoxTheme.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedTheme = (String) comboBoxTheme.getSelectedItem();
+                applyTheme(selectedTheme);
+            }
+        });
     }
 
     private void showCard(String cardName) {
         CardLayout layout = (CardLayout) cardPanel.getLayout();
         layout.show(cardPanel, cardName);
+    }
+    
+    // 应用主题的方法
+    private void applyTheme(String theme) {
+        try {
+            if ("Dark".equals(theme)) {
+                UIManager.setLookAndFeel("com.formdev.flatlaf.FlatDarkLaf");
+            } else {
+                UIManager.setLookAndFeel("com.formdev.flatlaf.FlatLightLaf");
+            }
+            SwingUtilities.updateComponentTreeUI(freamRoot);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void initComponents() {
@@ -83,8 +108,10 @@ public class AdminDashboardFrame {
         buttonPanel = new JPanel();
         toggleButtonManageStaff = new JToggleButton();
         toggleButtonManageCars = new JToggleButton();
-        toggleButtonReports = new JToggleButton();
         toggleButtonSystemLogs = new JToggleButton();
+        toggleButtonReports = new JToggleButton();
+        label1 = new JLabel();
+        comboBoxTheme = new JComboBox<>();
 
         //======== freamRoot ========
         {
@@ -109,36 +136,54 @@ public class AdminDashboardFrame {
                 //---- toggleButtonManageCars ----
                 toggleButtonManageCars.setText("Manage Cars");
 
+                //---- toggleButtonSystemLogs ----
+                toggleButtonSystemLogs.setText("System Logs");
+
                 //---- toggleButtonReports ----
                 toggleButtonReports.setText("Reports");
 
-                //---- toggleButtonSystemLogs ----
-                toggleButtonSystemLogs.setText("System Logs");
+                //---- label1 ----
+                label1.setText("Admin Dashboard");
+                label1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 26));
+
+                //---- comboBoxTheme ----
+                comboBoxTheme.setModel(new DefaultComboBoxModel<>(new String[] {
+                    "Dark",
+                    "Light"
+                }));
 
                 GroupLayout buttonPanelLayout = new GroupLayout(buttonPanel);
                 buttonPanel.setLayout(buttonPanelLayout);
                 buttonPanelLayout.setHorizontalGroup(
                     buttonPanelLayout.createParallelGroup()
                         .addGroup(buttonPanelLayout.createSequentialGroup()
-                            .addGap(22, 22, 22)
-                            .addComponent(toggleButtonManageStaff, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(label1)
+                            .addGap(56, 56, 56)
+                            .addComponent(toggleButtonManageStaff, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(toggleButtonManageCars, GroupLayout.PREFERRED_SIZE, 234, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(toggleButtonManageCars, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(toggleButtonReports, GroupLayout.PREFERRED_SIZE, 232, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(toggleButtonReports, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(toggleButtonSystemLogs, GroupLayout.PREFERRED_SIZE, 220, GroupLayout.PREFERRED_SIZE)
-                            .addContainerGap())
+                            .addComponent(toggleButtonSystemLogs, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(comboBoxTheme, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE)
+                            .addGap(30, 30, 30))
                 );
                 buttonPanelLayout.setVerticalGroup(
                     buttonPanelLayout.createParallelGroup()
                         .addGroup(buttonPanelLayout.createSequentialGroup()
                             .addContainerGap()
-                            .addGroup(buttonPanelLayout.createParallelGroup()
-                                .addComponent(toggleButtonManageStaff, GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                                .addComponent(toggleButtonManageCars, GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                                .addComponent(toggleButtonReports, GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                                .addComponent(toggleButtonSystemLogs, GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)))
+                            .addGroup(buttonPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                .addGroup(buttonPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                    .addComponent(comboBoxTheme, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(toggleButtonSystemLogs, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(toggleButtonReports, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(toggleButtonManageCars, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(toggleButtonManageStaff, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE))
+                                .addComponent(label1))
+                            .addContainerGap())
                 );
             }
 
@@ -158,7 +203,7 @@ public class AdminDashboardFrame {
             freamRootContentPaneLayout.setVerticalGroup(
                 freamRootContentPaneLayout.createParallelGroup()
                     .addGroup(freamRootContentPaneLayout.createSequentialGroup()
-                        .addComponent(buttonPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonPanel, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cardPanel, GroupLayout.PREFERRED_SIZE, 614, GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
@@ -179,8 +224,10 @@ public class AdminDashboardFrame {
     private JPanel buttonPanel;
     private JToggleButton toggleButtonManageStaff;
     private JToggleButton toggleButtonManageCars;
-    private JToggleButton toggleButtonReports;
     private JToggleButton toggleButtonSystemLogs;
+    private JToggleButton toggleButtonReports;
+    private JLabel label1;
+    private JComboBox<String> comboBoxTheme;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 
     public JFrame getFreamRoot(){

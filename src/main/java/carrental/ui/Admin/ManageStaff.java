@@ -7,6 +7,7 @@ package carrental.ui.Admin;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle;
+import javax.swing.table.*;
 
 /**
  * @author LengxiQwQ
@@ -43,6 +44,19 @@ public class ManageStaff extends JPanel {
 
         //======== scrollPane1 ========
         {
+
+            //---- tableStaffInfo ----
+            tableStaffInfo.setModel(new DefaultTableModel(
+                new Object[][] {
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                },
+                new String[] {
+                    null, null, null, null, null
+                }
+            ));
             scrollPane1.setViewportView(tableStaffInfo);
         }
 

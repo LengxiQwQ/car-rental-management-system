@@ -5,7 +5,7 @@ new FormModel {
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
 			"$horizontalGroup": "par l {seq {space :::p, par l {comp buttonPanel:::::x, seq t {space :0:0:x, comp cardPanel:::p:1018:p}}, space :::p}}"
-			"$verticalGroup": "par l {seq {comp buttonPanel:::p::p, space :::x, comp cardPanel:::p:614:p, space :::p}}"
+			"$verticalGroup": "par l {seq {comp buttonPanel:::p:47:p, space :::x, comp cardPanel:::p:614:p, space :::p}}"
 		} ) {
 			name: "freamRoot"
 			"$locationPolicy": 1
@@ -34,8 +34,8 @@ new FormModel {
 				} )
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-				"$horizontalGroup": "par l {seq l {space :p:22:p, comp toggleButtonManageStaff:::p:233:p, space s:::p, comp toggleButtonManageCars:::p:234:p, space s:::p, comp toggleButtonReports:::p:232:p, space s:::p, comp toggleButtonSystemLogs:::p:220:p, space :::p}}"
-				"$verticalGroup": "par l {seq l {space :::p, par l {comp toggleButtonManageStaff::l::41:x, comp toggleButtonManageCars::l::41:x, comp toggleButtonReports::l::41:x, comp toggleButtonSystemLogs::l::41:x}}}"
+				"$horizontalGroup": "par l {seq l {space :::x, comp label1:::p::p, space :p:56:p, comp toggleButtonManageStaff:::p:130:p, space s:::p, comp toggleButtonManageCars:::p:130:p, space s:::p, comp toggleButtonReports:::p:130:p, space s:::p, comp toggleButtonSystemLogs:::p:130:p, space s:::p, comp comboBoxTheme:::p:68:p, space :p:30:p}}"
+				"$verticalGroup": "par l {seq l {space :::p, par t {par b {comp comboBoxTheme::b:p:37:p, comp toggleButtonSystemLogs::b:p:41:p, comp toggleButtonReports::b:p:39:p, comp toggleButtonManageCars::b:p:41:p, comp toggleButtonManageStaff::b:p:41:p}, comp label1:::p::p}, space :::p}}"
 			} ) {
 				name: "buttonPanel"
 				add( new FormComponent( "javax.swing.JToggleButton" ) {
@@ -47,12 +47,25 @@ new FormModel {
 					"text": "Manage Cars"
 				} )
 				add( new FormComponent( "javax.swing.JToggleButton" ) {
+					name: "toggleButtonSystemLogs"
+					"text": "System Logs"
+				} )
+				add( new FormComponent( "javax.swing.JToggleButton" ) {
 					name: "toggleButtonReports"
 					"text": "Reports"
 				} )
-				add( new FormComponent( "javax.swing.JToggleButton" ) {
-					name: "toggleButtonSystemLogs"
-					"text": "System Logs"
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label1"
+					"text": "Admin Dashboard"
+					"font": new java.awt.Font( "Microsoft YaHei UI", 1, 26 )
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "comboBoxTheme"
+					"model": new javax.swing.DefaultComboBoxModel {
+						selectedItem: "Dark"
+						addElement( "Dark" )
+						addElement( "Light" )
+					}
 				} )
 			} )
 		}, new FormLayoutConstraints( null ) {
