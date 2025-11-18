@@ -165,6 +165,5 @@ CREATE TABLE IF NOT EXISTS system_logs (
     operation_type VARCHAR(50) NOT NULL,
     operation_details TEXT NOT NULL,
     operation_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    ip_address VARCHAR(50),
     result VARCHAR(20) NOT NULL
     );

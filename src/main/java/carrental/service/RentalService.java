@@ -19,6 +19,7 @@ import java.util.List;
 public class RentalService {
     private final RentalDAO rentalDAO = new RentalDAO();
     private final CarDAO carDAO = new CarDAO();
+    private final LogService logService = new LogService();
 
     // 获取所有租赁记录
     public List<Rental> getAllRentals() throws SQLException {
@@ -61,6 +62,11 @@ public class RentalService {
 
             conn.commit();
             System.out.println(TimestampUtil.getCurrentTimestamp() + " 租车成功！车辆ID：" + rental.getCar().getCarID());
+            
+            // 记录系统日志
+            logService.recordLog(operator.getUsername(), "租车", "成功租车，车辆ID：" + rental.getCar().getCarID() + 
+                                "，客户ID：" + rental.getCustomer().getCustomerID(), true);
+            
             return true;
         } catch (SQLException e) {
             if (conn != null) {
@@ -71,6 +77,10 @@ public class RentalService {
                 }
             }
             e.printStackTrace();
+            
+            // 记录系统日志
+            logService.recordLog(operator.getUsername(), "租车", "租车失败：" + e.getMessage(), false);
+            
             throw new RuntimeException("租车失败：" + e.getMessage());
         } finally {
             DBConnection.closeConnection(conn);
@@ -125,6 +135,11 @@ public class RentalService {
 
             conn.commit();
             System.out.println(TimestampUtil.getCurrentTimestamp() + " 还车成功！总费用：" + totalFee);
+            
+            // 记录系统日志
+            logService.recordLog(operator.getUsername(), "还车", "成功还车，租车记录ID：" + rentalId + 
+                                "，总费用：" + totalFee, true);
+            
             return totalFee;
         } catch (SQLException e) {
             if (conn != null) {
@@ -135,6 +150,10 @@ public class RentalService {
                 }
             }
             e.printStackTrace();
+            
+            // 记录系统日志
+            logService.recordLog(operator.getUsername(), "还车", "还车失败：" + e.getMessage(), false);
+            
             throw new RuntimeException("还车失败：" + e.getMessage());
         } finally {
             DBConnection.closeConnection(conn);

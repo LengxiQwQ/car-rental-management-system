@@ -9,6 +9,7 @@ import java.util.List;
 public class CarService {
     // 依赖CarDAO（需要你创建对应的CarDAO类）
     private CarDAO carDAO = new CarDAO();
+    private final LogService logService = new LogService();
 
     /**
      * 获取所有车辆
@@ -75,6 +76,15 @@ public class CarService {
         if (carId == null || newStatus == null) {
             return false;
         }
-        return carDAO.updateStatus(carId, newStatus);
+        
+        boolean result = carDAO.updateStatus(carId, newStatus);
+        
+        if (result) {
+            logService.recordLog("系统", "更新车辆状态", "成功更新车辆状态，车辆ID：" + carId + "，新状态：" + newStatus, true);
+        } else {
+            logService.recordLog("系统", "更新车辆状态", "更新车辆状态失败，车辆ID：" + carId + "，新状态：" + newStatus, false);
+        }
+        
+        return result;
     }
 }

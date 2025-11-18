@@ -8,17 +8,14 @@ public class SystemLog {
     private String operationType;
     private String operationDetails;
     private LocalDateTime operationTime;
-    private String ipAddress;
     private String result;
 
     // 构造方法
-    public SystemLog(String username, String operationType, String operationDetails,
-                     String ipAddress, String result) {
+    public SystemLog(String username, String operationType, String operationDetails, String result) {
         this.username = username;
         this.operationType = operationType;
         this.operationDetails = operationDetails;
         this.operationTime = LocalDateTime.now();
-        this.ipAddress = ipAddress;
         this.result = result;
     }
 
@@ -52,12 +49,6 @@ public class SystemLog {
     }
     public void setOperationTime(LocalDateTime operationTime) {
         this.operationTime = operationTime;
-    }
-    public String getIpAddress() {
-        return ipAddress;
-    }
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
     }
     public String getResult() {
         return result;

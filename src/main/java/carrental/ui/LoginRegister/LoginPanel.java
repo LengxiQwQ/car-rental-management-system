@@ -8,7 +8,7 @@ import carrental.model.User;
 import carrental.service.AuthService;
 import carrental.service.LogService;
 import carrental.ui.Staff.StaffDashboardFrame;
-import carrental.util.IPUtil;
+
 
 import java.awt.*;
 import java.awt.event.*;
@@ -220,8 +220,7 @@ public class LoginPanel extends JPanel {
                     username,
                     "用户登录",
                     "登录成功，角色: " + user.getRole(),
-                    IPUtil.getLocalIp(),  // 桌面应用用这个
-                    // IPUtil.getClientIp(request),  // Web应用用这个
+
                     true
             );
         } else {
@@ -230,7 +229,7 @@ public class LoginPanel extends JPanel {
                     username,
                     "用户登录",
                     "登录失败，用户名或密码错误",
-                    IPUtil.getLocalIp(),
+
                     false
             );
         }

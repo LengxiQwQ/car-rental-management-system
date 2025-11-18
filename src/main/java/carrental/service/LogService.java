@@ -9,13 +9,11 @@ public class LogService {
     private LogDAO logDAO = new LogDAO();
 
     // 记录日志（通用方法）
-    public void recordLog(String username, String operationType, String details,
-                          String ipAddress, boolean success) {
+    public void recordLog(String username, String operationType, String details, boolean success) {
         SystemLog log = new SystemLog(
                 username,
                 operationType,
                 details,
-                ipAddress,
                 success ? "成功" : "失败"
         );
         logDAO.insert(log);

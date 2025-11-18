@@ -13,7 +13,7 @@ import carrental.model.Customer;
 import carrental.model.SystemLog;
 import carrental.service.CustomerService;
 import carrental.service.LogService;
-import carrental.util.IPUtil;
+
 import com.jgoodies.forms.factories.*;
 import com.jgoodies.forms.layout.*;
 
@@ -342,7 +342,7 @@ public class CustomerPanel extends JPanel {
                     currentUser.getUsername(),
                     "客户管理",
                     (isNew ? "新增" : "更新") + "客户ID: " + customer.getCustomerID(),
-                    IPUtil.getLocalIp(),
+
                     true
             );
         }

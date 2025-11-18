@@ -12,8 +12,8 @@ public class LogDAO {
     // 插入日志记录
     public boolean insert(SystemLog log) {
         String sql = "INSERT INTO system_logs " +
-                "(username, operation_type, operation_details, operation_time, ip_address, result) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+                "(username, operation_type, operation_details, operation_time, result) " +
+                "VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -22,8 +22,7 @@ public class LogDAO {
             pstmt.setString(2, log.getOperationType());
             pstmt.setString(3, log.getOperationDetails());
             pstmt.setTimestamp(4, Timestamp.valueOf(log.getOperationTime()));
-            pstmt.setString(5, log.getIpAddress());
-            pstmt.setString(6, log.getResult());
+            pstmt.setString(5, log.getResult());
 
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -46,7 +45,6 @@ public class LogDAO {
                         rs.getString("username"),
                         rs.getString("operation_type"),
                         rs.getString("operation_details"),
-                        rs.getString("ip_address"),
                         rs.getString("result")
                 );
                 log.setLogId(rs.getInt("log_id"));
@@ -75,7 +73,6 @@ public class LogDAO {
         }
         sql.append(" ORDER BY operation_time DESC");
 
-        DBConnection DBConnection = new DBConnection();
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql.toString())) {
 
@@ -96,7 +93,6 @@ public class LogDAO {
                             rs.getString("username"),
                             rs.getString("operation_type"),
                             rs.getString("operation_details"),
-                            rs.getString("ip_address"),
                             rs.getString("result")
                     );
                     log.setLogId(rs.getInt("log_id"));

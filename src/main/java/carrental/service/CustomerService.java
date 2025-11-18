@@ -8,6 +8,7 @@ import java.util.List;
 public class CustomerService {
     // 依赖注入DAO层（直接使用你已有的CustomerDAO）
     private CustomerDAO customerDAO = new CustomerDAO();
+    private final LogService logService = new LogService();
 
     /**
      * 获取所有客户（从数据库查询）
@@ -39,12 +40,26 @@ public class CustomerService {
             return false;
         }
 
-        // 调用DAO层：存在ID则更新，否则新增
-        if (customerDAO.findById(customer.getCustomerID()) != null) {
-            return customerDAO.update(customer);
+        boolean isUpdate = customerDAO.findById(customer.getCustomerID()) != null;
+        boolean result;
+        
+        if (isUpdate) {
+            result = customerDAO.update(customer);
+            if (result) {
+                logService.recordLog("系统", "更新客户", "成功更新客户信息，客户ID：" + customer.getCustomerID(), true);
+            } else {
+                logService.recordLog("系统", "更新客户", "更新客户信息失败，客户ID：" + customer.getCustomerID(), false);
+            }
         } else {
-            return customerDAO.insert(customer);
+            result = customerDAO.insert(customer);
+            if (result) {
+                logService.recordLog("系统", "新增客户", "成功添加新客户，客户ID：" + customer.getCustomerID(), true);
+            } else {
+                logService.recordLog("系统", "新增客户", "添加新客户失败，客户ID：" + customer.getCustomerID(), false);
+            }
         }
+        
+        return result;
     }
 
     /**

@@ -10,7 +10,7 @@ import javax.swing.table.*;
 
 import carrental.model.*;
 import carrental.service.LogService;
-import carrental.util.IPUtil;
+
 import com.jgoodies.forms.factories.*;
 import com.jgoodies.forms.layout.*;
 import java.awt.event.ActionEvent;
@@ -382,7 +382,7 @@ public class ManageRentalsPanel extends JPanel {
                     "租赁车辆ID: " + selectedCar.getCarID() +
                             ", 客户ID: " + selectedCustomer.getCustomerID() +
                             ", 租期: " + startDate + "至" + endDate,
-                    IPUtil.getLocalIp(),
+
                     true
             );
         }
