@@ -6,7 +6,7 @@ import java.time.temporal.ChronoUnit;
 // 租借信息类，表示一次车辆租借记录
 public class Rental {
     // 租借记录ID
-    private static int rentalID;
+    private int rentalID;
     // 客户信息
     private Customer customer;
     // 车辆信息
@@ -116,7 +116,7 @@ public class Rental {
 
 
     // Getter和Setter方法
-    public static int getRentalID() {
+    public int getRentalID() {
         return rentalID;
     }
 

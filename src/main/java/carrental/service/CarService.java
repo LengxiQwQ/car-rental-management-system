@@ -3,6 +3,7 @@ package carrental.service;
 import carrental.dao.CarDAO;
 import carrental.model.Car;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 
 public class CarService {
@@ -37,12 +38,13 @@ public class CarService {
     /**
      * 根据车辆ID查询
      */
+    // 在 CarService 类中
     public List<Car> getCarById(String id) throws SQLException {
         if (id == null || id.trim().isEmpty()) {
-            return List.of(); // 返回空列表
+            return Collections.emptyList();
         }
-        Car car = carDAO.findById(id);
-        return car != null ? List.of(car) : List.of();
+        Car car = carDAO.findById(id); // 调用 DAO 层根据ID查询单辆车
+        return car != null ? Collections.singletonList(car) : Collections.emptyList();
     }
 
     /**

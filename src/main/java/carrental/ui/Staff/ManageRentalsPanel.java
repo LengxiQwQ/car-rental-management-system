@@ -4,15 +4,20 @@
 
 package carrental.ui.Staff;
 
+// import javax.security.auth.login.LoginContext; // 移除错误的导入
 import javax.swing.*;
 import javax.swing.table.*;
 
 import carrental.model.Rental;
+import carrental.model.User;
 import com.jgoodies.forms.factories.*;
 import com.jgoodies.forms.layout.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.math.BigDecimal;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -186,6 +191,7 @@ public class ManageRentalsPanel extends JPanel {
         buttonRentalAdd.addActionListener(e -> addRental());
         buttonRentalReturn.addActionListener(e -> returnCar());
     }
+
     // 加载客户到下拉框
     private void loadCustomersToCombo() {
         new SwingWorker<List<Customer>, Void>() {
@@ -236,6 +242,7 @@ public class ManageRentalsPanel extends JPanel {
             }
         }.execute();
     }
+
     // 加载租赁记录
     private void loadRentals() {
         new SwingWorker<List<Rental>, Void>() {
@@ -248,8 +255,38 @@ public class ManageRentalsPanel extends JPanel {
 
             @Override
             protected void done() {
-                // 填充表格，类似客户面板的实现
+                try {
+                    List<Rental> rentals = get(); // 获取后台线程返回的租赁记录列表
+                    DefaultTableModel model = (DefaultTableModel) table1.getModel();
+
+                    // 设置表格列名（根据实际需要调整）
+                    model.setColumnIdentifiers(new String[]{
+                            "租赁ID", "客户姓名", "车辆型号", "开始日期", "预计归还日期",
+                            "实际归还日期", "状态", "总费用"
+                    });
+
+                    model.setRowCount(0); // 清空表格现有数据
+
+                    // 填充数据到表格
+                    for (Rental rental : rentals) {
+                        model.addRow(new Object[]{
+                                rental.getRentalID(),
+                                rental.getCustomer().getcustomerName(), // 需确保Customer有getcustomerName()方法
+                                rental.getCar().getModel(), // 需确保Car有getModel()方法
+                                rental.getStartDate(),
+                                rental.getExpectedReturnDate(),
+                                rental.getActualReturnDate(),
+                                rental.getStatus(),
+                                rental.getTotalCost()
+                        });
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(ManageRentalsPanel.this,
+                            "加载租赁记录失败: " + ex.getMessage());
+                    ex.printStackTrace();
+                }
             }
+                // 填充表格，类似客户面板的实现
         }.execute();
     }
 
@@ -258,15 +295,14 @@ public class ManageRentalsPanel extends JPanel {
         String customerInfo = (String) comboBoxRentalCustomer.getSelectedItem();
         String carInfo = (String) comboBoxRentalCar.getSelectedItem();
         // 修复了日期处理逻辑
-        LocalDate startDate = LocalDate.now();
-        LocalDate endDate = LocalDate.now().plusDays(7); // 默认租期7天
+        LocalDate startDate = getStartDate();
+        LocalDate endDate = getEndDate(); // 租期
 
         // 解析ID（从"ID - 名称"格式中提取）
         String customerId = customerInfo.split(" - ")[0];
         String carId = carInfo.split(" - ")[0];
 
         // 由于Rental类没有提供直接设置ID的方法，我们需要通过其他方式设置
-        Rental rental = new Rental();
         // 注释掉无法使用的方法调用
         /*
         rental.setCustomerId(customerId);
@@ -275,23 +311,107 @@ public class ManageRentalsPanel extends JPanel {
         rental.setEndDate(endDate);
         rental.setComment(textComment.getText());
         */
+        // 1. 校验输入
+        Customer selectedCustomer = null;
+        try {
+            selectedCustomer = getSelectedCustomer();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        Car selectedCar = null;
+        try {
+            selectedCar = getSelectedCar();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
-        new SwingWorker<Boolean, Void>() {
-            @Override
-            protected Boolean doInBackground() throws Exception {
-                // 修复了方法调用
-                RentalService rentalService = new RentalService();
-                return rentalService.addRental(rental);
-            }
+        if (selectedCustomer == null || selectedCar == null || startDate == null || endDate == null) {
+            JOptionPane.showMessageDialog(this, "请填写完整信息");
+            return;
+        }
 
-            @Override
-            protected void done() {
-                // 处理结果，刷新表格
+        if (startDate.isAfter(endDate)) {
+            JOptionPane.showMessageDialog(this, "结束日期不能早于开始日期");
+            return;
+        }
+
+        // 2. 构建Rental对象
+        Rental rental = new Rental();
+        rental.setCustomer(selectedCustomer);
+        rental.setCar(selectedCar);
+        rental.setStartDate(startDate);
+        rental.setExpectedReturnDate(endDate);
+        
+        // 获取当前登录员工信息
+        User currentStaff = getCurrentStaff();
+        if (currentStaff != null) {
+            try {
+                // 将用户ID字符串转换为整数
+                int staffId = Integer.parseInt(currentStaff.getUserID());
+                rental.setStaffId(staffId);
+            } catch (NumberFormatException e) {
+                // 如果转换失败，使用默认值1
+                rental.setStaffId(1);
             }
-        }.execute();
+        } else {
+            // 如果没有获取到员工信息，使用默认值1
+            rental.setStaffId(1);
+        }
+
+        // 3. 调用服务层保存
+        try {
+            RentalService rentalService = new RentalService();
+            boolean success = rentalService.checkoutCar(rental, currentStaff);
+
+            if (success) {
+                JOptionPane.showMessageDialog(this, "租车记录添加成功");
+                loadRentals(); // 刷新表格
+            } else {
+                JOptionPane.showMessageDialog(this, "添加失败");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "添加失败：" + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
-    // 还车操作
+    // 辅助方法：从下拉框获取选中的客户
+    private Customer getSelectedCustomer() throws SQLException {
+        String selectedItem = (String) comboBoxRentalCustomer.getSelectedItem();
+        if (selectedItem == null) return null;
+        String customerId = selectedItem.split(" - ")[0]; // 提取客户ID
+        return new CustomerService().getCustomerById(customerId); // 需CustomerService实现此方法
+    }
+
+    // 辅助方法：从下拉框获取选中的车辆
+    private Car getSelectedCar() throws SQLException {
+        String selectedItem = (String) comboBoxRentalCar.getSelectedItem();
+        if (selectedItem == null) return null;
+        String carId = selectedItem.split(" - ")[0]; // 假设格式为"ID - 型号"
+        List<Car> cars = new CarService().getCarById(carId);
+        return cars.isEmpty() ? null : cars.get(0); // 获取列表中的第一个车辆
+    }
+
+    // 辅助方法：转换日期选择器的日期为LocalDate
+    private LocalDate getStartDate() {
+        Date date = dateChooserStartDate.getDate();
+        return date != null ? date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null;
+    }
+
+    private LocalDate getEndDate() {
+        Date date = dateChooserEndDate.getDate();
+        return date != null ? date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null;
+    }
+
+    // 辅助方法：获取当前登录员工（需根据实际登录逻辑实现）
+    private User getCurrentStaff() {
+        // 示例：创建一个临时用户对象，实际应从登录状态获取
+        User staff = new User();
+        staff.setUserID("1"); // 使用默认员工ID
+        staff.setUsername("staff"); // 默认用户名
+        // 实际项目中应替换为真实的登录用户获取逻辑
+        return staff;
+    }
     private void returnCar() {
         int selectedRow = table1.getSelectedRow();
         if (selectedRow == -1) {
@@ -299,18 +419,18 @@ public class ManageRentalsPanel extends JPanel {
             return;
         }
         String rentalId = table1.getValueAt(selectedRow, 0).toString();
-
-        new SwingWorker<Boolean, Void>() {
-            @Override
-            protected Boolean doInBackground() throws Exception {
-                // 修复了方法调用，需要根据实际方法签名调整
-                return true; // 暂时返回true，实际需要根据业务逻辑实现
-            }
-
-            @Override
-            protected void done() {
-                // 处理结果，刷新表格
-            }
-        }.execute();
+        
+        try {
+            RentalService rentalService = new RentalService();
+            User currentStaff = getCurrentStaff();
+            
+            // 使用当前日期作为实际归还日期
+            BigDecimal totalFee = rentalService.returnCar(rentalId, LocalDate.now(), currentStaff);
+            JOptionPane.showMessageDialog(this, "车辆归还成功，总费用：" + totalFee);
+            loadRentals(); // 刷新表格
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "归还失败：" + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

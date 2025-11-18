@@ -136,7 +136,7 @@ public class SearchCarsPanel extends JPanel {
                     model.setRowCount(0);
                     for (Car car : cars) {
                         model.addRow(new Object[]{
-                                car.getId(), car.getLicensePlate(), car.getModel(),
+                                car.getCarID(), car.getLicensePlate(), car.getModel(),
                                 car.getColor(), car.getStatus()
                         });
                     }
