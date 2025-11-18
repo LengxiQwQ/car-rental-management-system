@@ -176,17 +176,22 @@ public class RegisterPanel extends JPanel {
             String role = (String) comboBoxRegisterRole.getSelectedItem(); // 正确变量名
             String username = textRegisterUserID.getText().trim(); // 正确变量名
             String password = textRegisterPassword.getText().trim(); // 正确变量名
-
+            String confirmPassword = textRegisterConfirm.getText().trim();
             // 简单验证（如果没有Validator类，可先注释或替换为基础判断）
             if (username.isEmpty() || password.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "用户名或密码不能为空");
                 return;
             }
+            if (!password.equals(confirmPassword)) {
+                JOptionPane.showMessageDialog(this, "两次输入的密码不一致");
+                return; // 终止注册
+            }
 
             User user = new User();
             user.setUsername(username);
             user.setPassword(password);
-            user.setRole(userRole.valueOf(role.equals("admin") ? "admin" : "staff"));
+            // 根据下拉框选择的角色（"Admin" 或 "Staff"）来设置用户角色
+            user.setRole(userRole.valueOf(role.toLowerCase()));
 
             AuthService authService = new AuthService();
             if (authService.register(user)) {
