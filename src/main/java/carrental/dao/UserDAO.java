@@ -112,4 +112,52 @@ public class UserDAO {
         }
         return null;
     }
+
+    // 更新员工ID
+    public boolean updateStaffId(int userId, String newId) {
+        String sql = "UPDATE users SET id = ? WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, newId);
+            pstmt.setInt(2, userId);
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.err.println(TimestampUtil.getCurrentTimestamp() + " Failed to update staff ID.");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // 更新用户名
+    public boolean updateUsername(int userId, String newUsername) {
+        String sql = "UPDATE users SET username = ? WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, newUsername);
+            pstmt.setInt(2, userId);
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.err.println(TimestampUtil.getCurrentTimestamp() + " Failed to update username.");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // 更新角色
+    public boolean updateRole(int userId, String newRole) {
+        String sql = "UPDATE users SET role = ? WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, newRole.toUpperCase());
+            pstmt.setInt(2, userId);
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.err.println(TimestampUtil.getCurrentTimestamp() + " Failed to update role.");
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

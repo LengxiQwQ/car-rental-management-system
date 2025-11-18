@@ -88,7 +88,7 @@ public class ManageCars extends JPanel {
         buttonAddCar.setText("Add Car");
 
         //---- buttonRefresh ----
-        buttonRefresh.setText("Refresh");
+        buttonRefresh.setText("Refresh & Save Change");
 
         GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
@@ -97,23 +97,23 @@ public class ManageCars extends JPanel {
                 .addGroup(layout.createSequentialGroup()
                     .addGap(27, 27, 27)
                     .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 965, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(28, Short.MAX_VALUE))
+                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(layout.createSequentialGroup()
                     .addGap(77, 77, 77)
                     .addComponent(label1, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(comboBoxSearchCarType, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(textSearchCarContent, GroupLayout.PREFERRED_SIZE, 165, GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(buttonSearchCar)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addGap(35, 35, 35)
                     .addComponent(buttonRefresh)
-                    .addGap(54, 54, 54)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(buttonDeleteSelectedCar)
-                    .addGap(18, 18, 18)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(buttonAddCar)
-                    .addGap(78, 78, 78))
+                    .addGap(67, 67, 67))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup()
@@ -122,12 +122,11 @@ public class ManageCars extends JPanel {
                     .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(label1)
                         .addComponent(comboBoxSearchCarType, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonDeleteSelectedCar)
-                            .addComponent(buttonAddCar)
-                            .addComponent(textSearchCarContent, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonSearchCar)
-                            .addComponent(buttonRefresh)))
+                        .addComponent(textSearchCarContent, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonSearchCar)
+                        .addComponent(buttonDeleteSelectedCar)
+                        .addComponent(buttonAddCar)
+                        .addComponent(buttonRefresh))
                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                     .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 512, GroupLayout.PREFERRED_SIZE)
                     .addGap(23, 23, 23))
@@ -153,7 +152,13 @@ public class ManageCars extends JPanel {
         DefaultTableModel model = new DefaultTableModel(
             new Object[][]{},
             new Object[]{"Car ID", "Brand", "Model", "Year", "License Plate", "Color", "Status", "Daily Fee"}
-        );
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // 允许编辑除ID外的所有列
+                return column != 0;
+            }
+        };
         tableCarInfo.setModel(model);
         
         // 设置表格列宽
@@ -165,6 +170,14 @@ public class ManageCars extends JPanel {
         tableCarInfo.getColumnModel().getColumn(5).setPreferredWidth(80);
         tableCarInfo.getColumnModel().getColumn(6).setPreferredWidth(100);
         tableCarInfo.getColumnModel().getColumn(7).setPreferredWidth(80);
+
+        // 添加表格模型监听器，监听单元格编辑事件
+        tableCarInfo.getModel().addTableModelListener(new javax.swing.event.TableModelListener() {
+            @Override
+            public void tableChanged(javax.swing.event.TableModelEvent e) {
+                // 表格数据已更改，点击刷新按钮时会自动保存
+            }
+        });
     }
     
     // 加载车辆数据
@@ -250,11 +263,11 @@ public class ManageCars extends JPanel {
             }
         });
         
-        // 刷新按钮事件
+        // 刷新按钮事件（合并保存和刷新功能）
         buttonRefresh.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                loadCarData();
+                saveAndRefreshTable();
             }
         });
     }
@@ -420,5 +433,93 @@ public class ManageCars extends JPanel {
             }
         }
         return false;
+    }
+
+    // 保存并刷新表格
+    private void saveAndRefreshTable() {
+        DefaultTableModel model = (DefaultTableModel) tableCarInfo.getModel();
+        int rowCount = model.getRowCount();
+        int colCount = model.getColumnCount();
+
+        try {
+            // 遍历表格中的每一行
+            for (int row = 0; row < rowCount; row++) {
+                // 获取车辆ID
+                String carId = model.getValueAt(row, 0).toString();
+
+                // 遍历每一列（除ID外的所有列）
+                for (int col = 1; col < colCount; col++) {
+                    Object newValue = model.getValueAt(row, col);
+                    String columnName = model.getColumnName(col);
+
+                    // 获取原始数据进行比较
+                    Car originalCar = null;
+                    for (Car car : carList) {
+                        if (car.getCarID().equals(carId)) {
+                            originalCar = car;
+                            break;
+                        }
+                    }
+
+                    if (originalCar != null) {
+                        String oldValue = "";
+                        if (col == 1) oldValue = originalCar.getBrand();
+                        else if (col == 2) oldValue = originalCar.getModel();
+                        else if (col == 3) oldValue = String.valueOf(originalCar.getYear());
+                        else if (col == 4) oldValue = originalCar.getLicensePlate();
+                        else if (col == 5) oldValue = originalCar.getColor();
+                        else if (col == 6) oldValue = originalCar.getStatus().toString();
+                        else if (col == 7) oldValue = String.valueOf(originalCar.getPrice());
+
+                        // 如果值有变化，则更新数据库
+                        if (!newValue.toString().equals(oldValue)) {
+                            if ("Brand".equals(columnName)) {
+                                carDAO.updateBrand(carId, newValue.toString());
+                                originalCar.setBrand(newValue.toString());
+                            } else if ("Model".equals(columnName)) {
+                                carDAO.updateModel(carId, newValue.toString());
+                                originalCar.setModel(newValue.toString());
+                            } else if ("Year".equals(columnName)) {
+                                try {
+                                    int year = Integer.parseInt(newValue.toString());
+                                    carDAO.updateYear(carId, year);
+                                    originalCar.setYear(year);
+                                } catch (NumberFormatException ex) {
+                                    // 忽略无效的年份
+                                }
+                            } else if ("License Plate".equals(columnName)) {
+                                carDAO.updateLicensePlate(carId, newValue.toString());
+                                originalCar.setLicensePlate(newValue.toString());
+                            } else if ("Color".equals(columnName)) {
+                                carDAO.updateColor(carId, newValue.toString());
+                                originalCar.setColor(newValue.toString());
+                            } else if ("Status".equals(columnName)) {
+                                try {
+                                    Car.CarStatus status = Car.CarStatus.valueOf(newValue.toString().toUpperCase());
+                                    carDAO.updateStatus(carId, status);
+                                    originalCar.setStatus(status);
+                                } catch (IllegalArgumentException ex) {
+                                    // 忽略无效的状态
+                                }
+                            } else if ("Daily Fee".equals(columnName)) {
+                                try {
+                                    double fee = Double.parseDouble(newValue.toString());
+                                    carDAO.updateDailyFee(carId, fee);
+                                    originalCar.setPrice(fee);
+                                } catch (NumberFormatException ex) {
+                                    // 忽略无效的租金
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 重新加载数据
+            loadCarData();
+        } catch (Exception ex) {
+            // 静默处理异常，不显示弹窗
+            ex.printStackTrace();
+        }
     }
 }

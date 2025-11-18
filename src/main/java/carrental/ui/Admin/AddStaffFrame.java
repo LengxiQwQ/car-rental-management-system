@@ -17,10 +17,10 @@ import javax.swing.GroupLayout;
 /**
  * @author LengxiQwQ
  */
-public class AddStaff extends JFrame {
+public class AddStaffFrame extends JFrame {
     private UserDAO userDAO;
 
-    public AddStaff() {
+    public AddStaffFrame() {
         initComponents();
         userDAO = new UserDAO();
         setupEventListeners();

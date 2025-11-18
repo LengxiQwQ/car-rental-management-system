@@ -211,7 +211,6 @@ public class RegisterPanel extends JPanel {
         AuthService authService = new AuthService();
         if (authService.register(user)) {
             JOptionPane.showMessageDialog(this, "Registration successfully");
-            System.out.println(TimestampUtil.getCurrentTimestamp() + " User [" + username + "] registered successfully");
             // 切换到登录面板
             if (loginRegisterFrame != null) {
                 loginRegisterFrame.showLoginPanel();

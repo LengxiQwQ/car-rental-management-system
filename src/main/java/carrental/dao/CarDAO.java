@@ -189,4 +189,88 @@ public class CarDAO {
             return false;
         }
     }
+
+    // 更新车辆品牌
+    public boolean updateBrand(String carId, String brand) {
+        String sql = "UPDATE cars SET brand = ? WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, brand);
+            pstmt.setString(2, carId);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // 更新车辆型号
+    public boolean updateModel(String carId, String model) {
+        String sql = "UPDATE cars SET model = ? WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, model);
+            pstmt.setString(2, carId);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // 更新车辆年份
+    public boolean updateYear(String carId, int year) {
+        String sql = "UPDATE cars SET year = ? WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, year);
+            pstmt.setString(2, carId);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // 更新车牌号
+    public boolean updateLicensePlate(String carId, String licensePlate) {
+        String sql = "UPDATE cars SET license_plate = ? WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, licensePlate);
+            pstmt.setString(2, carId);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // 更新车辆颜色
+    public boolean updateColor(String carId, String color) {
+        String sql = "UPDATE cars SET color = ? WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, color);
+            pstmt.setString(2, carId);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // 更新日租金
+    public boolean updateDailyFee(String carId, double dailyFee) {
+        String sql = "UPDATE cars SET daily_fee = ? WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setDouble(1, dailyFee);
+            pstmt.setString(2, carId);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

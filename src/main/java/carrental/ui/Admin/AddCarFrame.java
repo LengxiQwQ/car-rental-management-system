@@ -11,8 +11,8 @@ import javax.swing.GroupLayout;
 /**
  * @author LengxiQwQ
  */
-public class AddCar extends JFrame {
-    public AddCar() {
+public class AddCarFrame extends JFrame {
+    public AddCarFrame() {
         initComponents();
     }
 

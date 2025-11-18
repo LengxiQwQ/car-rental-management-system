@@ -115,7 +115,7 @@ public class AdminDashboardFrame {
 
         //======== freamRoot ========
         {
-            freamRoot.setTitle("Car Rental Management System - Administer Dashboard");
+            freamRoot.setTitle("Car Rental Management System - Administrator Dashboard");
             var freamRootContentPane = freamRoot.getContentPane();
 
             //======== cardPanel ========

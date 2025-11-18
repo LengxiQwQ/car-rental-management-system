@@ -16,13 +16,15 @@ public class AuthService {
     public User login(String username, String password) {
         // 输入校验
         if (!Validator.isNotEmpty(username) || !Validator.isNotEmpty(password)) {
-            throw new IllegalArgumentException("Username and password cannot be empty");
+            // 不抛出异常，而是返回null让UI层处理
+            return null;
         }
 
         // 查询用户
         User user = userDAO.login(username, password);
         if (user == null) {
-            throw new RuntimeException("Invalid username or password"); // 合并错误信息，避免泄露用户存在性
+            // 返回null让UI层处理错误消息
+            return null;
         }
 
         System.out.println(TimestampUtil.getCurrentTimestamp() + " User [" + username + "] login successfully");

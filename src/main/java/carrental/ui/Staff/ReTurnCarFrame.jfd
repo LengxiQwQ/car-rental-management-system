@@ -1,0 +1,50 @@
+JFDML JFormDesigner: "8.2.4.0.393" Java: "21.0.8" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space :p:72:p, par l {seq l {space :91:91:p, comp label1:::p::p}, seq l {comp label2:::p::p, space :57:57:p, comp textFieldAddStaffID:::p:133:p}, seq l {comp label3:::p::p, space :45:45:p, comp textFieldtextFieldAddStaffName:::p:133:p}, seq l {comp label4:::p::p, space :48:48:p, comp textFieldtextFieldAddStaffPassword:::p:133:p}, seq l {comp buttonAddStaffCancel:::p::p, space :87:87:p, comp buttonAddStaff:::p::p}}, space ::135:x}}"
+			"$verticalGroup": "par l {seq l {space :p:34:p, comp label1:::p::p, space :33:33:p, par l {seq l {space :3:3:p, comp label2:::p::p}, comp textFieldAddStaffID:::p::p}, space :18:18:p, par l {seq l {space :3:3:p, comp label3:::p::p}, comp textFieldtextFieldAddStaffName:::p::p}, space :18:18:p, par l {seq l {space :3:3:p, comp label4:::p::p}, comp textFieldtextFieldAddStaffPassword:::p::p}, space :65:65:p, par l {comp buttonAddStaffCancel:::p::p, comp buttonAddStaff:::p::p}, space ::122:x}}"
+		} ) {
+			name: "this"
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"text": "Return Car"
+				"font": new java.awt.Font( "Microsoft YaHei UI", 1, 16 )
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textFieldAddStaffID"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label2"
+				"text": "Staff ID"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label3"
+				"text": "Username"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textFieldtextFieldAddStaffName"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label4"
+				"text": "Password"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textFieldtextFieldAddStaffPassword"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "buttonAddStaff"
+				"text": "Add"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "buttonAddStaffCancel"
+				"text": "Cancel"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 440, 440 )
+		} )
+	}
+}

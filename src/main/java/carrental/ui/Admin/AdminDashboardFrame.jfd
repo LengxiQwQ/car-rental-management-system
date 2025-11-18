@@ -9,7 +9,7 @@ new FormModel {
 		} ) {
 			name: "freamRoot"
 			"$locationPolicy": 1
-			"title": "Car Rental Management System - Administer Dashboard"
+			"title": "Car Rental Management System - Administrator Dashboard"
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.CardLayout ) ) {
 				name: "cardPanel"
 				add( new FormComponent( "carrental.ui.Admin.ManageStaff" ) {

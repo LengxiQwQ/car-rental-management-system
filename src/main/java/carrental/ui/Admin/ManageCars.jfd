@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {space :p:27:p, comp scrollPane1:::p:965:p, space ::28:x}, seq l {space :p:77:p, comp label1:::p:93:p, space :::p, comp comboBoxSearchCarType:::p:121:p, space ::48:x, comp textSearchCarContent:::p:165:p, space :::p, comp buttonSearchCar:::p::p, space :::p, comp buttonRefresh:::p::p, space :p:54:p, comp buttonDeleteSelectedCar:::p::p, space :18:18:p, comp buttonAddCar:::p::p, space :p:78:p}}"
-			"$verticalGroup": "par l {seq l {space :p:28:p, par b {comp label1::b:p::p, comp comboBoxSearchCarType::b:p::p, par b:b {comp buttonDeleteSelectedCar::l:p::p, comp buttonAddCar::l:p::p, comp textSearchCarContent::b:p::p, comp buttonSearchCar::b:p::p, comp buttonRefresh::b:p::p}}, space ::28:x, comp scrollPane1:::p:512:p, space :p:23:p}}"
+			"$horizontalGroup": "par l {seq {space :p:27:p, comp scrollPane1:::p:965:p, space :::x}, seq l {space :p:77:p, comp label1:::p:93:p, space :::p, comp comboBoxSearchCarType:::p:121:p, space :::x, comp textSearchCarContent:::p:165:p, space :::p, comp buttonSearchCar:::p::p, space :p:35:p, comp buttonRefresh:::p::p, space :::p, comp buttonDeleteSelectedCar:::p::p, space :::p, comp buttonAddCar:::p::p, space :p:67:p}}"
+			"$verticalGroup": "par l {seq l {space :p:28:p, par b {comp label1::b:p::p, comp comboBoxSearchCarType::b:p::p, comp textSearchCarContent::b:p::p, comp buttonSearchCar::b:p::p, comp buttonDeleteSelectedCar::b:p::p, comp buttonAddCar::b:p::p, comp buttonRefresh::b:p::p}, space ::28:x, comp scrollPane1:::p:512:p, space :p:23:p}}"
 		} ) {
 			name: "this"
 			add( new FormComponent( "javax.swing.JLabel" ) {
@@ -86,7 +86,7 @@ new FormModel {
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "buttonRefresh"
-				"text": "Refresh"
+				"text": "Refresh & Save Change"
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )

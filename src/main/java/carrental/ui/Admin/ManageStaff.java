@@ -84,7 +84,7 @@ public class ManageStaff extends JPanel {
         buttonDeleteSelected.setText("Delete Selected");
 
         //---- buttonRefresh ----
-        buttonRefresh.setText("Refresh");
+        buttonRefresh.setText("Refresh & Save Change");
 
         GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
@@ -100,15 +100,15 @@ public class ManageStaff extends JPanel {
                             .addComponent(label1, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(comboBoxSearchStaffType, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-                            .addGap(47, 47, 47)
+                            .addGap(31, 31, 31)
                             .addComponent(textSearchStaffContent, GroupLayout.PREFERRED_SIZE, 189, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(buttonSearchStaff)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(buttonRefresh, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buttonRefresh)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(buttonDeleteSelected)
-                            .addGap(18, 18, 18)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(buttonAddStaff)
                             .addGap(34, 34, 34)))
                     .addContainerGap(28, Short.MAX_VALUE))
@@ -150,7 +150,13 @@ public class ManageStaff extends JPanel {
         DefaultTableModel model = new DefaultTableModel(
             new Object[][]{},
             new Object[]{"Staff ID", "Username", "Role", "Created At"}
-        );
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // 只允许编辑前三列（ID, Username, Role）
+                return column < 3;
+            }
+        };
         tableStaffInfo.setModel(model);
         
         // 设置表格列宽
@@ -158,6 +164,14 @@ public class ManageStaff extends JPanel {
         tableStaffInfo.getColumnModel().getColumn(1).setPreferredWidth(150);
         tableStaffInfo.getColumnModel().getColumn(2).setPreferredWidth(100);
         tableStaffInfo.getColumnModel().getColumn(3).setPreferredWidth(200);
+
+        // 添加表格模型监听器，监听单元格编辑事件
+        tableStaffInfo.getModel().addTableModelListener(new javax.swing.event.TableModelListener() {
+            @Override
+            public void tableChanged(javax.swing.event.TableModelEvent e) {
+                // 表格数据已更改，点击刷新按钮时会自动保存
+            }
+        });
     }
     
     // 加载员工数据
@@ -234,13 +248,15 @@ public class ManageStaff extends JPanel {
             }
         });
 
-        // 刷新按钮事件
+        // 刷新按钮事件（合并保存和刷新功能）
         buttonRefresh.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                refreshTable();
+                saveAndRefreshTable();
             }
         });
+
+        // 表格单元格编辑功能已通过重写isCellEditable方法实现
     }
     
     // 搜索员工
@@ -306,6 +322,133 @@ public class ManageStaff extends JPanel {
         }
     }
 
+    // 保存并刷新表格
+    private void saveAndRefreshTable() {
+        DefaultTableModel model = (DefaultTableModel) tableStaffInfo.getModel();
+        int rowCount = model.getRowCount();
+        int colCount = model.getColumnCount();
+
+        try {
+            // 遍历表格中的每一行
+            for (int row = 0; row < rowCount; row++) {
+                // 获取员工ID
+                String staffId = model.getValueAt(row, 0).toString();
+
+                // 遍历每一列（只处理可编辑的前三列）
+                for (int col = 0; col < Math.min(3, colCount); col++) {
+                    Object newValue = model.getValueAt(row, col);
+                    String columnName = model.getColumnName(col);
+
+                    // 获取原始数据进行比较
+                    User originalStaff = null;
+                    for (User staff : staffList) {
+                        if (staff.getUserID().equals(staffId)) {
+                            originalStaff = staff;
+                            break;
+                        }
+                    }
+
+                    if (originalStaff != null) {
+                        String oldValue = "";
+                        if (col == 0) oldValue = originalStaff.getUserID();
+                        else if (col == 1) oldValue = originalStaff.getUsername();
+                        else if (col == 2) oldValue = originalStaff.getRole().toString();
+
+                        // 如果值有变化，则更新数据库
+                        if (!newValue.toString().equals(oldValue)) {
+                            if ("Staff ID".equals(columnName)) {
+                                userDAO.updateStaffId(Integer.parseInt(staffId), newValue.toString());
+                                originalStaff.setUserID(newValue.toString());
+                            } else if ("Username".equals(columnName)) {
+                                userDAO.updateUsername(Integer.parseInt(staffId), newValue.toString());
+                                originalStaff.setUsername(newValue.toString());
+                            } else if ("Role".equals(columnName)) {
+                                userDAO.updateRole(Integer.parseInt(staffId), newValue.toString());
+                                originalStaff.setRole(userRole.valueOf(newValue.toString().toLowerCase()));
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 重新加载数据
+            refreshTable();
+        } catch (Exception ex) {
+            // 静默处理异常，不显示弹窗
+            ex.printStackTrace();
+        }
+    }
+
+    // 保存表格更改（保留原方法，以防其他地方使用）
+    private void saveTableChanges() {
+        DefaultTableModel model = (DefaultTableModel) tableStaffInfo.getModel();
+        int rowCount = model.getRowCount();
+        int colCount = model.getColumnCount();
+
+        try {
+            boolean allSuccessful = true;
+
+            // 遍历表格中的每一行
+            for (int row = 0; row < rowCount; row++) {
+                // 获取员工ID
+                String staffId = model.getValueAt(row, 0).toString();
+
+                // 遍历每一列（只处理可编辑的前三列）
+                for (int col = 0; col < Math.min(3, colCount); col++) {
+                    Object newValue = model.getValueAt(row, col);
+                    String columnName = model.getColumnName(col);
+
+                    // 获取原始数据进行比较
+                    User originalStaff = null;
+                    for (User staff : staffList) {
+                        if (staff.getUserID().equals(staffId)) {
+                            originalStaff = staff;
+                            break;
+                        }
+                    }
+
+                    if (originalStaff != null) {
+                        String oldValue = "";
+                        if (col == 0) oldValue = originalStaff.getUserID();
+                        else if (col == 1) oldValue = originalStaff.getUsername();
+                        else if (col == 2) oldValue = originalStaff.getRole().toString();
+
+                        // 如果值有变化，则更新数据库
+                        if (!newValue.toString().equals(oldValue)) {
+                            boolean success = false;
+
+                            if ("Staff ID".equals(columnName)) {
+                                success = userDAO.updateStaffId(Integer.parseInt(staffId), newValue.toString());
+                                if (success) originalStaff.setUserID(newValue.toString());
+                            } else if ("Username".equals(columnName)) {
+                                success = userDAO.updateUsername(Integer.parseInt(staffId), newValue.toString());
+                                if (success) originalStaff.setUsername(newValue.toString());
+                            } else if ("Role".equals(columnName)) {
+                                success = userDAO.updateRole(Integer.parseInt(staffId), newValue.toString());
+                                if (success) originalStaff.setRole(userRole.valueOf(newValue.toString().toLowerCase()));
+                            }
+
+                            if (!success) {
+                                allSuccessful = false;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (allSuccessful) {
+                JOptionPane.showMessageDialog(this, "All changes saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                buttonRefresh.setText("Save Changes"); // 重置按钮文本
+                refreshTable(); // 重新加载数据
+            } else {
+                JOptionPane.showMessageDialog(this, "Some changes could not be saved. Please check the data and try again.", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error saving changes: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+    }
+
     // 刷新表格数据
     private void refreshTable() {
         // 清空搜索框
@@ -317,15 +460,17 @@ public class ManageStaff extends JPanel {
 
     // 打开添加员工对话框
     private void openAddStaffDialog() {
-        AddStaff addStaffDialog = new AddStaff();
-        addStaffDialog.setVisible(true);
+        AddStaffFrame addStaffFrameDialog = new AddStaffFrame();
+        addStaffFrameDialog.setVisible(true);
 
         // 当添加员工窗口关闭后，刷新表格
-        addStaffDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+        addStaffFrameDialog.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
                 refreshTable();
             }
         });
     }
+
+    // editCell方法已删除，因为现在使用表格内置编辑功能
 }
