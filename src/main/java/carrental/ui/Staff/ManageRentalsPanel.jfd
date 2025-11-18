@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {space :p:66:p, par l {par l:::p {comp label2:::::x, comp label1:::p:73:p}, comp label5:::p:61:p}, space s:::p, par l {seq {par l {comp comboBoxRentalCustomer:::p:139:p, comp comboBoxRentalCar:::p:139:p}, space :p:60:p, par l {comp label3:::p:71:p, comp label4:::p:71:p}, space u:::p, par l {comp comboBoxRentalStartDate:::p:136:p, comp comboBoxRentalEndDate:::p:136:p}, space ::100:x, comp buttonRentalAdd:::p:101:p, space :p:71:p, comp buttonRentalReturn:::p:108:p}, comp textComment::::798:x}, space :p:65:p}, seq l {space :p:23:p, comp scrollPane1:::p:968:p, space ::29:x}}"
-			"$verticalGroup": "par l {seq l {space :p:17:p, par l {par b {comp buttonRentalReturn::b:p:53:p, comp buttonRentalAdd::b:p:53:p}, seq l {par b {comp comboBoxRentalCustomer::b:p::p, comp label1::b:p::p}, space :5:5:p, par b {comp comboBoxRentalCar::b:p::p, comp label2::b:p::p}}, seq l {par b {comp label3::b:p::p, comp comboBoxRentalStartDate::b:p::p}, space :5:5:p, par b {comp label4::b:p::p, comp comboBoxRentalEndDate::b:p::p}}}, par l {seq {space :p:15:p, comp textComment:::p::p}, seq l {space s:::p, comp label5:::p::p}}, space ::29:x, comp scrollPane1:::p:453:p, space :p:24:p}}"
+			"$horizontalGroup": "par l {seq {space :p:66:p, par l:::p {comp label2:::::x, comp label1:::p:73:p, comp label5:::p:61:p}, space s:::p, par l {seq {par l {comp comboBoxRentalCustomer::l:p:139:p, comp comboBoxRentalCar::l:p:139:p}, space :p:44:p, par l {seq {comp label4:::p:71:p, space :::p, comp dateChooserEndDate:::p:136:p}, seq {comp label3:::p:71:p, space :::p, comp dateChooserStartDate:::p:136:p}}, space ::122:x, comp buttonRentalAdd:::p:101:p, space :p:71:p, comp buttonRentalReturn:::p:108:p}, comp textComment::::798:x}, space :p:65:p}, seq l {space :p:23:p, comp scrollPane1:::p:968:p, space ::29:x}}"
+			"$verticalGroup": "par l {seq l {space :p:17:p, par l {seq l {par l {par b {comp comboBoxRentalCustomer::b:p::p, comp label1::b:p::p, comp label3::b:p::p}, comp dateChooserStartDate:::p:26:p}, space :::p, par l {comp dateChooserEndDate:::p:24:p, par b {comp comboBoxRentalCar::b:p::p, comp label2::b:p::p, comp label4::b:p::p}}, space s:::p, par b {comp label5::b:p::p, comp textComment::b:p::p}}, par b {comp buttonRentalReturn::b:p:53:p, comp buttonRentalAdd::b:p:53:p}}, space ::23:x, comp scrollPane1:::p:453:p, space :p:24:p}}"
 		} ) {
 			name: "this"
 			add( new FormComponent( "javax.swing.JLabel" ) {
@@ -19,22 +19,12 @@ new FormModel {
 				name: "label3"
 				"text": "Start Date"
 			} )
-			add( new FormComponent( "javax.swing.JComboBox" ) {
-				name: "comboBoxRentalStartDate"
-			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label2"
 				"text": "Car"
 			} )
 			add( new FormComponent( "javax.swing.JComboBox" ) {
 				name: "comboBoxRentalCar"
-			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label4"
-				"text": "End Date"
-			} )
-			add( new FormComponent( "javax.swing.JComboBox" ) {
-				name: "comboBoxRentalEndDate"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "buttonRentalAdd"
@@ -96,6 +86,16 @@ new FormModel {
 						add( null )
 					} )
 				} )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label4"
+				"text": "End Date"
+			} )
+			add( new FormComponent( "com.toedter.calendar.JDateChooser" ) {
+				name: "dateChooserStartDate"
+			} )
+			add( new FormComponent( "com.toedter.calendar.JDateChooser" ) {
+				name: "dateChooserEndDate"
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
