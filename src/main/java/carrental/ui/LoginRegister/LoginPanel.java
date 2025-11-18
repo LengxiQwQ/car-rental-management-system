@@ -195,7 +195,6 @@ public class LoginPanel extends JPanel {
 // 如果选择的是 "Staff" 角色，则不需要额外检查，直接放行
 
         // 登录成功：关闭登录窗口，打开主面板
-        JOptionPane.showMessageDialog(this, "Login successfully");
         // 获取父窗口（LoginRegisterFrame）并关闭
         Window window = SwingUtilities.getWindowAncestor(this);
         if (window != null) {

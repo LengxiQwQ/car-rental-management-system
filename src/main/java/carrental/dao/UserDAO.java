@@ -46,12 +46,13 @@ public class UserDAO {
 
     // 添加用户（管理员功能）
     public boolean insert(User user) {
-        String sql = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO users (id, username, password, role) VALUES (?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, user.getUsername());
-            pstmt.setString(2, user.getPassword());
-            pstmt.setString(3, user.getRole().name());
+            pstmt.setString(1, user.getUserID());
+            pstmt.setString(2, user.getUsername());
+            pstmt.setString(3, user.getPassword());
+            pstmt.setString(4, user.getRole().name());
             int rowsAffected = pstmt.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
@@ -78,11 +79,12 @@ public class UserDAO {
     
     public boolean register(User user) {
         try (Connection conn = DBConnection.getConnection()) {
-            String sql = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO users (id, username, password, role) VALUES (?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, user.getUsername());
-            ps.setString(2, user.getPassword());
-            ps.setString(3, user.getRole().name());
+            ps.setString(1, user.getUserID());
+            ps.setString(2, user.getUsername());
+            ps.setString(3, user.getPassword());
+            ps.setString(4, user.getRole().name());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
