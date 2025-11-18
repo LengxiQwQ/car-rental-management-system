@@ -65,8 +65,8 @@ public class Car {
     public String getCarID() {
         return CarID;
     }
-    public int getId() {
-        return Integer.parseInt(this.CarID); // 假设 CarID 是数字字符串
+    public String getId() {
+        return String.valueOf(String.valueOf(Integer.parseInt(this.CarID))); // 假设 CarID 是数字字符串
     }
 
     public void setCarID(String carID) {

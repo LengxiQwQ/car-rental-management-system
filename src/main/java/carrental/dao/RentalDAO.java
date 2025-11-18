@@ -32,21 +32,26 @@ public class RentalDAO {
      * @return 是否添加成功
      */
     public boolean insert(Rental rental) {
-        // 假设数据库表中存储客户、车辆ID的列名为 customer_id, car_id
-        // 假设预计归还日期的列名为 due_date
+        // 插入租赁记录到数据库
         String sql = "INSERT INTO rentals (car_id, customer_id, staff_id, start_date, due_date) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, rental.getCar().getCarID());
             pstmt.setString(2, rental.getCustomer().getCustomerID());
-            // 为了让代码可运行，这里暂时用 0 作为默认值，你需要根据实际情况修改
-            pstmt.setInt(3, 0);
+            pstmt.setInt(3, rental.getStaffId()); // 从 Rental 对象获取员工 ID
             pstmt.setString(4, rental.getStartDate().toString());
             pstmt.setString(5, rental.getExpectedReturnDate().toString());
 
-            return pstmt.executeUpdate() > 0;
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows > 0) {
+                System.out.println("成功插入租赁记录，车辆ID: " + rental.getCar().getCarID() + 
+                                  ", 客户ID: " + rental.getCustomer().getCustomerID());
+                return true;
+            }
+            return false;
         } catch (SQLException e) {
+            System.err.println("插入租赁记录失败: " + e.getMessage());
             e.printStackTrace();
             return false;
         }
