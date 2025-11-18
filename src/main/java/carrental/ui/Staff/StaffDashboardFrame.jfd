@@ -5,9 +5,29 @@ new FormModel {
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.CardLayout ) ) {
 			name: "this"
+			add( new FormComponent( "carrental.ui.Staff.AvailabilityPanel" ) {
+				name: "availabilityPanel1"
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "card1"
+			} )
+			add( new FormComponent( "carrental.ui.Staff.CustomerPanel" ) {
+				name: "customerPanel1"
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "card2"
+			} )
+			add( new FormComponent( "carrental.ui.Staff.ManageRentalsPanel" ) {
+				name: "manageRentalsPanel1"
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "card3"
+			} )
+			add( new FormComponent( "carrental.ui.Staff.SearchCarsPanel" ) {
+				name: "searchCarsPanel1"
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "card4"
+			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 400, 300 )
+			"size": new java.awt.Dimension( 985, 600 )
 		} )
 	}
 }

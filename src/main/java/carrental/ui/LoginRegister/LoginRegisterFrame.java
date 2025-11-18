@@ -31,10 +31,10 @@ public class LoginRegisterFrame extends JFrame {
             cardPanelContentPane.setLayout(new CardLayout());
 
             //---- loginPanel1 ----
-            loginPanel1.setPreferredSize(null);
+            loginPanel1.setMinimumSize(new Dimension(400, 550));
             cardPanelContentPane.add(loginPanel1, "card1");
             cardPanelContentPane.add(registerPanel1, "card2");
-            cardPanel.pack();
+            cardPanel.setSize(395, 335);
             cardPanel.setLocationRelativeTo(cardPanel.getOwner());
         }
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on

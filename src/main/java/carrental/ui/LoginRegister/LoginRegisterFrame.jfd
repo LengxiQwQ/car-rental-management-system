@@ -6,20 +6,21 @@ new FormModel {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.CardLayout ) ) {
 			name: "cardPanel"
 			"title": "Car Rental Management System "
-			add( new FormComponent( "carrental.ui.LoginPanel" ) {
+			"$sizePolicy": 1
+			add( new FormComponent( "carrental.ui.LoginRegister.LoginPanel" ) {
 				name: "loginPanel1"
-				"preferredSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"minimumSize": new java.awt.Dimension( 400, 550 )
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "card1"
 			} )
-			add( new FormComponent( "carrental.ui.RegisterPanel" ) {
+			add( new FormComponent( "carrental.ui.LoginRegister.RegisterPanel" ) {
 				name: "registerPanel1"
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "card2"
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 365, 410 )
+			"size": new java.awt.Dimension( 395, 335 )
 		} )
 	}
 }

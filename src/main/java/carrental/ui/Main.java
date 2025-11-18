@@ -1,6 +1,10 @@
 package carrental.ui;
 
-import carrental.ui.LoginRegister.LoginRegisterFrame;
+import carrental.ui.Staff.*;
+// import carrental.ui.Admin.*;
+import carrental.ui.LoginRegister.*;
+
+
 import com.formdev.flatlaf.FlatDarkLaf;
 
 import javax.swing.*;
@@ -20,6 +24,10 @@ public class Main {
 
         SwingUtilities.invokeLater(() -> {
             // ...  创建 UI 组件 ...
+
+            //StaffDashboardFrame staff = new StaffDashboardFrame();
+            //staff.getCardPanel().setVisible(true);
+
             // 创建并显示登录注册界面
             LoginRegisterFrame frame = new LoginRegisterFrame();
             frame.getCardPanel().setVisible(true);
