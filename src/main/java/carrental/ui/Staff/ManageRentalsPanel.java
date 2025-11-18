@@ -121,9 +121,9 @@ public class ManageRentalsPanel extends JPanel {
                         .addComponent(textComment, GroupLayout.DEFAULT_SIZE, 798, Short.MAX_VALUE))
                     .addGap(65, 65, 65))
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(23, 23, 23)
-                    .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 968, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(29, Short.MAX_VALUE))
+                    .addGap(27, 27, 27)
+                    .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 965, GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup()
@@ -152,8 +152,8 @@ public class ManageRentalsPanel extends JPanel {
                             .addComponent(buttonRentalReturn, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
                             .addComponent(buttonRentalAdd, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)))
                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                    .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 453, GroupLayout.PREFERRED_SIZE)
-                    .addGap(24, 24, 24))
+                    .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 454, GroupLayout.PREFERRED_SIZE)
+                    .addGap(23, 23, 23))
         );
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }

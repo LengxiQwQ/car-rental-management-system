@@ -79,10 +79,11 @@ public class StaffDashboardFrame extends JFrame {
         manageRentalsPanel1 = new ManageRentalsPanel();
         searchCarsPanel1 = new SearchCarsPanel();
         buttonPanel = new JPanel();
-        toggleButtonAvailability = new JToggleButton();
         toggleButtonCustomer = new JToggleButton();
-        toggleButtonRental = new JToggleButton();
         toggleButtonSearchCar = new JToggleButton();
+        toggleButtonRental = new JToggleButton();
+        toggleButtonAvailability = new JToggleButton();
+        label1 = new JLabel();
 
         //======== freamRoot ========
         {
@@ -101,42 +102,50 @@ public class StaffDashboardFrame extends JFrame {
             //======== buttonPanel ========
             {
 
-                //---- toggleButtonAvailability ----
-                toggleButtonAvailability.setText("Availability");
-
                 //---- toggleButtonCustomer ----
                 toggleButtonCustomer.setText("Customer");
+
+                //---- toggleButtonSearchCar ----
+                toggleButtonSearchCar.setText("Search Car");
 
                 //---- toggleButtonRental ----
                 toggleButtonRental.setText("Manage Rental");
 
-                //---- toggleButtonSearchCar ----
-                toggleButtonSearchCar.setText("Search Car");
+                //---- toggleButtonAvailability ----
+                toggleButtonAvailability.setText("Availability");
+
+                //---- label1 ----
+                label1.setText("Staff Dashboard");
+                label1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 26));
 
                 GroupLayout buttonPanelLayout = new GroupLayout(buttonPanel);
                 buttonPanel.setLayout(buttonPanelLayout);
                 buttonPanelLayout.setHorizontalGroup(
                     buttonPanelLayout.createParallelGroup()
-                        .addGroup(buttonPanelLayout.createSequentialGroup()
-                            .addGap(22, 22, 22)
-                            .addComponent(toggleButtonAvailability, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE)
+                        .addGroup(GroupLayout.Alignment.TRAILING, buttonPanelLayout.createSequentialGroup()
+                            .addGap(123, 123, 123)
+                            .addComponent(label1)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(toggleButtonAvailability, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(toggleButtonCustomer, GroupLayout.PREFERRED_SIZE, 234, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(toggleButtonRental, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(toggleButtonRental, GroupLayout.PREFERRED_SIZE, 232, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(toggleButtonSearchCar, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(toggleButtonSearchCar, GroupLayout.PREFERRED_SIZE, 220, GroupLayout.PREFERRED_SIZE)
-                            .addContainerGap())
+                            .addComponent(toggleButtonCustomer, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+                            .addGap(27, 27, 27))
                 );
                 buttonPanelLayout.setVerticalGroup(
                     buttonPanelLayout.createParallelGroup()
                         .addGroup(buttonPanelLayout.createSequentialGroup()
-                            .addContainerGap()
+                            .addGap(0, 10, Short.MAX_VALUE)
                             .addGroup(buttonPanelLayout.createParallelGroup()
-                                .addComponent(toggleButtonAvailability, GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                                .addComponent(toggleButtonCustomer, GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                                .addComponent(toggleButtonRental, GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                                .addComponent(toggleButtonSearchCar, GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)))
+                                .addComponent(label1, GroupLayout.Alignment.TRAILING)
+                                .addGroup(GroupLayout.Alignment.TRAILING, buttonPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                    .addComponent(toggleButtonCustomer, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(toggleButtonSearchCar, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(toggleButtonRental, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(toggleButtonAvailability, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE))))
                 );
             }
 
@@ -175,10 +184,11 @@ public class StaffDashboardFrame extends JFrame {
     private ManageRentalsPanel manageRentalsPanel1;
     private SearchCarsPanel searchCarsPanel1;
     private JPanel buttonPanel;
-    private JToggleButton toggleButtonAvailability;
     private JToggleButton toggleButtonCustomer;
-    private JToggleButton toggleButtonRental;
     private JToggleButton toggleButtonSearchCar;
+    private JToggleButton toggleButtonRental;
+    private JToggleButton toggleButtonAvailability;
+    private JLabel label1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 
     public JFrame getFreamRoot() {

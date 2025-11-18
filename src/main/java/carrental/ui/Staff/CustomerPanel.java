@@ -105,7 +105,7 @@ public class CustomerPanel extends JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup()
                 .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(27, Short.MAX_VALUE)
+                    .addContainerGap(26, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup()
                         .addGroup(layout.createParallelGroup()
                             .addGroup(layout.createSequentialGroup()
@@ -143,8 +143,8 @@ public class CustomerPanel extends JPanel {
                             .addGap(60, 60, 60)
                             .addComponent(label9)))
                     .addGap(18, 18, 18)
-                    .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 697, GroupLayout.PREFERRED_SIZE)
-                    .addGap(21, 21, 21))
+                    .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 691, GroupLayout.PREFERRED_SIZE)
+                    .addGap(28, 28, 28))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup()
@@ -191,8 +191,8 @@ public class CustomerPanel extends JPanel {
                             .addComponent(buttonSave, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(19, 19, 19)
-                            .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 571, GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap(25, Short.MAX_VALUE))
+                            .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 574, GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(22, Short.MAX_VALUE))
         );
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
