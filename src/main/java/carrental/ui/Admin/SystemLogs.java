@@ -133,4 +133,5 @@ public class SystemLogs extends JPanel {
     private JButton buttonRefresh;
     private JButton buttonEnterFilterbyDate;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
+
 }

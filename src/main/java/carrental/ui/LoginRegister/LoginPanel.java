@@ -6,7 +6,9 @@ package carrental.ui.LoginRegister;
 
 import carrental.model.User;
 import carrental.service.AuthService;
+import carrental.service.LogService;
 import carrental.ui.Staff.StaffDashboardFrame;
+import carrental.util.IPUtil;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -211,6 +213,26 @@ public class LoginPanel extends JPanel {
             SwingUtilities.invokeLater(() -> {
                 new StaffDashboardFrame().getFreamRoot().setVisible(true);
             });
+        }
+        // 登录成功后
+        if (user != null) {
+            new LogService().recordLog(
+                    username,
+                    "用户登录",
+                    "登录成功，角色: " + user.getRole(),
+                    IPUtil.getLocalIp(),  // 桌面应用用这个
+                    // IPUtil.getClientIp(request),  // Web应用用这个
+                    true
+            );
+        } else {
+            // 登录失败
+            new LogService().recordLog(
+                    username,
+                    "用户登录",
+                    "登录失败，用户名或密码错误",
+                    IPUtil.getLocalIp(),
+                    false
+            );
         }
     }
 }

@@ -158,28 +158,13 @@ INSERT INTO rentals (car_id, customer_id, staff_id, start_date, due_date, actual
 -- -------------------------------
 -- 5. 系统日志表 (system_logs)
 -- -------------------------------
+-- 创建系统日志表
 CREATE TABLE IF NOT EXISTS system_logs (
-                                           id INT PRIMARY KEY AUTO_INCREMENT,
-                                           user_id INT NOT NULL,
-                                           operation VARCHAR(100) NOT NULL,
-    operation_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    details TEXT,
-    FOREIGN KEY (user_id) REFERENCES users(id)
+                                           log_id INT PRIMARY KEY AUTO_INCREMENT,
+                                           username VARCHAR(50) NOT NULL,
+    operation_type VARCHAR(50) NOT NULL,
+    operation_details TEXT NOT NULL,
+    operation_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    ip_address VARCHAR(50),
+    result VARCHAR(20) NOT NULL
     );
-
-INSERT INTO system_logs (user_id, operation, details) VALUES
-                                                          (3, 'User Login', 'Staff li (ID:3) logged in'),
-                                                          (4, 'User Login', 'Staff wang (ID:4) logged in'),
-                                                          (5, 'User Login', 'Staff zhang (ID:5) logged in'),
-                                                          (2, 'User Login', 'Admin logged in'),
-                                                          (3, 'Car Rental', 'Rented car C001'),
-                                                          (4, 'Car Rental', 'Rented car C003'),
-                                                          (5, 'Car Rental', 'Rented car C006'),
-                                                          (6, 'Car Rental', 'Rented car C011'),
-                                                          (7, 'Car Rental', 'Rented car C016'),
-                                                          (3, 'Car Return', 'Customer returned C001'),
-                                                          (4, 'Car Return', 'Customer returned C003'),
-                                                          (5, 'Car Return', 'Customer returned C006'),
-                                                          (2, 'System Maintenance', 'Performed system maintenance'),
-                                                          (2, 'Data Backup', 'Database backup completed'),
-                                                          (21, 'User Creation', 'New staff account created');
