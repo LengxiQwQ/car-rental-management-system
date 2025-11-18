@@ -39,7 +39,7 @@ public class CustomerPanel extends JPanel {
         textInputDriverLicenseNumber = new JTextField();
         buttonSave = new JButton();
         textSearch = new JTextField();
-        button1 = new JButton();
+        buttonSearch = new JButton();
 
         //======== this ========
 
@@ -96,8 +96,8 @@ public class CustomerPanel extends JPanel {
         //---- buttonSave ----
         buttonSave.setText("Save Change");
 
-        //---- button1 ----
-        button1.setText("Search");
+        //---- buttonSearch ----
+        buttonSearch.setText("Search");
 
         GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
@@ -115,7 +115,7 @@ public class CustomerPanel extends JPanel {
                                 .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addComponent(textSearch, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(button1))
+                                    .addComponent(buttonSearch))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(label2, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
                                     .addGap(5, 5, 5)
@@ -155,7 +155,7 @@ public class CustomerPanel extends JPanel {
                     .addGroup(layout.createParallelGroup()
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(button1)
+                                .addComponent(buttonSearch)
                                 .addComponent(textSearch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                             .addGap(42, 42, 42)
                             .addComponent(label8)
@@ -231,6 +231,6 @@ public class CustomerPanel extends JPanel {
     private JTextField textInputDriverLicenseNumber;
     private JButton buttonSave;
     private JTextField textSearch;
-    private JButton button1;
+    private JButton buttonSearch;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

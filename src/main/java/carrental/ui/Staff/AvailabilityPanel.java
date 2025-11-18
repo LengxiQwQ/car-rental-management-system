@@ -6,6 +6,7 @@ package carrental.ui.Staff;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.table.*;
 import com.jgoodies.forms.factories.*;
 import com.jgoodies.forms.layout.*;
 
@@ -48,6 +49,45 @@ public class AvailabilityPanel extends JPanel {
 
         //======== scrollPane1 ========
         {
+
+            //---- tableCarAvailability ----
+            tableCarAvailability.setModel(new DefaultTableModel(
+                new Object[][] {
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null},
+                },
+                new String[] {
+                    null, null, null, null, null, null, null, null, null
+                }
+            ));
             scrollPane1.setViewportView(tableCarAvailability);
         }
 
