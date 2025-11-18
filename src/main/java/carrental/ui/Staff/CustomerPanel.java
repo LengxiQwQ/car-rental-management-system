@@ -10,7 +10,10 @@ import javax.swing.*;
 import javax.swing.table.*;
 
 import carrental.model.Customer;
+import carrental.model.SystemLog;
 import carrental.service.CustomerService;
+import carrental.service.LogService;
+import carrental.util.IPUtil;
 import com.jgoodies.forms.factories.*;
 import com.jgoodies.forms.layout.*;
 
@@ -330,6 +333,19 @@ public class CustomerPanel extends JPanel {
                 }
             }
         }.execute();
+        // 保存客户成功后
+        boolean success = false;
+        if (success) {
+            SystemLog currentUser = null;
+            boolean isNew = false;
+            new LogService().recordLog(
+                    currentUser.getUsername(),
+                    "客户管理",
+                    (isNew ? "新增" : "更新") + "客户ID: " + customer.getCustomerID(),
+                    IPUtil.getLocalIp(),
+                    true
+            );
+        }
     }
 
     // 填充表单（从选中的表格行）

@@ -8,8 +8,9 @@ package carrental.ui.Staff;
 import javax.swing.*;
 import javax.swing.table.*;
 
-import carrental.model.Rental;
-import carrental.model.User;
+import carrental.model.*;
+import carrental.service.LogService;
+import carrental.util.IPUtil;
 import com.jgoodies.forms.factories.*;
 import com.jgoodies.forms.layout.*;
 import java.awt.event.ActionEvent;
@@ -21,8 +22,6 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
-import carrental.model.Customer;
-import carrental.model.Car;
 import carrental.service.RentalService;
 import carrental.service.CustomerService;
 import carrental.service.CarService;
@@ -341,7 +340,7 @@ public class ManageRentalsPanel extends JPanel {
         rental.setCar(selectedCar);
         rental.setStartDate(startDate);
         rental.setExpectedReturnDate(endDate);
-        
+
         // 获取当前登录员工信息
         User currentStaff = getCurrentStaff();
         if (currentStaff != null) {
@@ -359,9 +358,10 @@ public class ManageRentalsPanel extends JPanel {
         }
 
         // 3. 调用服务层保存
+        boolean success = false;
         try {
             RentalService rentalService = new RentalService();
-            boolean success = rentalService.checkoutCar(rental, currentStaff);
+            success = rentalService.checkoutCar(rental, currentStaff);
 
             if (success) {
                 JOptionPane.showMessageDialog(this, "租车记录添加成功");
@@ -372,6 +372,19 @@ public class ManageRentalsPanel extends JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "添加失败：" + e.getMessage());
             e.printStackTrace();
+        }
+        // 租车成功后
+        if (success) {
+            SystemLog currentUser = null;
+            new LogService().recordLog(
+                    currentUser.getUsername(),
+                    "租车操作",
+                    "租赁车辆ID: " + selectedCar.getCarID() +
+                            ", 客户ID: " + selectedCustomer.getCustomerID() +
+                            ", 租期: " + startDate + "至" + endDate,
+                    IPUtil.getLocalIp(),
+                    true
+            );
         }
     }
 
@@ -433,4 +446,5 @@ public class ManageRentalsPanel extends JPanel {
             e.printStackTrace();
         }
     }
+
 }
