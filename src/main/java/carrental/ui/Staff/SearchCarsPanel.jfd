@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq l {space :27:27:p, par l {comp scrollPane1:::p:929:p, seq {comp label1:::p:93:p, space :5:5:p, comp comboBoxSearchType:::p:177:p, space :305:305:p, comp textSearchContent:::p:226:p, space :5:5:p, comp buttonSearchCar:::p:118:p}}}}"
-			"$verticalGroup": "par l {seq {space :37:37:p, par l {seq {space :3:3:p, comp label1:::p::p}, comp comboBoxSearchType:::p::p, comp textSearchContent:::p::p, comp buttonSearchCar:::p::p}, space :p:27:p, comp scrollPane1:::p:496:p, space :::p}}"
+			"$horizontalGroup": "par l {seq {space :p:27:p, comp scrollPane1:::p:965:p, space ::28:x}, seq l {space :p:113:p, comp label1:::p:73:p, space :::p, comp comboBoxSearchType:::p:177:p, space ::189:x, comp textSearchContent:::p:226:p, space u:::p, comp buttonSearchCar:::p:118:p, space :p:106:p}}"
+			"$verticalGroup": "par l {seq l {space :p:28:p, par b {comp comboBoxSearchType::b:p::p, comp label1::b:p::p, comp buttonSearchCar::b:p::p, comp textSearchContent::b:p::p}, space ::28:x, comp scrollPane1:::p:512:p, space :p:23:p}}"
 		} ) {
 			name: "this"
 			add( new FormComponent( "javax.swing.JLabel" ) {
@@ -36,7 +36,7 @@ new FormModel {
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 985, 615 )
+			"size": new java.awt.Dimension( 1020, 615 )
 		} )
 	}
 }
