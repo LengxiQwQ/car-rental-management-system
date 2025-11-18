@@ -29,9 +29,9 @@ public class Main {
             LoginRegisterFrame frame = new LoginRegisterFrame();
             frame.getCardPanel().setVisible(true);
 
-            // 创建并显示员工面板
-            StaffDashboardFrame staff = new StaffDashboardFrame();
-            staff.getFreamRoot().setVisible(true);
+            // 注释掉直接显示员工面板的代码，改为通过登录后显示
+            // StaffDashboardFrame staff = new StaffDashboardFrame();
+            // staff.getFreamRoot().setVisible(true);
         });
 
 

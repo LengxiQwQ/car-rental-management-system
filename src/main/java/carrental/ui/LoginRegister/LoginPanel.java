@@ -188,12 +188,15 @@ public class LoginPanel extends JPanel {
                 window.dispose();
             }
             // 打开对应的主面板（根据角色判断）
-//           if (authService.isAdmin(user)) {
-//                new AdminDashboardFrame().setVisible(true); // 管理员面板
-//            } else {
-//                new StaffDashboardFrame().setVisible(true); // 员工面板
-//            }
-            //new StaffDashboardFrame().setVisible(true); // 员工面板
+            if (authService.isAdmin(user)) {
+                // 管理员面板暂未实现，显示提示信息
+                JOptionPane.showMessageDialog(null, "管理员面板尚未实现");
+            } else {
+                // 创建并显示员工面板
+                SwingUtilities.invokeLater(() -> {
+                    new StaffDashboardFrame().getFreamRoot().setVisible(true);
+                });
+            }
         });
     }
 }
