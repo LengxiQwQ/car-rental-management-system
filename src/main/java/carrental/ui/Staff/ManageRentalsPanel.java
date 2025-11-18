@@ -35,42 +35,27 @@ public class ManageRentalsPanel extends JPanel {
         table1 = new JTable();
 
         //======== this ========
-        setLayout(new FormLayout(
-            "default, $lcgap, 37dlu, $lcgap, 63dlu, $rgap, 18dlu, $lcgap, 17dlu, $lcgap, 43dlu, $lcgap, 61dlu, $lcgap, 29dlu, $lcgap, 61dlu, 2*($lcgap, default)",
-            "4*(default, $lgap), default, $pgap, default, $lgap, 186dlu"));
 
         //---- label1 ----
         label1.setText("Customer");
-        add(label1, CC.xy(3, 3));
-        add(comboBoxRentalCustomer, CC.xy(5, 3));
 
         //---- label3 ----
         label3.setText("Start Date");
-        add(label3, CC.xy(11, 3));
-        add(comboBoxRentalStartDate, CC.xy(13, 3));
 
         //---- label2 ----
         label2.setText("Car");
-        add(label2, CC.xy(3, 5));
-        add(comboBoxRentalCar, CC.xy(5, 5));
 
         //---- label4 ----
         label4.setText("End Date");
-        add(label4, CC.xy(11, 5));
-        add(comboBoxRentalEndDate, CC.xy(13, 5));
 
         //---- buttonRentalAdd ----
         buttonRentalAdd.setText("Add Rental");
-        add(buttonRentalAdd, CC.xy(17, 5));
 
         //---- buttonRentalReturn ----
         buttonRentalReturn.setText("Return Car");
-        add(buttonRentalReturn, CC.xy(21, 5));
 
         //---- label5 ----
         label5.setText("Comment");
-        add(label5, CC.xy(3, 9));
-        add(textComment, CC.xywh(5, 9, 17, 1));
 
         //======== scrollPane1 ========
         {
@@ -91,7 +76,75 @@ public class ManageRentalsPanel extends JPanel {
             ));
             scrollPane1.setViewportView(table1);
         }
-        add(scrollPane1, CC.xywh(3, 13, 19, 1));
+
+        GroupLayout layout = new GroupLayout(this);
+        setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup()
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(41, 41, 41)
+                    .addGroup(layout.createParallelGroup()
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup()
+                                .addComponent(label1, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(label2, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE))
+                            .addGap(5, 5, 5)
+                            .addGroup(layout.createParallelGroup()
+                                .addComponent(comboBoxRentalCustomer, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(comboBoxRentalCar, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE))
+                            .addGap(73, 73, 73)
+                            .addGroup(layout.createParallelGroup()
+                                .addComponent(label3, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(label4, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE))
+                            .addGap(5, 5, 5)
+                            .addGroup(layout.createParallelGroup()
+                                .addComponent(comboBoxRentalStartDate, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(comboBoxRentalEndDate, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE))
+                            .addGap(106, 106, 106)
+                            .addComponent(buttonRentalAdd, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
+                            .addGap(140, 140, 140)
+                            .addComponent(buttonRentalReturn, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(label5, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+                            .addGap(5, 5, 5)
+                            .addComponent(textComment, GroupLayout.PREFERRED_SIZE, 879, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 945, GroupLayout.PREFERRED_SIZE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup()
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(26, 26, 26)
+                    .addGroup(layout.createParallelGroup()
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(comboBoxRentalCustomer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addGap(5, 5, 5)
+                            .addComponent(comboBoxRentalCar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(comboBoxRentalStartDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addGap(5, 5, 5)
+                            .addComponent(comboBoxRentalEndDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(buttonRentalAdd, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonRentalReturn, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(3, 3, 3)
+                            .addGroup(layout.createParallelGroup()
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(label1)
+                                    .addGap(11, 11, 11)
+                                    .addComponent(label2))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(label3)
+                                    .addGap(11, 11, 11)
+                                    .addComponent(label4)))))
+                    .addGap(31, 31, 31)
+                    .addGroup(layout.createParallelGroup()
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(3, 3, 3)
+                            .addComponent(label5))
+                        .addComponent(textComment, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addGap(41, 41, 41)
+                    .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 418, GroupLayout.PREFERRED_SIZE))
+        );
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
 

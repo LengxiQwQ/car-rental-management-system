@@ -26,13 +26,9 @@ public class SearchCarsPanel extends JPanel {
         tableCarInfo = new JTable();
 
         //======== this ========
-        setLayout(new FormLayout(
-            "default, $lcgap, 56dlu, $lcgap, 107dlu, $lcgap, 30dlu, $lcgap, 136dlu, $lcgap, 66dlu",
-            "2*(default, $lgap), 306dlu"));
 
         //---- label1 ----
         label1.setText("Search Type");
-        add(label1, CC.xy(3, 3));
 
         //---- comboBoxSearchType ----
         comboBoxSearchType.setModel(new DefaultComboBoxModel<>(new String[] {
@@ -40,18 +36,47 @@ public class SearchCarsPanel extends JPanel {
             "License",
             "Model"
         }));
-        add(comboBoxSearchType, CC.xy(5, 3));
-        add(textSearchContent, CC.xy(9, 3));
 
         //---- buttonSearchCar ----
         buttonSearchCar.setText("Search Car");
-        add(buttonSearchCar, CC.xy(11, 3));
 
         //======== scrollPane1 ========
         {
             scrollPane1.setViewportView(tableCarInfo);
         }
-        add(scrollPane1, CC.xywh(3, 5, 9, 1));
+
+        GroupLayout layout = new GroupLayout(this);
+        setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup()
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(27, 27, 27)
+                    .addGroup(layout.createParallelGroup()
+                        .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 929, GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(label1, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
+                            .addGap(5, 5, 5)
+                            .addComponent(comboBoxSearchType, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
+                            .addGap(305, 305, 305)
+                            .addComponent(textSearchContent, GroupLayout.PREFERRED_SIZE, 226, GroupLayout.PREFERRED_SIZE)
+                            .addGap(5, 5, 5)
+                            .addComponent(buttonSearchCar, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE))))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup()
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(37, 37, 37)
+                    .addGroup(layout.createParallelGroup()
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(3, 3, 3)
+                            .addComponent(label1))
+                        .addComponent(comboBoxSearchType, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textSearchContent, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonSearchCar))
+                    .addGap(27, 27, 27)
+                    .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 496, GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap())
+        );
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
 

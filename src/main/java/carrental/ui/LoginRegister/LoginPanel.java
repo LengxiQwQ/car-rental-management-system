@@ -187,7 +187,7 @@ public class LoginPanel extends JPanel {
 //            } else {
 //                new StaffDashboardFrame().setVisible(true); // 员工面板
 //            }
-            new StaffDashboardFrame().setVisible(true); // 员工面板
+            //new StaffDashboardFrame().setVisible(true); // 员工面板
         });
     }
 }

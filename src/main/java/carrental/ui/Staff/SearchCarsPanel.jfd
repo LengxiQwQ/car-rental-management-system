@@ -3,17 +3,14 @@ JFDML JFormDesigner: "8.2.4.0.393" Java: "21.0.8" encoding: "UTF-8"
 new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
-		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
-			"$columnSpecs": "default, labelcompgap, 56dlu, labelcompgap, 107dlu, labelcompgap, 30dlu, labelcompgap, 136dlu, labelcompgap, 66dlu"
-			"$rowSpecs": "default, linegap, default, linegap, 306dlu"
+		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space :27:27:p, par l {comp scrollPane1:::p:929:p, seq {comp label1:::p:93:p, space :5:5:p, comp comboBoxSearchType:::p:177:p, space :305:305:p, comp textSearchContent:::p:226:p, space :5:5:p, comp buttonSearchCar:::p:118:p}}}}"
+			"$verticalGroup": "par l {seq {space :37:37:p, par l {seq {space :3:3:p, comp label1:::p::p}, comp comboBoxSearchType:::p::p, comp textSearchContent:::p::p, comp buttonSearchCar:::p::p}, space :p:27:p, comp scrollPane1:::p:496:p, space :::p}}"
 		} ) {
 			name: "this"
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label1"
 				"text": "Search Type"
-			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
-				"gridX": 3
-				"gridY": 3
 			} )
 			add( new FormComponent( "javax.swing.JComboBox" ) {
 				name: "comboBoxSearchType"
@@ -23,36 +20,23 @@ new FormModel {
 					addElement( "License" )
 					addElement( "Model" )
 				}
-			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
-				"gridX": 5
-				"gridY": 3
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "textSearchContent"
-			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
-				"gridX": 9
-				"gridY": 3
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "buttonSearchCar"
 				"text": "Search Car"
-			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
-				"gridX": 11
-				"gridY": 3
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "scrollPane1"
 				add( new FormComponent( "javax.swing.JTable" ) {
 					name: "tableCarInfo"
 				} )
-			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
-				"gridY": 5
-				"gridX": 3
-				"gridWidth": 9
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 725, 540 )
+			"size": new java.awt.Dimension( 985, 615 )
 		} )
 	}
 }

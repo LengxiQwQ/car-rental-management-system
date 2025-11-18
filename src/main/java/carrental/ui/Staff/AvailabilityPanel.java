@@ -4,6 +4,7 @@
 
 package carrental.ui.Staff;
 
+import java.awt.*;
 import javax.swing.*;
 import com.jgoodies.forms.factories.*;
 import com.jgoodies.forms.layout.*;
@@ -26,13 +27,9 @@ public class AvailabilityPanel extends JPanel {
         tableCarAvailability = new JTable();
 
         //======== this ========
-        setLayout(new FormLayout(
-            "default, $lcgap, 31dlu, $lcgap, 83dlu, $lcgap, default, $lcgap, 49dlu, $lcgap, 281dlu",
-            "3*(default, $lgap), default, $pgap, default"));
 
         //---- label1 ----
         label1.setText("Filter");
-        add(label1, CC.xy(3, 3));
 
         //---- comboBoxFilter ----
         comboBoxFilter.setModel(new DefaultComboBoxModel<>(new String[] {
@@ -41,21 +38,52 @@ public class AvailabilityPanel extends JPanel {
             "Rented",
             "Maintenance"
         }));
-        add(comboBoxFilter, CC.xy(5, 3));
 
         //---- buttonRefresh ----
         buttonRefresh.setText("Refresh");
-        add(buttonRefresh, CC.xy(9, 3));
 
         //---- label2 ----
         label2.setText("Car Inventory Table");
-        add(label2, CC.xywh(3, 7, 9, 1));
+        label2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 16));
 
         //======== scrollPane1 ========
         {
             scrollPane1.setViewportView(tableCarAvailability);
         }
-        add(scrollPane1, CC.xywh(3, 9, 9, 1));
+
+        GroupLayout layout = new GroupLayout(this);
+        setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup()
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(27, 27, 27)
+                    .addGroup(layout.createParallelGroup()
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(label1, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
+                            .addGap(5, 5, 5)
+                            .addComponent(comboBoxFilter, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE)
+                            .addGap(32, 32, 32)
+                            .addComponent(buttonRefresh, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(label2, GroupLayout.PREFERRED_SIZE, 957, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 966, GroupLayout.PREFERRED_SIZE))
+                    .addGap(27, 27, 27))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup()
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(26, 26, 26)
+                    .addGroup(layout.createParallelGroup()
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(3, 3, 3)
+                            .addComponent(label1))
+                        .addComponent(comboBoxFilter, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonRefresh))
+                    .addGap(31, 31, 31)
+                    .addComponent(label2)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 476, GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap())
+        );
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
 

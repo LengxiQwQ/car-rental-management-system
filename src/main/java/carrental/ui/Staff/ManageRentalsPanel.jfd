@@ -3,90 +3,53 @@ JFDML JFormDesigner: "8.2.4.0.393" Java: "21.0.8" encoding: "UTF-8"
 new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
-		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
-			"$columnSpecs": "default, labelcompgap, 37dlu, labelcompgap, 63dlu, relgap, 18dlu, labelcompgap, 17dlu, labelcompgap, 43dlu, labelcompgap, 61dlu, labelcompgap, 29dlu, labelcompgap, 61dlu, labelcompgap, default, labelcompgap, default"
-			"$rowSpecs": "default, linegap, default, linegap, default, linegap, default, linegap, default, pargap, default, linegap, 186dlu"
+		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq {space :41:41:p, par l {seq {par l {comp label1:::p:61:p, comp label2:::p:61:p}, space :5:5:p, par l {comp comboBoxRentalCustomer:::p:139:p, comp comboBoxRentalCar:::p:139:p}, space :73:73:p, par l {comp label3:::p:71:p, comp label4:::p:71:p}, space :5:5:p, par l {comp comboBoxRentalStartDate:::p:136:p, comp comboBoxRentalEndDate:::p:136:p}, space :106:106:p, comp buttonRentalAdd:::p:101:p, space :140:140:p, comp buttonRentalReturn:::p:108:p}, seq {comp label5:::p:61:p, space :5:5:p, comp textComment:::p:879:p}, comp scrollPane1:::p:945:p}}}"
+			"$verticalGroup": "par l {seq {space :26:26:p, par l {seq {comp comboBoxRentalCustomer:::p::p, space :5:5:p, comp comboBoxRentalCar:::p::p}, seq {comp comboBoxRentalStartDate:::p::p, space :5:5:p, comp comboBoxRentalEndDate:::p::p}, comp buttonRentalAdd:::p:53:p, comp buttonRentalReturn:::p:53:p, seq {space :3:3:p, par l {seq {comp label1:::p::p, space :11:11:p, comp label2:::p::p}, seq {comp label3:::p::p, space :11:11:p, comp label4:::p::p}}}}, space :31:31:p, par l {seq {space :3:3:p, comp label5:::p::p}, comp textComment:::p::p}, space :41:41:p, comp scrollPane1:::p:418:p}}"
 		} ) {
 			name: "this"
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label1"
 				"text": "Customer"
-			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
-				"gridX": 3
-				"gridY": 3
 			} )
 			add( new FormComponent( "javax.swing.JComboBox" ) {
 				name: "comboBoxRentalCustomer"
-			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
-				"gridX": 5
-				"gridY": 3
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label3"
 				"text": "Start Date"
-			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
-				"gridX": 11
-				"gridY": 3
 			} )
 			add( new FormComponent( "javax.swing.JComboBox" ) {
 				name: "comboBoxRentalStartDate"
-			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
-				"gridX": 13
-				"gridY": 3
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label2"
 				"text": "Car"
-			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
-				"gridX": 3
-				"gridY": 5
 			} )
 			add( new FormComponent( "javax.swing.JComboBox" ) {
 				name: "comboBoxRentalCar"
-			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
-				"gridX": 5
-				"gridY": 5
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label4"
 				"text": "End Date"
-			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
-				"gridX": 11
-				"gridY": 5
 			} )
 			add( new FormComponent( "javax.swing.JComboBox" ) {
 				name: "comboBoxRentalEndDate"
-			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
-				"gridX": 13
-				"gridY": 5
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "buttonRentalAdd"
 				"text": "Add Rental"
-			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
-				"gridX": 17
-				"gridY": 5
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "buttonRentalReturn"
 				"text": "Return Car"
-			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
-				"gridX": 21
-				"gridY": 5
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label5"
 				"text": "Comment"
-			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
-				"gridX": 3
-				"gridY": 9
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "textComment"
-			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
-				"gridX": 5
-				"gridY": 9
-				"gridWidth": 17
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "scrollPane1"
@@ -161,14 +124,10 @@ new FormModel {
 						add( null )
 					} )
 				} )
-			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
-				"gridX": 3
-				"gridY": 13
-				"gridWidth": 19
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 755, 505 )
+			"size": new java.awt.Dimension( 1020, 615 )
 		} )
 	}
 }

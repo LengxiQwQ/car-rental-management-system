@@ -38,8 +38,8 @@ public class CustomerPanel extends JPanel {
         label7 = new JLabel();
         textInputDriverLicenseNumber = new JTextField();
         buttonSave = new JButton();
-        label9 = new JLabel();
         textSearch = new JTextField();
+        button1 = new JButton();
 
         //======== this ========
 
@@ -96,28 +96,31 @@ public class CustomerPanel extends JPanel {
         //---- buttonSave ----
         buttonSave.setText("Save Change");
 
-        //---- label9 ----
-        label9.setText("Search");
+        //---- button1 ----
+        button1.setText("Search");
 
         GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup()
                 .addGroup(layout.createSequentialGroup()
-                    .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 692, GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup()
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(12, 12, 12)
-                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                            .addGap(19, 19, 19)
+                            .addGroup(layout.createParallelGroup()
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(label1, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
                                     .addGap(5, 5, 5)
                                     .addComponent(textInputCustomerID, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE))
+                                .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(textSearch, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(button1))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(label2, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
                                     .addGap(5, 5, 5)
                                     .addComponent(textInputName, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
+                                .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addComponent(label3, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
                                     .addGap(5, 5, 5)
                                     .addComponent(textInputPhone, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE))
@@ -126,10 +129,6 @@ public class CustomerPanel extends JPanel {
                                     .addGap(5, 5, 5)
                                     .addComponent(textInputIDCardNumber, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(label7, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
-                                    .addGap(5, 5, 5)
-                                    .addComponent(textInputDriverLicenseNumber, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
                                     .addComponent(label5, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
                                     .addGap(5, 5, 5)
                                     .addComponent(textInputEmail, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE))
@@ -137,73 +136,77 @@ public class CustomerPanel extends JPanel {
                                     .addComponent(label6, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
                                     .addGap(5, 5, 5)
                                     .addComponent(textInputAddress, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(label9)
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(textSearch))
+                                .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(label7, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+                                    .addGap(5, 5, 5)
+                                    .addComponent(textInputDriverLicenseNumber, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE))
                                 .addComponent(label8, GroupLayout.PREFERRED_SIZE, 274, GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(88, 88, 88)
+                            .addGap(98, 98, 98)
                             .addComponent(buttonSave, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap(17, Short.MAX_VALUE))
+                    .addGap(18, 18, 18)
+                    .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 688, GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup()
                 .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
+                    .addGap(25, 25, 25)
                     .addGroup(layout.createParallelGroup()
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(label9)
+                                .addComponent(button1)
                                 .addComponent(textSearch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addGap(71, 71, 71)
+                            .addGap(42, 42, 42)
                             .addComponent(label8)
-                            .addGap(18, 18, 18)
+                            .addGap(34, 34, 34)
                             .addGroup(layout.createParallelGroup()
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(3, 3, 3)
                                     .addComponent(label1))
                                 .addComponent(textInputCustomerID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addGap(5, 5, 5)
+                            .addGap(18, 18, 18)
                             .addGroup(layout.createParallelGroup()
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(3, 3, 3)
                                     .addComponent(label2))
                                 .addComponent(textInputName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addGap(5, 5, 5)
+                            .addGap(18, 18, 18)
                             .addGroup(layout.createParallelGroup()
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(3, 3, 3)
                                     .addComponent(label3))
                                 .addComponent(textInputPhone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addGap(5, 5, 5)
+                            .addGap(18, 18, 18)
                             .addGroup(layout.createParallelGroup()
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(3, 3, 3)
                                     .addComponent(label4))
                                 .addComponent(textInputIDCardNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addGap(5, 5, 5)
+                            .addGap(18, 18, 18)
                             .addGroup(layout.createParallelGroup()
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(3, 3, 3)
                                     .addComponent(label5))
                                 .addComponent(textInputEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addGap(5, 5, 5)
+                            .addGap(18, 18, 18)
                             .addGroup(layout.createParallelGroup()
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(3, 3, 3)
                                     .addComponent(label6))
                                 .addComponent(textInputAddress, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addGap(5, 5, 5)
+                            .addGap(18, 18, 18)
                             .addGroup(layout.createParallelGroup()
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(3, 3, 3)
                                     .addComponent(label7))
                                 .addComponent(textInputDriverLicenseNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addComponent(buttonSave, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
-                        .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 593, GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(1, Short.MAX_VALUE))
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                            .addComponent(buttonSave, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+                            .addGap(103, 103, 103))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 560, GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap(30, Short.MAX_VALUE))))
         );
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
@@ -227,7 +230,7 @@ public class CustomerPanel extends JPanel {
     private JLabel label7;
     private JTextField textInputDriverLicenseNumber;
     private JButton buttonSave;
-    private JLabel label9;
     private JTextField textSearch;
+    private JButton button1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

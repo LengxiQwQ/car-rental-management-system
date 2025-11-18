@@ -25,12 +25,13 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
             // ...  创建 UI 组件 ...
 
-            //StaffDashboardFrame staff = new StaffDashboardFrame();
-            //staff.getCardPanel().setVisible(true);
-
             // 创建并显示登录注册界面
             LoginRegisterFrame frame = new LoginRegisterFrame();
             frame.getCardPanel().setVisible(true);
+
+            // 创建并显示员工面板
+            StaffDashboardFrame staff = new StaffDashboardFrame();
+            staff.getFreamRoot().setVisible(true);
         });
 
 
