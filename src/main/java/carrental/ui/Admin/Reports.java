@@ -4,19 +4,61 @@
 
 package carrental.ui.Admin;
 
+import carrental.model.Car;
+import carrental.model.Rental;
+import carrental.service.CarService;
+import carrental.service.RentalService;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Vector;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle;
 import javax.swing.table.*;
 import com.toedter.calendar.*;
+import java.util.Date;
 
 /**
  * @author LengxiQwQ
  */
 public class Reports extends JPanel {
+    private RentalService rentalService;
+    private CarService carService;
+    
     public Reports() {
+        rentalService = new RentalService();
+        carService = new CarService();
         initComponents();
+        
+        // 初始化表格列名
+        String[] columnNames = {"Rental ID", "Customer Name", "Car Model", "Start Date", "Expected Return", "Actual Return", "Status", "Total Cost"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+        tableRentalHistory.setModel(model);
+        
+        // 加载初始数据
+        loadRentalData();
+        updateStatistics();
+        
+        // 添加按钮事件监听器
+        buttonGenerateReport.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                generateReportByDate();
+            }
+        });
+        
+        buttonRefresh.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadRentalData();
+                updateStatistics();
+            }
+        });
     }
 
     private void initComponents() {
@@ -34,6 +76,7 @@ public class Reports extends JPanel {
         labelTotalRentals = new JLabel();
         labelAvailableCars = new JLabel();
         label10 = new JLabel();
+        buttonRefresh = new JButton();
 
         //======== this ========
 
@@ -93,6 +136,9 @@ public class Reports extends JPanel {
         label10.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 16));
         label10.setHorizontalAlignment(SwingConstants.CENTER);
 
+        //---- buttonRefresh ----
+        buttonRefresh.setText("Refresh");
+
         GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
         layout.setHorizontalGroup(
@@ -100,41 +146,41 @@ public class Reports extends JPanel {
                 .addGroup(layout.createSequentialGroup()
                     .addGroup(layout.createParallelGroup()
                         .addGroup(layout.createSequentialGroup()
+                            .addGap(0, 51, Short.MAX_VALUE)
                             .addGroup(layout.createParallelGroup()
                                 .addGroup(layout.createSequentialGroup()
-                                    .addGap(0, 30, Short.MAX_VALUE)
-                                    .addGroup(layout.createParallelGroup()
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(label4)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(labelTotalRentals))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(label5)
-                                            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(labelAvailableCars))
-                                        .addComponent(label9, GroupLayout.PREFERRED_SIZE, 254, GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(label4)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(labelTotalRentals))
                                 .addGroup(layout.createSequentialGroup()
-                                    .addGap(0, 31, Short.MAX_VALUE)
+                                    .addComponent(label5)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(labelAvailableCars))
+                                .addComponent(label9, GroupLayout.PREFERRED_SIZE, 254, GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(0, 42, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup()
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(buttonGenerateReport, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                                    .addComponent(buttonRefresh))
+                                .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                         .addComponent(label1, GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
                                         .addComponent(label2, GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE))
                                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(layout.createParallelGroup()
                                         .addComponent(dateChooserToDate, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(dateChooserFromDate, GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE))))
-                            .addGap(18, 18, 18))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(90, 90, 90)
-                            .addComponent(buttonGenerateReport, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)))
+                                        .addComponent(dateChooserFromDate, GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE))))))
+                    .addGap(18, 18, 18)
                     .addGroup(layout.createParallelGroup()
+                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 671, GroupLayout.PREFERRED_SIZE)
+                            .addGap(26, 26, 26))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(225, 225, 225)
                             .addComponent(label10, GroupLayout.PREFERRED_SIZE, 254, GroupLayout.PREFERRED_SIZE)
-                            .addGap(239, 239, 239))
-                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 671, GroupLayout.PREFERRED_SIZE)
-                            .addGap(26, 26, 26))))
+                            .addGap(64, 64, 64))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup()
@@ -154,18 +200,18 @@ public class Reports extends JPanel {
                                 .addComponent(label5)
                                 .addComponent(labelAvailableCars))
                             .addGap(54, 54, 54)
-                            .addGroup(layout.createParallelGroup()
-                                .addComponent(dateChooserFromDate, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(label1, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 5, Short.MAX_VALUE)))
-                            .addGap(28, 28, 28)
+                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                .addComponent(label1, GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                                .addComponent(dateChooserFromDate, GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE))
+                            .addGap(33, 33, 33)
                             .addGroup(layout.createParallelGroup()
                                 .addComponent(dateChooserToDate, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
                                 .addComponent(label2, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
-                            .addGap(54, 54, 54)
-                            .addComponent(buttonGenerateReport, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
-                            .addGap(211, 211, 211))
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(buttonGenerateReport, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(buttonRefresh, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE))
+                            .addGap(222, 222, 222))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(21, 21, 21)
                             .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 511, GroupLayout.PREFERRED_SIZE)
@@ -188,5 +234,94 @@ public class Reports extends JPanel {
     private JLabel labelTotalRentals;
     private JLabel labelAvailableCars;
     private JLabel label10;
+    private JButton buttonRefresh;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
+    
+    // 加载所有租赁数据到表格
+    private void loadRentalData() {
+        try {
+            List<Rental> rentals = rentalService.getAllRentals();
+            updateTableData(rentals);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error loading rental data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    // 根据日期范围生成报告
+    private void generateReportByDate() {
+        Date fromDate = dateChooserFromDate.getDate();
+        Date toDate = dateChooserToDate.getDate();
+        
+        if (fromDate == null || toDate == null) {
+            JOptionPane.showMessageDialog(this, "Please select both from and to dates", "Date Selection Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (fromDate.after(toDate)) {
+            JOptionPane.showMessageDialog(this, "From date cannot be after to date", "Date Selection Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        try {
+            List<Rental> rentals = rentalService.getAllRentals();
+            
+            // 筛选日期范围内的租赁记录
+            rentals.removeIf(rental -> {
+                java.util.Date rentalDate = java.sql.Date.valueOf(rental.getStartDate());
+                return rentalDate.before(fromDate) || rentalDate.after(toDate);
+            });
+            
+            updateTableData(rentals);
+            
+            // 显示筛选后的统计信息
+            labelTotalRentals.setText(String.valueOf(rentals.size()));
+            
+            JOptionPane.showMessageDialog(this, "Report generated successfully for the selected date range", "Success", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error generating report: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    // 更新表格数据
+    private void updateTableData(List<Rental> rentals) {
+        DefaultTableModel model = (DefaultTableModel) tableRentalHistory.getModel();
+        model.setRowCount(0); // 清空现有数据
+        
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        
+        for (Rental rental : rentals) {
+            Vector<Object> row = new Vector<>();
+            row.add(rental.getRentalID());
+            row.add(rental.getCustomer().getcustomerName());
+            row.add(rental.getCar().getModel());
+            row.add(dateFormat.format(java.sql.Date.valueOf(rental.getStartDate())));
+            row.add(dateFormat.format(java.sql.Date.valueOf(rental.getExpectedReturnDate())));
+            
+            if (rental.getActualReturnDate() != null) {
+                row.add(dateFormat.format(java.sql.Date.valueOf(rental.getActualReturnDate())));
+            } else {
+                row.add("Not Returned");
+            }
+            
+            row.add(rental.getStatus());
+            row.add(String.format("%.2f", rental.getTotalCost()));
+            
+            model.addRow(row);
+        }
+    }
+    
+    // 更新统计信息
+    private void updateStatistics() {
+        try {
+            // 获取所有租赁记录
+            List<Rental> rentals = rentalService.getAllRentals();
+            labelTotalRentals.setText(String.valueOf(rentals.size()));
+            
+            // 获取可用车辆数量
+            List<Car> availableCars = carService.getAvailableCars();
+            labelAvailableCars.setText(String.valueOf(availableCars.size()));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error updating statistics: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }

@@ -28,6 +28,8 @@ public class SystemLogs extends JPanel {
         tableLogRecords = new JTable();
         dateChooserFilterbyDate = new JDateChooser();
         label10 = new JLabel();
+        buttonRefresh = new JButton();
+        buttonEnterFilterbyDate = new JButton();
 
         //======== this ========
 
@@ -62,40 +64,60 @@ public class SystemLogs extends JPanel {
         label10.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 16));
         label10.setHorizontalAlignment(SwingConstants.CENTER);
 
+        //---- buttonRefresh ----
+        buttonRefresh.setText("Refresh");
+
+        //---- buttonEnterFilterbyDate ----
+        buttonEnterFilterbyDate.setText("Enter");
+
         GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup()
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(67, 67, 67)
-                    .addComponent(label1, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addComponent(comboBoxFilterbyUser, GroupLayout.PREFERRED_SIZE, 189, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                    .addComponent(label10, GroupLayout.PREFERRED_SIZE, 254, GroupLayout.PREFERRED_SIZE)
-                    .addGap(24, 24, 24)
-                    .addComponent(label2, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(dateChooserFilterbyDate, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
-                    .addGap(82, 82, 82))
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(23, 23, 23)
-                    .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 968, GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup()
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(70, 70, 70)
+                            .addComponent(label1, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(comboBoxFilterbyUser, GroupLayout.PREFERRED_SIZE, 189, GroupLayout.PREFERRED_SIZE)
+                            .addGap(116, 116, 116)
+                            .addComponent(buttonRefresh)
+                            .addGap(76, 76, 76)
+                            .addComponent(label2, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(dateChooserFilterbyDate, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(buttonEnterFilterbyDate))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(375, 375, 375)
+                            .addComponent(label10, GroupLayout.PREFERRED_SIZE, 254, GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(23, 23, 23)
+                            .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 968, GroupLayout.PREFERRED_SIZE)))
                     .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup()
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(25, 25, 25)
-                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE, false)
-                        .addComponent(label1)
-                        .addComponent(label10)
-                        .addComponent(comboBoxFilterbyUser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(dateChooserFilterbyDate, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                        .addComponent(label2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(29, 29, 29)
+                            .addComponent(label10)
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                    .addComponent(comboBoxFilterbyUser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(label1)
+                                    .addComponent(buttonRefresh)
+                                    .addComponent(label2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(buttonEnterFilterbyDate)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dateChooserFilterbyDate, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)))
                     .addGap(18, 18, 18)
-                    .addComponent(scrollPane1, GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
-                    .addGap(24, 24, 24))
+                    .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 478, GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(25, Short.MAX_VALUE))
         );
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
@@ -108,5 +130,7 @@ public class SystemLogs extends JPanel {
     private JTable tableLogRecords;
     private JDateChooser dateChooserFilterbyDate;
     private JLabel label10;
+    private JButton buttonRefresh;
+    private JButton buttonEnterFilterbyDate;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

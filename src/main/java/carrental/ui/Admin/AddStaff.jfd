@@ -1,0 +1,50 @@
+JFDML JFormDesigner: "8.2.4.0.393" Java: "21.0.8" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space :p:62:p, par l {seq l {space :91:91:p, comp label1:::p::p}, par t:l::p {seq {par l {comp label2::l:p::p, comp label3::l:p::p}, space :p:45:p, par l {comp textFieldtextFieldAddStaffName:::p:133:p, comp textFieldAddStaffID:::p:133:p}}, seq {comp label4:::p::p, space :::x, comp textFieldtextFieldAddStaffPassword:::p:133:p}}, seq {comp buttonAddStaffCancel:::p::p, space :p:87:p, comp buttonAddStaff:::p::p}}, space ::70:x}}"
+			"$verticalGroup": "par l {seq l {space :p:32:p, comp label1:::p::p, space :33:33:p, par l {seq l {space :3:3:p, comp label2:::p::p}, comp textFieldAddStaffID:::p::p}, par l {seq l {space :p:21:p, comp label3:::p::p}, seq l {space s:::p, comp textFieldtextFieldAddStaffName:::p::p}}, space s:::p, par b {comp textFieldtextFieldAddStaffPassword::b:p::p, comp label4::b:p::p}, space ::65:x, par b {comp buttonAddStaff::b:p::p, comp buttonAddStaffCancel::b:p::p}, space :p:34:p}}"
+		} ) {
+			name: "this"
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"text": "Add Staff"
+				"font": new java.awt.Font( "Microsoft YaHei UI", 1, 16 )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label2"
+				"text": "Staff ID"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textFieldAddStaffID"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label3"
+				"text": "Username"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textFieldtextFieldAddStaffName"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "buttonAddStaff"
+				"text": "Add"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "buttonAddStaffCancel"
+				"text": "Cancel"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textFieldtextFieldAddStaffPassword"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label4"
+				"text": "Password"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 365, 350 )
+		} )
+	}
+}
