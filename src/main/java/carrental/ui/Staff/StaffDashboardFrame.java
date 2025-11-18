@@ -86,7 +86,7 @@ public class StaffDashboardFrame extends JFrame {
 
         //======== freamRoot ========
         {
-            freamRoot.setTitle("Staff Dashboard");
+            freamRoot.setTitle("Car Rental Management System - Staff Dashboard");
             var freamRootContentPane = freamRoot.getContentPane();
 
             //======== cardPanel ========

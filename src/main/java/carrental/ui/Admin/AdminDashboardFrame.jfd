@@ -1,0 +1,43 @@
+JFDML JFormDesigner: "8.2.4.0.393" Java: "21.0.8" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq {space :::p, par l {comp buttonPanel:::::x, seq t {space :0:0:x, comp cardPanel:::p:1018:p}}, space :::p}}"
+			"$verticalGroup": "par l {seq {comp buttonPanel:::p::p, space :::x, comp cardPanel:::p:614:p, space :::p}}"
+		} ) {
+			name: "freamRoot"
+			"$locationPolicy": 1
+			"title": "Car Rental Management System - Administer Dashboard"
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.CardLayout ) ) {
+				name: "cardPanel"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+				"$horizontalGroup": "par l {seq l {space :p:22:p, comp toggleButtonManageStaff:::p:233:p, space s:::p, comp toggleButtonManageCars:::p:234:p, space s:::p, comp toggleButtonReports:::p:232:p, space s:::p, comp toggleButtonSystemLogs:::p:220:p, space :::p}}"
+				"$verticalGroup": "par l {seq l {space :::p, par l {comp toggleButtonManageStaff::l::41:x, comp toggleButtonManageCars::l::41:x, comp toggleButtonReports::l::41:x, comp toggleButtonSystemLogs::l::41:x}}}"
+			} ) {
+				name: "buttonPanel"
+				add( new FormComponent( "javax.swing.JToggleButton" ) {
+					name: "toggleButtonManageStaff"
+					"text": "Manage Staff"
+				} )
+				add( new FormComponent( "javax.swing.JToggleButton" ) {
+					name: "toggleButtonManageCars"
+					"text": "Manage Cars"
+				} )
+				add( new FormComponent( "javax.swing.JToggleButton" ) {
+					name: "toggleButtonReports"
+					"text": "Reports"
+				} )
+				add( new FormComponent( "javax.swing.JToggleButton" ) {
+					name: "toggleButtonSystemLogs"
+					"text": "System Logs"
+				} )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 1030, 700 )
+		} )
+	}
+}

@@ -1,0 +1,225 @@
+JFDML JFormDesigner: "8.2.4.0.393" Java: "21.0.8" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq t {space ::27:x, par l {par l:l {seq l {par t:::p {comp label2:::::x, comp label3::t:::x, comp label4::l:::x, comp label5::l:::x, comp label6:::::x, comp label1:::p:118:p}, space :::p, par l:::p {comp textInputEmail:::::x, comp textInputAddress:::::x, comp textInputIDCardNumber::l:::x, comp textInputPhone::l:::x, comp textInputName::l:::x, comp textInputCustomerID::l:p:133:p}}, seq t {space :p:1:p, par l {seq t {comp label7:::p::p, space :::p, comp textInputDriverLicenseNumber:::p:133:p}, seq t {comp textSearch:::p:170:p, space u:::p, comp buttonSearch:::p::p}}}}, seq l {space :p:68:p, comp buttonSave:::p:120:p}, comp label8::l:p::p, seq l {space :p:60:p, comp label9:::p::p}}, space s:::p, comp scrollPane1:::p:697:p, space :p:21:p}}"
+			"$verticalGroup": "par l {seq {par l {seq l {space :p:39:p, comp label9:::p::p, space :p:44:p, par b {comp buttonSearch::b:p::p, comp textSearch::b:p::p}, space s:::p, comp label8:::p::p, space s:::p, par b {comp label1::b:p::p, comp textInputCustomerID::b:p::p}, space :p:18:p, par b {comp label2::b:p::p, comp textInputName::b:p::p}, space :p:18:p, par b {comp label3::b:p::p, comp textInputPhone::b:p::p}, space :p:18:p, par b {comp label4::b:p::p, comp textInputIDCardNumber::b:p::p}, space :p:18:p, par b {comp label5::b:p::p, comp textInputEmail::b:p::p}, space :p:18:p, par b {comp label6::b:p::p, comp textInputAddress::b:p::p}, space :p:18:p, par b {comp label7::b:p::p, comp textInputDriverLicenseNumber::b:p::p}, space :p:54:p, comp buttonSave:::p:38:p}, seq l {space :p:19:p, comp scrollPane1:::p:571:p}}, space ::25:x}}"
+		} ) {
+			name: "this"
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane1"
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "tableCustomerInfo"
+					"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector {
+						add( new java.util.Vector {
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+						} )
+						add( new java.util.Vector {
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+						} )
+						add( new java.util.Vector {
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+						} )
+						add( new java.util.Vector {
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+						} )
+						add( new java.util.Vector {
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+						} )
+						add( new java.util.Vector {
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+						} )
+						add( new java.util.Vector {
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+						} )
+						add( new java.util.Vector {
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+						} )
+						add( new java.util.Vector {
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+						} )
+						add( new java.util.Vector {
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+						} )
+						add( new java.util.Vector {
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+						} )
+					}, new java.util.Vector {
+						add( null )
+						add( null )
+						add( null )
+						add( null )
+						add( null )
+						add( null )
+						add( null )
+					}, new java.util.Vector {
+						add( null )
+						add( null )
+						add( null )
+						add( null )
+						add( null )
+						add( null )
+						add( null )
+					}, new java.util.Vector {
+						add( null )
+						add( null )
+						add( null )
+						add( null )
+						add( null )
+						add( null )
+						add( null )
+					}, new java.util.Vector {
+						add( null )
+						add( null )
+						add( null )
+						add( null )
+						add( null )
+						add( null )
+						add( null )
+					} )
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label8"
+				"text": "Selected Customer Details："
+				"font": new java.awt.Font( "Microsoft YaHei UI", 0, 14 )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"text": "Customer ID"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textInputCustomerID"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label2"
+				"text": "Full name"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textInputName"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label3"
+				"text": "Phone number"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textInputPhone"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label4"
+				"text": "ID card number"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textInputIDCardNumber"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label5"
+				"text": "Email address"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textInputEmail"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label6"
+				"text": "Address"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textInputAddress"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label7"
+				"text": "Driver license number"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textInputDriverLicenseNumber"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "buttonSave"
+				"text": "Save Change"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textSearch"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "buttonSearch"
+				"text": "Search"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label9"
+				"text": "Customer Manager"
+				"font": new java.awt.Font( "Microsoft YaHei UI", 1, 16 )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 1020, 615 )
+		} )
+	}
+}
