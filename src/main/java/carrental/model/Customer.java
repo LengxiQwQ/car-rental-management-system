@@ -2,9 +2,9 @@ package carrental.model;
 
 public class Customer {
 
-    private int phone;
-    private int driverLicenseNumber;
-    private int idCardNumber;
+    private String phone;
+    private String driverLicenseNumber;
+    private String idCardNumber;
     private String customerID;
     private String customerName;
     private String email;
@@ -16,7 +16,7 @@ public class Customer {
     }
 
     // 基本信息构造函数
-    public Customer(String customerID, String name, int phone, String email, String address, String password) {
+    public Customer(String customerID, String name, String phone, String email, String address, String password) {
         this.customerID = customerID;
         this.customerName = customerName;
         this.phone = phone;
@@ -26,7 +26,7 @@ public class Customer {
     }
 
     // 完整客户信息构造函数
-    public Customer(String customerID, String customerName, int phone, String email, String address, String password, int driverLicenseNumber, int idCardNumber) {
+    public Customer(String customerID, String customerName, String phone, String email, String address, String password, String driverLicenseNumber, String idCardNumber) {
         this.customerID = customerID;
         this.customerName = customerName;
         this.phone = phone;
@@ -38,7 +38,7 @@ public class Customer {
     }
 
     // 更新客户联系信息
-    public void updateContactInfo(int phone, String email, String address) {
+    public void updateContactInfo(String phone, String email, String address) {
         this.phone = phone;
         this.email = email;
         this.address = address;
@@ -67,11 +67,11 @@ public class Customer {
         this.customerID = customerID;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -99,19 +99,19 @@ public class Customer {
         this.address = address;
     }
 
-    public int getDriverLicenseNumber() {
+    public String getDriverLicenseNumber() {
         return driverLicenseNumber;
     }
 
-    public void setDriverLicenseNumber(int driverLicenseNumber) {
+    public void setDriverLicenseNumber(String driverLicenseNumber) {
         this.driverLicenseNumber = driverLicenseNumber;
     }
 
-    public int getIdCardNumber() {
+    public String getIdCardNumber() {
         return idCardNumber;
     }
 
-    public void setIdCardNumber(int idCardNumber) {
+    public void setIdCardNumber(String idCardNumber) {
         this.idCardNumber = idCardNumber;
     }
 

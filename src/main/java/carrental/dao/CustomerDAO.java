@@ -39,11 +39,11 @@ public class CustomerDAO {
                     // 注意：Customer 类中的 phone, driverLicenseNumber, idCardNumber 是 int 类型
                     // 如果数据库中这些字段可能为 NULL，请使用 rs.wasNull() 进行判断，避免空指针异常
                     // 为简化起见，这里假设这些字段在数据库中是 NOT NULL 的
-                    customer.setPhone(rs.getInt("phone"));
+                    customer.setPhone(rs.getString("phone"));
                     customer.setEmail(rs.getString("email"));
                     customer.setAddress(rs.getString("address"));
-                    customer.setDriverLicenseNumber(rs.getInt("driver_license_number"));
-                    customer.setIdCardNumber(rs.getInt("id_card_number"));
+                    customer.setDriverLicenseNumber(rs.getString("driver_license_number"));
+                    customer.setIdCardNumber(rs.getString("id_card_number"));
 
                     return customer;
                 }
@@ -71,11 +71,11 @@ public class CustomerDAO {
                 Customer customer = new Customer();
                 customer.setCustomerID(rs.getString("customer_id"));
                 customer.setName(rs.getString("name"));
-                customer.setPhone(rs.getInt("phone"));
+                customer.setPhone(rs.getString("phone"));
                 customer.setEmail(rs.getString("email"));
                 customer.setAddress(rs.getString("address"));
-                customer.setDriverLicenseNumber(rs.getInt("driver_license_number"));
-                customer.setIdCardNumber(rs.getInt("id_card_number"));
+                customer.setDriverLicenseNumber(rs.getString("driver_license_number"));
+                customer.setIdCardNumber(rs.getString("id_card_number"));
                 customers.add(customer);
             }
         }
@@ -96,11 +96,11 @@ public class CustomerDAO {
 
             pstmt.setString(1, customer.getCustomerID());
             pstmt.setString(2, customer.getcustomerName());
-            pstmt.setInt(3, customer.getPhone());
+            pstmt.setString(3, String.valueOf(customer.getPhone()));
             pstmt.setString(4, customer.getEmail());
             pstmt.setString(5, customer.getAddress());
-            pstmt.setInt(6, customer.getDriverLicenseNumber());
-            pstmt.setInt(7, customer.getIdCardNumber());
+            pstmt.setString(6, String.valueOf(customer.getDriverLicenseNumber()));
+            pstmt.setString(7, String.valueOf(customer.getIdCardNumber()));
 
             int rowsAffected = pstmt.executeUpdate();
             return rowsAffected > 0;
@@ -120,11 +120,11 @@ public class CustomerDAO {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, customer.getcustomerName());
-            pstmt.setInt(2, customer.getPhone());
+            pstmt.setString(2, String.valueOf(customer.getPhone()));
             pstmt.setString(3, customer.getEmail());
             pstmt.setString(4, customer.getAddress());
-            pstmt.setInt(5, customer.getDriverLicenseNumber());
-            pstmt.setInt(6, customer.getIdCardNumber());
+            pstmt.setString(5, String.valueOf(customer.getDriverLicenseNumber()));
+            pstmt.setString(6, String.valueOf(customer.getIdCardNumber()));
             pstmt.setString(7, customer.getCustomerID());
 
             int rowsAffected = pstmt.executeUpdate();
@@ -155,11 +155,11 @@ public class CustomerDAO {
                     Customer customer = new Customer();
                     customer.setCustomerID(rs.getString("customer_id"));
                     customer.setName(rs.getString("name"));
-                    customer.setPhone(rs.getInt("phone"));
+                    customer.setPhone(rs.getString("phone"));
                     customer.setEmail(rs.getString("email"));
                     customer.setAddress(rs.getString("address"));
-                    customer.setDriverLicenseNumber(rs.getInt("driver_license_number"));
-                    customer.setIdCardNumber(rs.getInt("id_card_number"));
+                    customer.setDriverLicenseNumber(rs.getString("driver_license_number"));
+                    customer.setIdCardNumber(rs.getString("id_card_number"));
                     customers.add(customer);
                 }
             }

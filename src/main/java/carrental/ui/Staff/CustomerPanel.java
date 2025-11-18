@@ -299,13 +299,13 @@ public class CustomerPanel extends JPanel {
         customer.setCustomerID(textInputCustomerID.getText());
         customer.setName(textInputName.getText());
         try {
-            customer.setPhone(Integer.parseInt(textInputPhone.getText()));
+            customer.setPhone(textInputPhone.getText());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "电话号码格式不正确");
             return;
         }
         try {
-            customer.setIdCardNumber(Integer.parseInt(textInputIDCardNumber.getText()));
+            customer.setIdCardNumber(textInputIDCardNumber.getText());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "身份证号码格式不正确");
             return;
@@ -313,7 +313,7 @@ public class CustomerPanel extends JPanel {
         customer.setEmail(textInputEmail.getText());
         customer.setAddress(textInputAddress.getText());
         try {
-            customer.setDriverLicenseNumber(Integer.parseInt(textInputDriverLicenseNumber.getText()));
+            customer.setDriverLicenseNumber(textInputDriverLicenseNumber.getText());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "驾照号码格式不正确");
             return;
