@@ -13,6 +13,7 @@ import carrental.model.Customer;
 import carrental.model.SystemLog;
 import carrental.service.CustomerService;
 import carrental.service.LogService;
+import carrental.util.TimestampUtil;
 
 import com.jgoodies.forms.factories.*;
 import com.jgoodies.forms.layout.*;
@@ -69,7 +70,7 @@ public class CustomerPanel extends JPanel {
         }
 
         //---- label8 ----
-        label8.setText("Selected Customer Details\uff1a");
+        label8.setText("Selected Customer Details:");
         label8.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
 
         //---- label1 ----
@@ -228,14 +229,19 @@ public class CustomerPanel extends JPanel {
         // 加载客户列表到表格
         loadCustomerTable();
         // 为搜索按钮添加监听
-        buttonSearch.addActionListener(e -> searchCustomer());
+        buttonSearch.addActionListener(e -> {
+            searchCustomer();
+        });
         // 为保存按钮添加监听
-        buttonSave.addActionListener(e -> saveCustomer());
+        buttonSave.addActionListener(e -> {
+            saveCustomer();
+        });
         // 为表格添加选中监听（选中行时填充表单）
         tableCustomerInfo.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 int selectedRow = tableCustomerInfo.getSelectedRow();
                 if (selectedRow != -1) {
+                    String customerId = tableCustomerInfo.getValueAt(selectedRow, 0).toString();
                     fillCustomerForm(selectedRow);
                 }
             }
@@ -255,7 +261,7 @@ public class CustomerPanel extends JPanel {
                 try {
                     List<Customer> customers = get();
                     DefaultTableModel model = (DefaultTableModel) tableCustomerInfo.getModel();
-                    model.setColumnIdentifiers(new String[]{"ID", "姓名", "电话", "身份证", "邮箱", "地址", "驾照号"});
+                    model.setColumnIdentifiers(new String[]{"ID", "Name", "Phone", "ID Card", "Email", "Address", "Driver License"});
                     model.setRowCount(0); // 清空表格
                     for (Customer c : customers) {
                         model.addRow(new Object[]{
@@ -264,7 +270,9 @@ public class CustomerPanel extends JPanel {
                         });
                     }
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(CustomerPanel.this, "加载客户失败: " + ex.getMessage());
+                    String errorMsg = "Failed to load customers: " + ex.getMessage();
+    JOptionPane.showMessageDialog(CustomerPanel.this, errorMsg);
+    System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + errorMsg);
                     ex.printStackTrace();
                 }
             }
@@ -295,13 +303,17 @@ public class CustomerPanel extends JPanel {
         try {
             customer.setPhone(textInputPhone.getText());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "电话号码格式不正确");
+            String errorMsg = "Phone number format is incorrect";
+    JOptionPane.showMessageDialog(this, errorMsg);
+    System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + errorMsg);
             return;
         }
         try {
             customer.setIdCardNumber(textInputIDCardNumber.getText());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "身份证号码格式不正确");
+            String errorMsg = "ID card number format is incorrect";
+    JOptionPane.showMessageDialog(this, errorMsg);
+    System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + errorMsg);
             return;
         }
         customer.setEmail(textInputEmail.getText());
@@ -309,7 +321,9 @@ public class CustomerPanel extends JPanel {
         try {
             customer.setDriverLicenseNumber(textInputDriverLicenseNumber.getText());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "驾照号码格式不正确");
+            String errorMsg = "Driver license number format is incorrect";
+    JOptionPane.showMessageDialog(this, errorMsg);
+    System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + errorMsg);
             return;
         }
 
@@ -323,13 +337,19 @@ public class CustomerPanel extends JPanel {
             protected void done() {
                 try {
                     if (get()) {
-                        JOptionPane.showMessageDialog(CustomerPanel.this, "保存成功");
+                        String successMsg = "Save successful";
+    JOptionPane.showMessageDialog(CustomerPanel.this, successMsg);
+    System.out.println(TimestampUtil.getCurrentTimestamp() + " [SUCCESS] " + successMsg + " for customer: " + customer.getCustomerID());
                         loadCustomerTable(); // 刷新表格
                     } else {
-                        JOptionPane.showMessageDialog(CustomerPanel.this, "保存失败");
+                        String failMsg = "Save failed";
+    JOptionPane.showMessageDialog(CustomerPanel.this, failMsg);
+    System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + failMsg + " for customer: " + customer.getCustomerID());
                     }
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(CustomerPanel.this, "保存出错: " + ex.getMessage());
+                    String errorMsg = "Save error: " + ex.getMessage();
+    JOptionPane.showMessageDialog(CustomerPanel.this, errorMsg);
+    System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + errorMsg);
                 }
             }
         }.execute();

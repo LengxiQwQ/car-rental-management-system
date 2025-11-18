@@ -11,6 +11,7 @@ import javax.swing.table.*;
 
 import carrental.model.Car;
 import carrental.service.CarService;
+import carrental.util.TimestampUtil;
 import com.jgoodies.forms.factories.*;
 import com.jgoodies.forms.layout.*;
 
@@ -114,8 +115,12 @@ public class AvailabilityPanel extends JPanel {
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
     // 在AvailabilityPanel类中添加
     private void initListeners() {
-        buttonRefresh.addActionListener(e -> loadCars());
-        comboBoxFilter.addActionListener(e -> loadCars()); // 筛选变化时刷新
+        buttonRefresh.addActionListener(e -> {
+            loadCars();
+        });
+        comboBoxFilter.addActionListener(e -> {
+            loadCars(); // 筛选变化时刷新
+        });
     }
 
     private void loadCars() {
@@ -136,7 +141,7 @@ public class AvailabilityPanel extends JPanel {
                 try {
                     List<Car> cars = get();
                     DefaultTableModel model = (DefaultTableModel) tableCarAvailability.getModel();
-                    model.setColumnIdentifiers(new String[]{"ID", "车牌", "型号", "年份", "颜色", "状态", "租金/天"});
+                    model.setColumnIdentifiers(new String[]{"ID", "License Plate", "Model", "Year", "Color", "Status", "Price/Day"});
                     model.setRowCount(0);
                     for (Car car : cars) {
                         model.addRow(new Object[]{
@@ -145,7 +150,9 @@ public class AvailabilityPanel extends JPanel {
                         });
                     }
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(AvailabilityPanel.this, "加载车辆失败: " + ex.getMessage());
+                    String errorMsg = "Failed to load cars: " + ex.getMessage();
+                    JOptionPane.showMessageDialog(AvailabilityPanel.this, errorMsg);
+                    System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + errorMsg);
                 }
             }
         }.execute();

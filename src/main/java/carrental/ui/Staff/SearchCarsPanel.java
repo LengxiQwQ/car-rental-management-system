@@ -143,7 +143,7 @@ public class SearchCarsPanel extends JPanel {
                 try {
                     List<Car> cars = get();
                     DefaultTableModel model = (DefaultTableModel) tableCarInfo.getModel();
-                    model.setColumnIdentifiers(new String[]{"ID", "车牌", "型号", "颜色", "状态"});
+                    model.setColumnIdentifiers(new String[]{"ID", "License Plate", "Model", "Color", "Status"});
                     model.setRowCount(0);
                     for (Car car : cars) {
                         model.addRow(new Object[]{
@@ -172,7 +172,7 @@ public class SearchCarsPanel extends JPanel {
                 try {
                     List<Car> cars = get();
                     DefaultTableModel model = (DefaultTableModel) tableCarInfo.getModel();
-                    model.setColumnIdentifiers(new String[]{"ID", "车牌", "型号", "颜色", "状态"});
+                    model.setColumnIdentifiers(new String[]{"ID", "License Plate", "Model", "Color", "Status"});
                     model.setRowCount(0);
                     for (Car car : cars) {
                         model.addRow(new Object[]{

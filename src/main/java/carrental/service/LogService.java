@@ -14,7 +14,7 @@ public class LogService {
                 username,
                 operationType,
                 details,
-                success ? "成功" : "失败"
+                success ? "Success" : "Failed"
         );
         logDAO.insert(log);
     }

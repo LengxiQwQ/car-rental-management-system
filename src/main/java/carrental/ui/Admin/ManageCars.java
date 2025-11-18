@@ -6,6 +6,7 @@ package carrental.ui.Admin;
 
 import carrental.dao.CarDAO;
 import carrental.model.Car;
+import carrental.util.TimestampUtil;
 
 import javax.swing.*;
 import javax.swing.GroupLayout;
@@ -184,8 +185,10 @@ public class ManageCars extends JPanel {
     private void loadCarData() {
         try {
             carList = getAllCars();
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Load car data: Successfully loaded " + carList.size() + " cars");
             updateTable(carList);
         } catch (Exception ex) {
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Load car data error: " + ex.getMessage());
             JOptionPane.showMessageDialog(this, "Error loading car data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -255,11 +258,21 @@ public class ManageCars extends JPanel {
             }
         });
         
-        // 添加车辆按钮事件 - 根据要求，不实现此功能
+        // 添加车辆按钮事件
         buttonAddCar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(ManageCars.this, "Add Car functionality is not implemented.", "Info", JOptionPane.INFORMATION_MESSAGE);
+                System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Add car: Opening add car dialog");
+                AddCarFrame addCarFrame = new AddCarFrame();
+                addCarFrame.setVisible(true);
+
+                // 当添加车辆窗口关闭后，刷新表格
+                addCarFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                        loadCarData();
+                    }
+                });
             }
         });
         
@@ -309,11 +322,13 @@ public class ManageCars extends JPanel {
                     int year = Integer.parseInt(searchText);
                     filteredList = searchByYear(year);
                 } catch (NumberFormatException ex) {
+                    System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Search cars error: Invalid year format - " + searchText);
                     JOptionPane.showMessageDialog(this, "Please enter a valid year.", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             }
         } catch (SQLException ex) {
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Search cars error: " + ex.getMessage());
             JOptionPane.showMessageDialog(this, "Error searching cars: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
         
@@ -377,6 +392,7 @@ public class ManageCars extends JPanel {
         int selectedRow = tableCarInfo.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Please select a car to delete.", "Warning", JOptionPane.WARNING_MESSAGE);
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Delete car failed: No car selected");
             return;
         }
         
@@ -390,15 +406,19 @@ public class ManageCars extends JPanel {
         if (confirm == JOptionPane.YES_OPTION) {
             String carId = tableCarInfo.getValueAt(selectedRow, 0).toString();
             
+            String carModel = tableCarInfo.getValueAt(selectedRow, 2).toString();
             try {
                 boolean success = deleteCar(carId);
                 if (success) {
+                    System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Delete car successful: ID=" + carId + ", Model=" + carModel);
                     JOptionPane.showMessageDialog(this, "Car deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
                     loadCarData(); // 重新加载数据
                 } else {
+                    System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Delete car failed: Database error for ID=" + carId + ", Model=" + carModel);
                     JOptionPane.showMessageDialog(this, "Failed to delete car.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (Exception ex) {
+                System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Delete car error: " + ex.getMessage() + " for ID=" + carId + ", Model=" + carModel);
                 JOptionPane.showMessageDialog(this, "Error deleting car: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -440,6 +460,7 @@ public class ManageCars extends JPanel {
         DefaultTableModel model = (DefaultTableModel) tableCarInfo.getModel();
         int rowCount = model.getRowCount();
         int colCount = model.getColumnCount();
+        int updateCount = 0; // 记录更新次数
 
         try {
             // 遍历表格中的每一行
@@ -473,32 +494,41 @@ public class ManageCars extends JPanel {
 
                         // 如果值有变化，则更新数据库
                         if (!newValue.toString().equals(oldValue)) {
+                            updateCount++;
                             if ("Brand".equals(columnName)) {
                                 carDAO.updateBrand(carId, newValue.toString());
                                 originalCar.setBrand(newValue.toString());
+                                System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Update car: ID=" + carId + ", Brand changed from '" + oldValue + "' to '" + newValue.toString() + "'");
                             } else if ("Model".equals(columnName)) {
                                 carDAO.updateModel(carId, newValue.toString());
                                 originalCar.setModel(newValue.toString());
+                                System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Update car: ID=" + carId + ", Model changed from '" + oldValue + "' to '" + newValue.toString() + "'");
                             } else if ("Year".equals(columnName)) {
                                 try {
                                     int year = Integer.parseInt(newValue.toString());
                                     carDAO.updateYear(carId, year);
                                     originalCar.setYear(year);
+                                    System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Update car: ID=" + carId + ", Year changed from '" + oldValue + "' to '" + newValue.toString() + "'");
                                 } catch (NumberFormatException ex) {
+                                    System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Update car error: Invalid year format - '" + newValue.toString() + "' for ID=" + carId);
                                     // 忽略无效的年份
                                 }
                             } else if ("License Plate".equals(columnName)) {
                                 carDAO.updateLicensePlate(carId, newValue.toString());
                                 originalCar.setLicensePlate(newValue.toString());
+                                System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Update car: ID=" + carId + ", License Plate changed from '" + oldValue + "' to '" + newValue.toString() + "'");
                             } else if ("Color".equals(columnName)) {
                                 carDAO.updateColor(carId, newValue.toString());
                                 originalCar.setColor(newValue.toString());
+                                System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Update car: ID=" + carId + ", Color changed from '" + oldValue + "' to '" + newValue.toString() + "'");
                             } else if ("Status".equals(columnName)) {
                                 try {
                                     Car.CarStatus status = Car.CarStatus.valueOf(newValue.toString().toUpperCase());
                                     carDAO.updateStatus(carId, status);
                                     originalCar.setStatus(status);
+                                    System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Update car: ID=" + carId + ", Status changed from '" + oldValue + "' to '" + newValue.toString() + "'");
                                 } catch (IllegalArgumentException ex) {
+                                    System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Update car error: Invalid status - '" + newValue.toString() + "' for ID=" + carId);
                                     // 忽略无效的状态
                                 }
                             } else if ("Daily Fee".equals(columnName)) {
@@ -506,7 +536,9 @@ public class ManageCars extends JPanel {
                                     double fee = Double.parseDouble(newValue.toString());
                                     carDAO.updateDailyFee(carId, fee);
                                     originalCar.setPrice(fee);
+                                    System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Update car: ID=" + carId + ", Daily Fee changed from '" + oldValue + "' to '" + newValue.toString() + "'");
                                 } catch (NumberFormatException ex) {
+                                    System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Update car error: Invalid daily fee format - '" + newValue.toString() + "' for ID=" + carId);
                                     // 忽略无效的租金
                                 }
                             }
@@ -518,6 +550,7 @@ public class ManageCars extends JPanel {
             // 重新加载数据
             loadCarData();
         } catch (Exception ex) {
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Save and refresh table error: " + ex.getMessage());
             // 静默处理异常，不显示弹窗
             ex.printStackTrace();
         }

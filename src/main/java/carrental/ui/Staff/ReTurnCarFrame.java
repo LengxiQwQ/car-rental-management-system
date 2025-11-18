@@ -55,7 +55,7 @@ public class ReTurnCarFrame extends JFrame {
         label1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 16));
 
         //---- label2 ----
-        label2.setText("Actual return data");
+        label2.setText("Actual Return Date");
 
         //---- buttonAddReturnCar ----
         buttonAddReturnCar.setText("Add");
@@ -122,7 +122,7 @@ public class ReTurnCarFrame extends JFrame {
             // 设置默认归还日期为当前日期
             dateChooserActualReturnData.setDate(new Date());
             // 设置默认车辆状态
-            textVehicleStatus.setText("良好");
+            textVehicleStatus.setText("Good");
         }
     }
 

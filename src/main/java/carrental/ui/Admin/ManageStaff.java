@@ -7,6 +7,7 @@ package carrental.ui.Admin;
 import carrental.dao.UserDAO;
 import carrental.model.User;
 import carrental.model.userRole;
+import carrental.util.TimestampUtil;
 
 import javax.swing.*;
 import javax.swing.GroupLayout;
@@ -180,6 +181,7 @@ public class ManageStaff extends JPanel {
             staffList = getAllStaff();
             updateTable(staffList);
         } catch (Exception ex) {
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Load staff data error: " + ex.getMessage());
             JOptionPane.showMessageDialog(this, "Error loading staff data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -265,6 +267,7 @@ public class ManageStaff extends JPanel {
         String searchText = textSearchStaffContent.getText().trim();
         
         if (searchText.isEmpty()) {
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Search staff: Empty search text, loading all staff");
             loadStaffData(); // 如果搜索内容为空，则显示所有员工
             return;
         }
@@ -278,6 +281,7 @@ public class ManageStaff extends JPanel {
                     filteredList.add(staff);
                 }
             }
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Search staff by name: " + searchText + ", found " + filteredList.size() + " results");
         } else if ("Staff ID".equals(searchType)) {
             // 按员工ID搜索
             for (User staff : staffList) {
@@ -295,6 +299,7 @@ public class ManageStaff extends JPanel {
         int selectedRow = tableStaffInfo.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Please select a staff member to delete.", "Warning", JOptionPane.WARNING_MESSAGE);
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Delete staff failed: No staff selected");
             return;
         }
         
@@ -308,15 +313,19 @@ public class ManageStaff extends JPanel {
         if (confirm == JOptionPane.YES_OPTION) {
             String staffId = tableStaffInfo.getValueAt(selectedRow, 0).toString();
             
+            String staffName = tableStaffInfo.getValueAt(selectedRow, 1).toString();
             try {
                 boolean success = userDAO.delete(Integer.parseInt(staffId));
                 if (success) {
+                    System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Delete staff successful: ID=" + staffId + ", Name=" + staffName);
                     JOptionPane.showMessageDialog(this, "Staff member deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
                     loadStaffData(); // 重新加载数据
                 } else {
+                    System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Delete staff failed: Database error for ID=" + staffId + ", Name=" + staffName);
                     JOptionPane.showMessageDialog(this, "Failed to delete staff member.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (Exception ex) {
+                System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Delete staff error: " + ex.getMessage() + " for ID=" + staffId + ", Name=" + staffName);
                 JOptionPane.showMessageDialog(this, "Error deleting staff member: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -327,6 +336,7 @@ public class ManageStaff extends JPanel {
         DefaultTableModel model = (DefaultTableModel) tableStaffInfo.getModel();
         int rowCount = model.getRowCount();
         int colCount = model.getColumnCount();
+        int updateCount = 0; // 记录更新次数
 
         try {
             // 遍历表格中的每一行

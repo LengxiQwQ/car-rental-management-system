@@ -5,15 +5,24 @@
 package carrental.ui.Admin;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.GroupLayout;
+import carrental.dao.CarDAO;
+import carrental.model.Car;
+import carrental.util.TimestampUtil;
 
 /**
  * @author LengxiQwQ
  */
 public class AddCarFrame extends JFrame {
+    private CarDAO carDAO;
+
     public AddCarFrame() {
         initComponents();
+        carDAO = new CarDAO();
+        setupEventListeners();
     }
 
     private void initComponents() {
@@ -33,10 +42,16 @@ public class AddCarFrame extends JFrame {
         label9 = new JLabel();
         textFieldAddCarLicencePlate = new JTextField();
         textFieldAddCarColor = new JTextField();
-        textFieldAddCarStatus = new JTextField();
         textFieldAddCarDailyFee = new JTextField();
         buttonAddCar = new JButton();
         buttonAddCarCancel = new JButton();
+        comboBoxAddCarStatus = new JComboBox<>();
+        // 设置下拉列表选项
+        comboBoxAddCarStatus.addItem("AVAILABLE");
+        comboBoxAddCarStatus.addItem("RENTED");
+        comboBoxAddCarStatus.addItem("MAINTENANCE");
+        // 设置默认选中项
+        comboBoxAddCarStatus.setSelectedItem("AVAILABLE");
 
         //======== this ========
         var contentPane = getContentPane();
@@ -97,17 +112,16 @@ public class AddCarFrame extends JFrame {
                                 .addComponent(label6)
                                 .addComponent(label9))
                             .addGap(21, 21, 21)
-                            .addGroup(contentPaneLayout.createParallelGroup()
-                                .addComponent(textFieldAddCarColor, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(textFieldAddCarStatus, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(textFieldAddCarDailyFee, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
-                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(textFieldAddCarID, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
-                                    .addComponent(textFieldAddCarLicencePlate, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
-                                    .addComponent(textFieldtextFieldAddCarBrand, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
-                                    .addComponent(textFieldAddCarModel, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
-                                    .addComponent(textFieldAddCarYear, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
-                                .addComponent(label1))))
+                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                .addComponent(textFieldAddCarColor, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                                .addComponent(textFieldAddCarDailyFee, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                                .addComponent(textFieldAddCarID, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                                .addComponent(textFieldAddCarLicencePlate, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                                .addComponent(textFieldtextFieldAddCarBrand, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                                .addComponent(textFieldAddCarModel, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                                .addComponent(textFieldAddCarYear, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                                .addComponent(label1)
+                                .addComponent(comboBoxAddCarStatus, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))))
                     .addContainerGap(94, Short.MAX_VALUE))
         );
         contentPaneLayout.setVerticalGroup(
@@ -139,23 +153,123 @@ public class AddCarFrame extends JFrame {
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(label8)
                         .addComponent(textFieldAddCarColor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
+                    .addGap(20, 20, 20)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(label7)
-                        .addComponent(textFieldAddCarStatus, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
+                        .addComponent(comboBoxAddCarStatus, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addGap(20, 20, 20)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(label6)
                         .addComponent(textFieldAddCarDailyFee, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(buttonAddCar)
                         .addComponent(buttonAddCarCancel))
-                    .addContainerGap(43, Short.MAX_VALUE))
+                    .addContainerGap(41, Short.MAX_VALUE))
         );
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
+    }
+
+    // 设置事件监听器
+    private void setupEventListeners() {
+        // 添加车辆按钮事件
+        buttonAddCar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addCar();
+            }
+        });
+
+        // 取消按钮事件
+        buttonAddCarCancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // 关闭窗口
+            }
+        });
+    }
+
+    // 添加车辆
+    private void addCar() {
+        String carId = textFieldAddCarID.getText().trim();
+        String brand = textFieldtextFieldAddCarBrand.getText().trim();
+        String model = textFieldAddCarModel.getText().trim();
+        String yearStr = textFieldAddCarYear.getText().trim();
+        String licensePlate = textFieldAddCarLicencePlate.getText().trim();
+        String color = textFieldAddCarColor.getText().trim();
+        String status = comboBoxAddCarStatus.getSelectedItem().toString().trim();
+        String dailyFeeStr = textFieldAddCarDailyFee.getText().trim();
+
+        // 验证输入
+        if (carId.isEmpty() || brand.isEmpty() || model.isEmpty() || yearStr.isEmpty() ||
+            licensePlate.isEmpty() || color.isEmpty() || status.isEmpty() || dailyFeeStr.isEmpty()) {
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Add car failed: Missing required fields");
+            JOptionPane.showMessageDialog(this, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int year;
+        double dailyFee;
+
+        try {
+            year = Integer.parseInt(yearStr);
+            dailyFee = Double.parseDouble(dailyFeeStr);
+        } catch (NumberFormatException ex) {
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Add car failed: Invalid number format");
+            JOptionPane.showMessageDialog(this, "Please enter valid numbers for year and daily fee.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // 创建新车辆对象
+        Car newCar = new Car();
+        newCar.setCarID(carId);
+        newCar.setBrand(brand);
+        newCar.setModel(model);
+        newCar.setYear(year);
+        newCar.setLicensePlate(licensePlate);
+        newCar.setColor(color);
+        try {
+            newCar.setStatus(Car.CarStatus.valueOf(status.toUpperCase()));
+        } catch (IllegalArgumentException ex) {
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Add car failed: Invalid status - " + status);
+            JOptionPane.showMessageDialog(this, "Invalid status. Please use: AVAILABLE, RENTED, or MAINTENANCE.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        newCar.setPrice(dailyFee);
+        newCar.setStock(1); // 默认库存为1
+
+        // 添加到数据库
+        try {
+            boolean success = carDAO.insert(newCar);
+            if (success) {
+                System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Add car successful: ID=" + carId + ", Brand=" + brand + ", Model=" + model);
+                JOptionPane.showMessageDialog(this, "Car added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                clearFields(); // 清空输入框
+                dispose(); // 关闭窗口
+
+                // 刷新主表格将在窗口关闭时由ManageCars处理
+            } else {
+                System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Add car failed: Database error for ID=" + carId + ", Brand=" + brand + ", Model=" + model);
+                JOptionPane.showMessageDialog(this, "Failed to add car. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Add car error: " + ex.getMessage() + " for ID=" + carId + ", Brand=" + brand + ", Model=" + model);
+            JOptionPane.showMessageDialog(this, "Error adding car: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    // 清空输入框
+    private void clearFields() {
+        textFieldAddCarID.setText("");
+        textFieldtextFieldAddCarBrand.setText("");
+        textFieldAddCarModel.setText("");
+        textFieldAddCarYear.setText("");
+        textFieldAddCarLicencePlate.setText("");
+        textFieldAddCarColor.setText("");
+        comboBoxAddCarStatus.setSelectedIndex(0); // 重置为默认值
+        textFieldAddCarDailyFee.setText("");
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
@@ -174,9 +288,9 @@ public class AddCarFrame extends JFrame {
     private JLabel label9;
     private JTextField textFieldAddCarLicencePlate;
     private JTextField textFieldAddCarColor;
-    private JTextField textFieldAddCarStatus;
     private JTextField textFieldAddCarDailyFee;
     private JButton buttonAddCar;
     private JButton buttonAddCarCancel;
+    private JComboBox<String> comboBoxAddCarStatus;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

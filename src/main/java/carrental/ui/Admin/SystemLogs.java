@@ -56,24 +56,17 @@ public class SystemLogs extends JPanel {
             //---- tableLogRecords ----
             tableLogRecords.setModel(new DefaultTableModel(
                 new Object[][] {
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
                 },
                 new String[] {
-                    "ID", "操作人", "操作类型", "详情", "时间", "结果"
+                    null, null, null, null, null
                 }
-            ) {
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    return false; // 禁止编辑表格单元格
-                }
-            });
-            
-            // 设置表格列宽
-            tableLogRecords.getColumnModel().getColumn(0).setPreferredWidth(50);  // ID
-            tableLogRecords.getColumnModel().getColumn(1).setPreferredWidth(100); // 操作人
-            tableLogRecords.getColumnModel().getColumn(2).setPreferredWidth(100); // 操作类型
-            tableLogRecords.getColumnModel().getColumn(3).setPreferredWidth(300); // 详情
-            tableLogRecords.getColumnModel().getColumn(4).setPreferredWidth(150); // 时间
-            tableLogRecords.getColumnModel().getColumn(5).setPreferredWidth(80);  // 结果
+            ));
             scrollPane1.setViewportView(tableLogRecords);
         }
 
@@ -93,49 +86,41 @@ public class SystemLogs extends JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup()
                 .addGroup(layout.createSequentialGroup()
+                    .addGap(23, 23, 23)
                     .addGroup(layout.createParallelGroup()
+                        .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 968, GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(70, 70, 70)
+                            .addGap(24, 24, 24)
                             .addComponent(label1, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(comboBoxFilterbyUser, GroupLayout.PREFERRED_SIZE, 189, GroupLayout.PREFERRED_SIZE)
-                            .addGap(116, 116, 116)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(comboBoxFilterbyUser, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(buttonRefresh)
-                            .addGap(76, 76, 76)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(label10, GroupLayout.PREFERRED_SIZE, 220, GroupLayout.PREFERRED_SIZE)
+                            .addGap(38, 38, 38)
                             .addComponent(label2, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(dateChooserFilterbyDate, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(buttonEnterFilterbyDate))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(375, 375, 375)
-                            .addComponent(label10, GroupLayout.PREFERRED_SIZE, 254, GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(23, 23, 23)
-                            .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 968, GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(buttonEnterFilterbyDate)))
                     .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup()
                 .addGroup(layout.createSequentialGroup()
-                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(29, 29, 29)
-                            .addComponent(label10)
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                    .addComponent(comboBoxFilterbyUser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(label1)
-                                    .addComponent(buttonRefresh)
-                                    .addComponent(label2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addComponent(buttonEnterFilterbyDate)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(dateChooserFilterbyDate, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(27, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(buttonRefresh)
+                        .addComponent(comboBoxFilterbyUser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(label1)
+                        .addComponent(label2)
+                        .addComponent(buttonEnterFilterbyDate)
+                        .addComponent(dateChooserFilterbyDate, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(label10))
                     .addGap(18, 18, 18)
-                    .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 478, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(25, Short.MAX_VALUE))
+                    .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 511, GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(34, Short.MAX_VALUE))
         );
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
@@ -159,7 +144,7 @@ public class SystemLogs extends JPanel {
                 try {
                     updateTable(get());
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(SystemLogs.this, "加载日志失败: " + e.getMessage());
+                    JOptionPane.showMessageDialog(SystemLogs.this, "Failed to load logs: " + e.getMessage());
                 }
             }
         }.execute();
@@ -184,7 +169,7 @@ public class SystemLogs extends JPanel {
                     try {
                         updateTable(get());
                     } catch (Exception e) {
-                        JOptionPane.showMessageDialog(SystemLogs.this, "筛选日志失败: " + e.getMessage());
+                        JOptionPane.showMessageDialog(SystemLogs.this, "Failed to filter logs: " + e.getMessage());
                     }
                 }
             }.execute();
@@ -196,7 +181,7 @@ public class SystemLogs extends JPanel {
     // 更新表格数据
     private void updateTable(List<SystemLog> logs) {
         DefaultTableModel model = new DefaultTableModel(
-                new String[]{"ID", "操作人", "操作类型", "详情", "时间", "结果"}, 0
+                new String[]{"ID", "Operator", "Operation Type", "Details", "Time", "Result"}, 0
         );
 
         for (SystemLog log : logs) {

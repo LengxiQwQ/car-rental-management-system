@@ -7,6 +7,7 @@ new FormModel {
 			name: "cardPanel"
 			"title": "Car Rental Management System "
 			"$sizePolicy": 1
+			"defaultCloseOperation": 3
 			add( new FormComponent( "carrental.ui.LoginRegister.LoginPanel" ) {
 				name: "loginPanel1"
 				"minimumSize": new java.awt.Dimension( 400, 550 )

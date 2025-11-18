@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {par l {seq l {space :p:70:p, comp label1:::p:73:p, space s:::p, comp comboBoxFilterbyUser:::p:189:p, space :p:116:p, comp buttonRefresh:::p::p, space :p:76:p, comp label2:::p:83:p, space :::p, comp dateChooserFilterbyDate:::p:144:p, space :::p, comp buttonEnterFilterbyDate:::p::p}, seq l {space :p:375:p, comp label10:::p:254:p}, seq l {space :p:23:p, comp scrollPane1:::p:968:p}}, space ::29:x}}"
-			"$verticalGroup": "par l {seq l {par t {seq {space :p:29:p, comp label10:::p::p, space s:::p, par t {par b {comp comboBoxFilterbyUser::b:p::p, comp label1::b:p::p, comp buttonRefresh::b:p::p, comp label2::b:::x}, comp buttonEnterFilterbyDate:::p::p}}, seq {space :::x, comp dateChooserFilterbyDate:::p:25:p}}, space s:::p, comp scrollPane1:::p:478:p, space ::25:x}}"
+			"$horizontalGroup": "par l {seq l {space :p:23:p, par l {comp scrollPane1:::p:968:p, seq {space :p:24:p, comp label1:::p:73:p, space :::p, comp comboBoxFilterbyUser:::p:177:p, space :::p, comp buttonRefresh:::p::p, space u:::p, comp label10:::p:220:p, space :p:38:p, comp label2:::p:83:p, space :::p, comp dateChooserFilterbyDate:::p:144:p, space :::p, comp buttonEnterFilterbyDate:::p::p}}, space ::29:x}}"
+			"$verticalGroup": "par l {seq l {space ::27:x, par b {comp buttonRefresh::b:p::p, comp comboBoxFilterbyUser::b:p::p, comp label1::b:p::p, comp label2::t:p::p, comp buttonEnterFilterbyDate::t:p::p, comp dateChooserFilterbyDate::t:p:25:p, comp label10::b:p::p}, space s:::p, comp scrollPane1:::p:511:p, space ::34:x}}"
 		} ) {
 			name: "this"
 			add( new FormComponent( "javax.swing.JLabel" ) {

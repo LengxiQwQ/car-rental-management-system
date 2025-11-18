@@ -4,13 +4,13 @@
 
 package carrental.ui.Staff;
 
-// import javax.security.auth.login.LoginContext; // 移除错误的导入
 import javax.swing.*;
 import javax.swing.table.*;
 
 import carrental.model.*;
 import carrental.service.LogService;
 import carrental.service.VehicleStatusService;
+import carrental.util.TimestampUtil;
 
 import com.jgoodies.forms.factories.*;
 import com.jgoodies.forms.layout.*;
@@ -188,11 +188,15 @@ public class ManageRentalsPanel extends JPanel {
         loadCarsToCombo();
         // 移除了不存在的方法调用
 
-        buttonRentalAdd.addActionListener(e -> addRental());
+        buttonRentalAdd.addActionListener(e -> {
+            addRental();
+        });
         buttonRentalReturn.addActionListener(e -> {
             int selectedRow = table1.getSelectedRow();
             if (selectedRow == -1) {
-                JOptionPane.showMessageDialog(this, "请选择一条租赁记录");
+                String errorMsg = "Please select a rental record";
+                JOptionPane.showMessageDialog(this, errorMsg);
+                System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + errorMsg);
                 return;
             }
 
@@ -214,7 +218,9 @@ public class ManageRentalsPanel extends JPanel {
                 }
 
                 if (selectedRental == null) {
-                    JOptionPane.showMessageDialog(this, "无法找到选中的租赁记录");
+                    String errorMsg = "Unable to find the selected rental record";
+                JOptionPane.showMessageDialog(this, errorMsg);
+                System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + errorMsg);
                     return;
                 }
 
@@ -222,7 +228,9 @@ public class ManageRentalsPanel extends JPanel {
                 ReTurnCarFrame returnCarFrame = new ReTurnCarFrame(selectedRental);
                 returnCarFrame.setVisible(true);
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "获取租赁记录失败: " + ex.getMessage());
+                String errorMsg = "Failed to get rental record: " + ex.getMessage();
+                JOptionPane.showMessageDialog(this, errorMsg);
+                System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + errorMsg);
                 ex.printStackTrace();
             }
         });
@@ -247,7 +255,9 @@ public class ManageRentalsPanel extends JPanel {
                         comboBoxRentalCustomer.addItem(customer.getCustomerID() + " - " + customer.getcustomerName());
                     }
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(ManageRentalsPanel.this, "加载客户失败: " + ex.getMessage());
+                    String errorMsg = "Failed to load customers: " + ex.getMessage();
+                    JOptionPane.showMessageDialog(ManageRentalsPanel.this, errorMsg);
+                    System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + errorMsg);
                 }
             }
         }.execute();
@@ -273,7 +283,9 @@ public class ManageRentalsPanel extends JPanel {
                         comboBoxRentalCar.addItem(car.getCarID() + " - " + car.getModel() + " (" + car.getLicensePlate() + ")");
                     }
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(ManageRentalsPanel.this, "加载车辆失败: " + ex.getMessage());
+                    String errorMsg = "Failed to load cars: " + ex.getMessage();
+                    JOptionPane.showMessageDialog(ManageRentalsPanel.this, errorMsg);
+                    System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + errorMsg);
                 }
             }
         }.execute();
@@ -297,8 +309,8 @@ public class ManageRentalsPanel extends JPanel {
 
                     // 设置表格列名（根据实际需要调整）
                     model.setColumnIdentifiers(new String[]{
-                            "租赁ID", "客户姓名", "车辆型号", "开始日期", "预计归还日期",
-                            "实际归还日期", "租借状态", "车辆状态", "总费用"
+                            "Rental ID", "Customer Name", "Car Model", "Start Date", "Expected Return Date",
+                            "Actual Return Date", "Rental Status", "Vehicle Status", "Total Fee"
                     });
 
                     model.setRowCount(0); // 清空表格现有数据
@@ -330,8 +342,9 @@ public class ManageRentalsPanel extends JPanel {
                         });
                     }
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(ManageRentalsPanel.this,
-                            "加载租赁记录失败: " + ex.getMessage());
+                    String errorMsg = "Failed to load rental records: " + ex.getMessage();
+                    JOptionPane.showMessageDialog(ManageRentalsPanel.this, errorMsg);
+                    System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + errorMsg);
                     ex.printStackTrace();
                 }
             }
@@ -375,12 +388,16 @@ public class ManageRentalsPanel extends JPanel {
         }
 
         if (selectedCustomer == null || selectedCar == null || startDate == null || endDate == null) {
-            JOptionPane.showMessageDialog(this, "请填写完整信息");
+            String errorMsg = "Please fill in all required information";
+            JOptionPane.showMessageDialog(this, errorMsg);
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + errorMsg);
             return;
         }
 
         if (startDate.isAfter(endDate)) {
-            JOptionPane.showMessageDialog(this, "结束日期不能早于开始日期");
+            String errorMsg = "End date cannot be earlier than start date";
+            JOptionPane.showMessageDialog(this, errorMsg);
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + errorMsg);
             return;
         }
 
@@ -414,20 +431,26 @@ public class ManageRentalsPanel extends JPanel {
             success = rentalService.checkoutCar(rental, currentStaff);
 
             if (success) {
-                JOptionPane.showMessageDialog(this, "租车记录添加成功");
+                String successMsg = "Rental record added successfully";
+                JOptionPane.showMessageDialog(this, successMsg);
+                System.out.println(TimestampUtil.getCurrentTimestamp() + " [SUCCESS] " + successMsg + " for car: " + selectedCar.getCarID() + ", customer: " + selectedCustomer.getCustomerID());
                 loadRentals(); // 刷新表格
             } else {
-                JOptionPane.showMessageDialog(this, "添加失败");
+                String failMsg = "Add failed";
+                JOptionPane.showMessageDialog(this, failMsg);
+                System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + failMsg);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "添加失败：" + e.getMessage());
+            String errorMsg = "Add failed: " + e.getMessage();
+            JOptionPane.showMessageDialog(this, errorMsg);
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + errorMsg);
             e.printStackTrace();
         }
         // 租车成功后
         if (success) {
-            SystemLog currentUser = null;
+            User currentUser = getCurrentStaff();
             new LogService().recordLog(
-                    currentUser.getUsername(),
+                    currentUser != null ? currentUser.getUsername() : "Unknown",
                     "租车操作",
                     "租赁车辆ID: " + selectedCar.getCarID() +
                             ", 客户ID: " + selectedCustomer.getCustomerID() +
@@ -489,10 +512,14 @@ public class ManageRentalsPanel extends JPanel {
             
             // 使用当前日期作为实际归还日期
             BigDecimal totalFee = rentalService.returnCar(rentalId, LocalDate.now(), currentStaff);
-            JOptionPane.showMessageDialog(this, "车辆归还成功，总费用：" + totalFee);
+            String successMsg = "Car returned successfully, total fee: " + totalFee;
+            JOptionPane.showMessageDialog(this, successMsg);
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " [SUCCESS] " + successMsg + " for rental: " + rentalId);
             loadRentals(); // 刷新表格
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "归还失败：" + e.getMessage());
+            String errorMsg = "Return failed: " + e.getMessage();
+            JOptionPane.showMessageDialog(this, errorMsg);
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + errorMsg);
             e.printStackTrace();
         }
     }

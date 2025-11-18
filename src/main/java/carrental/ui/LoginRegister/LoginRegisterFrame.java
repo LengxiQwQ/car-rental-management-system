@@ -27,6 +27,7 @@ public class LoginRegisterFrame extends JFrame {
         //======== cardPanel ========
         {
             cardPanel.setTitle("Car Rental Management System ");
+            cardPanel.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             var cardPanelContentPane = cardPanel.getContentPane();
             cardPanelContentPane.setLayout(new CardLayout());
 

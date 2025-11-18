@@ -116,6 +116,7 @@ public class AdminDashboardFrame {
         //======== freamRoot ========
         {
             freamRoot.setTitle("Car Rental Management System - Administrator Dashboard");
+            freamRoot.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             var freamRootContentPane = freamRoot.getContentPane();
 
             //======== cardPanel ========

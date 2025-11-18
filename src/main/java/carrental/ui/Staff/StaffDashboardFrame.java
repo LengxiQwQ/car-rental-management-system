@@ -117,6 +117,7 @@ public class StaffDashboardFrame {
         //======== freamRoot ========
         {
             freamRoot.setTitle("Car Rental Management System - Staff Dashboard");
+            freamRoot.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             var freamRootContentPane = freamRoot.getContentPane();
 
             //======== cardPanel ========

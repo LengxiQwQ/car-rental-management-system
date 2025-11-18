@@ -273,4 +273,25 @@ public class CarDAO {
             return false;
         }
     }
+
+    // 添加车辆
+    public boolean insert(Car car) {
+        String sql = "INSERT INTO cars (id, brand, model, year, license_plate, color, status, daily_fee, stock) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, car.getCarID());
+            pstmt.setString(2, car.getBrand());
+            pstmt.setString(3, car.getModel());
+            pstmt.setInt(4, car.getYear());
+            pstmt.setString(5, car.getLicensePlate());
+            pstmt.setString(6, car.getColor());
+            pstmt.setString(7, car.getStatus());
+            pstmt.setDouble(8, car.getPrice());
+            pstmt.setInt(9, car.getStock());
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

@@ -7,6 +7,7 @@ package carrental.ui.Admin;
 import carrental.dao.UserDAO;
 import carrental.model.User;
 import carrental.model.userRole;
+import carrental.util.TimestampUtil;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -163,6 +164,7 @@ public class AddStaffFrame extends JFrame {
         // 验证输入
         if (staffId.isEmpty() || username.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Add staff failed: Missing required fields");
             return;
         }
 
@@ -177,15 +179,18 @@ public class AddStaffFrame extends JFrame {
         try {
             boolean success = userDAO.insert(newStaff);
             if (success) {
+                System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Add staff successful: ID=" + staffId + ", Username=" + username);
                 JOptionPane.showMessageDialog(this, "Staff added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 clearFields(); // 清空输入框
                 dispose(); // 关闭窗口
 
                 // 刷新主表格将在窗口关闭时由ManageStaff处理
             } else {
+                System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Add staff failed: Database error for ID=" + staffId + ", Username=" + username);
                 JOptionPane.showMessageDialog(this, "Failed to add staff. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception ex) {
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Add staff error: " + ex.getMessage() + " for ID=" + staffId + ", Username=" + username);
             JOptionPane.showMessageDialog(this, "Error adding staff: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }

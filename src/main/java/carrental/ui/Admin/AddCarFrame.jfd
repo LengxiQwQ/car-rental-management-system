@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {space ::75:x, par t:::p {seq {comp buttonAddCarCancel:::p::p, space :::x, comp buttonAddCar:::p::p}, seq {par l {comp label3:::p::p, comp label2:::p::p, comp label4:::p::p, comp label5::l:p::p, comp label7::l:p::p, comp label8::l:p::p, comp label6::l:p::p, comp label9:::p::p}, space :p:21:p, par l {comp textFieldAddCarColor:::p:133:p, comp textFieldAddCarStatus:::p:133:p, comp textFieldAddCarDailyFee:::p:133:p, par t:l::p {comp textFieldAddCarID::l::133:x, comp textFieldAddCarLicencePlate::l::133:x, comp textFieldtextFieldAddCarBrand::l::133:x, comp textFieldAddCarModel::l::133:x, comp textFieldAddCarYear::l::133:x}, comp label1::l:p::p}}}, space ::94:x}}"
-			"$verticalGroup": "par l {seq l {space :p:24:p, comp label1:::p::p, space :p:33:p, par b {comp label2::b:p::p, comp textFieldAddCarID::b:p::p}, space s:::p, par b {comp label3::b:p::p, comp textFieldtextFieldAddCarBrand::b:p::p}, space s:::p, par b {comp label5::b:p::p, comp textFieldAddCarModel::b:p::p}, space :p:18:p, par b {comp label4::b:p::p, comp textFieldAddCarYear::b:p::p}, space s:::p, par b {comp textFieldAddCarLicencePlate::b:p::p, comp label9::b:p::p}, space :p:18:p, par b {comp label8::b:p::p, comp textFieldAddCarColor::b:p::p}, space :p:18:p, par b {comp label7::b:p::p, comp textFieldAddCarStatus::b:p::p}, space :p:18:p, par b {comp label6::b:p::p, comp textFieldAddCarDailyFee::b:p::p}, space ::19:x, par b {comp buttonAddCar::b:p::p, comp buttonAddCarCancel::b:p::p}, space ::43:x}}"
+			"$horizontalGroup": "par l {seq {space ::75:x, par t:::p {seq {comp buttonAddCarCancel:::p::p, space :::x, comp buttonAddCar:::p::p}, seq {par l {comp label3:::p::p, comp label2:::p::p, comp label4:::p::p, comp label5::l:p::p, comp label7::l:p::p, comp label8::l:p::p, comp label6::l:p::p, comp label9:::p::p}, space :p:21:p, par l:::p {comp textFieldAddCarColor::::133:x, comp textFieldAddCarDailyFee::::133:x, comp textFieldAddCarID::l::133:x, comp textFieldAddCarLicencePlate::l::133:x, comp textFieldtextFieldAddCarBrand::l::133:x, comp textFieldAddCarModel::l::133:x, comp textFieldAddCarYear::l::133:x, comp label1::l:p::p, comp comboBoxAddCarStatus::l::133:x}}}, space ::94:x}}"
+			"$verticalGroup": "par l {seq l {space :p:24:p, comp label1:::p::p, space :p:33:p, par b {comp label2::b:p::p, comp textFieldAddCarID::b:p::p}, space s:::p, par b {comp label3::b:p::p, comp textFieldtextFieldAddCarBrand::b:p::p}, space s:::p, par b {comp label5::b:p::p, comp textFieldAddCarModel::b:p::p}, space :p:18:p, par b {comp label4::b:p::p, comp textFieldAddCarYear::b:p::p}, space s:::p, par b {comp textFieldAddCarLicencePlate::b:p::p, comp label9::b:p::p}, space :p:18:p, par b {comp label8::b:p::p, comp textFieldAddCarColor::b:p::p}, space :p:20:p, par b {comp label7::b:p::p, comp comboBoxAddCarStatus::b:p::p}, space :p:20:p, par b {comp label6::b:p::p, comp textFieldAddCarDailyFee::b:p::p}, space ::17:x, par b {comp buttonAddCar::b:p::p, comp buttonAddCarCancel::b:p::p}, space ::41:x}}"
 		} ) {
 			name: "this"
 			add( new FormComponent( "javax.swing.JLabel" ) {
@@ -64,9 +64,6 @@ new FormModel {
 				name: "textFieldAddCarColor"
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textFieldAddCarStatus"
-			} )
-			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "textFieldAddCarDailyFee"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
@@ -76,6 +73,9 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "buttonAddCarCancel"
 				"text": "Cancel"
+			} )
+			add( new FormComponent( "javax.swing.JComboBox" ) {
+				name: "comboBoxAddCarStatus"
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
