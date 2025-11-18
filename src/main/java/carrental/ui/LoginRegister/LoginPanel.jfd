@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {space :81:81:p, par l:::p {seq {comp label4:::p:50:p, space :59:59:p, comp comboBoxLoginRole:::p:108:p}, seq {comp label3:::p:50:p, space :32:32:p, comp textLoginUserID:::p:135:p}, seq {comp label2:::p::p, space :32:32:p, comp textLoginPassword:::p:135:p}, seq {comp buttonGoToRegister:::p:109:p, space :::x, comp buttonLogin:::p:81:p}}, space :107:87:x}, comp label1::l::385:x}"
-			"$verticalGroup": "par l {seq {space :p:26:p, comp label1:::p::p, space :p:31:p, par l {comp label4:::p:24:p, comp comboBoxLoginRole:::p::p}, space :15:15:p, par l {seq {space :3:3:p, comp label3:::p::p}, comp textLoginUserID:::p::p}, space :5:5:p, par l {seq {space :3:3:p, comp label2:::p::p}, comp textLoginPassword:::p::p}, space ::42:x, par b {comp buttonGoToRegister::b:p::p, comp buttonLogin::b:p::p}, space :p:40:p}}"
+			"$horizontalGroup": "par l {seq {space :81:81:p, par l:::p {seq {comp label4:::p:50:p, space :59:59:p, comp comboBoxLoginRole:::p:108:p}, seq {comp buttonGoToRegister:::p:109:p, space :::x, comp buttonLogin:::p:81:p}, seq l {par l {comp label3::l:p:50:p, comp label2::l:p::p}, space :p:32:p, par l:::p {comp textLoginUserID::::135:x, comp textLoginPassword::::135:x}}}, space :107:87:x}, comp label1::l::385:x}"
+			"$verticalGroup": "par l {seq {space :p:26:p, comp label1:::p::p, space :p:31:p, par l {comp label4:::p:24:p, comp comboBoxLoginRole:::p::p}, space :15:15:p, par l {seq {space :3:3:p, comp label3:::p::p}, comp textLoginUserID:::p::p}, space :p:7:p, par b {comp label2::b:p::p, comp textLoginPassword::b:p::p}, space ::40:x, par b {comp buttonGoToRegister::b:p::p, comp buttonLogin::b:p::p}, space :p:40:p}}"
 		} ) {
 			name: "this"
 			add( new FormComponent( "javax.swing.JLabel" ) {
@@ -37,9 +37,6 @@ new FormModel {
 				name: "label2"
 				"text": "Password"
 			} )
-			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textLoginPassword"
-			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "buttonGoToRegister"
 				"text": "Go to Register"
@@ -48,6 +45,9 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "buttonLogin"
 				"text": "Login"
+			} )
+			add( new FormComponent( "javax.swing.JPasswordField" ) {
+				name: "textLoginPassword"
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )

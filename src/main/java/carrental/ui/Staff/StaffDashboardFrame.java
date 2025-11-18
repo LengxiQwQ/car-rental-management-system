@@ -158,7 +158,7 @@ public class StaffDashboardFrame {
                 buttonPanelLayout.setHorizontalGroup(
                     buttonPanelLayout.createParallelGroup()
                         .addGroup(GroupLayout.Alignment.TRAILING, buttonPanelLayout.createSequentialGroup()
-                            .addGap(77, 77, 77)
+                            .addGap(32, 32, 32)
                             .addComponent(label1)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(toggleButtonAvailability, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
@@ -177,13 +177,13 @@ public class StaffDashboardFrame {
                         .addGroup(buttonPanelLayout.createSequentialGroup()
                             .addGap(0, 10, Short.MAX_VALUE)
                             .addGroup(buttonPanelLayout.createParallelGroup()
-                                .addComponent(label1, GroupLayout.Alignment.TRAILING)
                                 .addGroup(GroupLayout.Alignment.TRAILING, buttonPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                     .addComponent(comboBoxTheme, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
                                     .addComponent(toggleButtonCustomer, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
                                     .addComponent(toggleButtonSearchCar, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
                                     .addComponent(toggleButtonRental, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(toggleButtonAvailability, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(toggleButtonAvailability, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE))
+                                .addComponent(label1, GroupLayout.Alignment.TRAILING)))
                 );
             }
 

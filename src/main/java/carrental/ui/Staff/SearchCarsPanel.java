@@ -19,6 +19,7 @@ public class SearchCarsPanel extends JPanel {
     public SearchCarsPanel() {
         initComponents();
         initListeners();
+        loadAllCars(); // 初始化时加载所有车辆数据
     }
 
     private void initComponents() {
@@ -29,6 +30,7 @@ public class SearchCarsPanel extends JPanel {
         buttonSearchCar = new JButton();
         scrollPane1 = new JScrollPane();
         tableCarInfo = new JTable();
+        buttonRefresh = new JButton();
 
         //======== this ========
 
@@ -63,6 +65,9 @@ public class SearchCarsPanel extends JPanel {
             scrollPane1.setViewportView(tableCarInfo);
         }
 
+        //---- buttonRefresh ----
+        buttonRefresh.setText("Refresh");
+
         GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
         layout.setHorizontalGroup(
@@ -76,9 +81,11 @@ public class SearchCarsPanel extends JPanel {
                     .addComponent(label1, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(comboBoxSearchType, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                    .addComponent(buttonRefresh, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(textSearchContent, GroupLayout.PREFERRED_SIZE, 226, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(buttonSearchCar, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
                     .addGap(106, 106, 106))
         );
@@ -90,7 +97,8 @@ public class SearchCarsPanel extends JPanel {
                         .addComponent(comboBoxSearchType, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addComponent(label1)
                         .addComponent(buttonSearchCar)
-                        .addComponent(textSearchContent, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(textSearchContent, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonRefresh))
                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                     .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 512, GroupLayout.PREFERRED_SIZE)
                     .addGap(23, 23, 23))
@@ -105,10 +113,13 @@ public class SearchCarsPanel extends JPanel {
     private JButton buttonSearchCar;
     private JScrollPane scrollPane1;
     private JTable tableCarInfo;
+    private JButton buttonRefresh;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
     // 在SearchCarsPanel类中添加
     private void initListeners() {
         buttonSearchCar.addActionListener(e -> searchCars());
+        buttonRefresh.addActionListener(e -> loadAllCars());
+        buttonRefresh.addActionListener(e -> loadAllCars());
     }
 
     private void searchCars() {
@@ -142,6 +153,35 @@ public class SearchCarsPanel extends JPanel {
                     }
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(SearchCarsPanel.this, "搜索失败: " + ex.getMessage());
+                }
+            }
+        }.execute();
+    }
+
+    // 加载所有车辆数据
+    private void loadAllCars() {
+        new SwingWorker<List<Car>, Void>() {
+            @Override
+            protected List<Car> doInBackground() throws Exception {
+                CarService service = new CarService();
+                return service.getAllCars();
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    List<Car> cars = get();
+                    DefaultTableModel model = (DefaultTableModel) tableCarInfo.getModel();
+                    model.setColumnIdentifiers(new String[]{"ID", "车牌", "型号", "颜色", "状态"});
+                    model.setRowCount(0);
+                    for (Car car : cars) {
+                        model.addRow(new Object[]{
+                                car.getCarID(), car.getLicensePlate(), car.getModel(),
+                                car.getColor(), car.getStatus()
+                        });
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(SearchCarsPanel.this, "加载车辆数据失败: " + ex.getMessage());
                 }
             }
         }.execute();

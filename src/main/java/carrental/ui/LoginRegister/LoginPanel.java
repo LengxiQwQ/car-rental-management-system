@@ -46,9 +46,9 @@ public class LoginPanel extends JPanel {
         label3 = new JLabel();
         textLoginUserID = new JTextField();
         label2 = new JLabel();
-        textLoginPassword = new JTextField();
         buttonGoToRegister = new JButton();
         buttonLogin = new JButton();
+        textLoginPassword = new JPasswordField();
 
         //======== this ========
 
@@ -91,17 +91,17 @@ public class LoginPanel extends JPanel {
                             .addGap(59, 59, 59)
                             .addComponent(comboBoxLoginRole, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(label3, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                            .addGap(32, 32, 32)
-                            .addComponent(textLoginUserID, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(label2)
-                            .addGap(32, 32, 32)
-                            .addComponent(textLoginPassword, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
                             .addComponent(buttonGoToRegister, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(buttonLogin, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(buttonLogin, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup()
+                                .addComponent(label3, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(label2))
+                            .addGap(32, 32, 32)
+                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                .addComponent(textLoginUserID, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                                .addComponent(textLoginPassword, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))))
                     .addGap(87, 87, Short.MAX_VALUE))
                 .addComponent(label1, GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
         );
@@ -120,13 +120,11 @@ public class LoginPanel extends JPanel {
                             .addGap(3, 3, 3)
                             .addComponent(label3))
                         .addComponent(textLoginUserID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(5, 5, 5)
-                    .addGroup(layout.createParallelGroup()
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(3, 3, 3)
-                            .addComponent(label2))
+                    .addGap(7, 7, 7)
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(label2)
                         .addComponent(textLoginPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(buttonGoToRegister)
                         .addComponent(buttonLogin))
@@ -142,9 +140,9 @@ public class LoginPanel extends JPanel {
     private JLabel label3;
     private JTextField textLoginUserID;
     private JLabel label2;
-    private JTextField textLoginPassword;
     private JButton buttonGoToRegister;
     private JButton buttonLogin;
+    private JPasswordField textLoginPassword;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
     // 在类内部的末尾添加（不要放在类外面）
     private void addLoginListener() {

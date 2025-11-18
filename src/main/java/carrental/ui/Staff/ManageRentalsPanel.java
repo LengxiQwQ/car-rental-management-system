@@ -10,6 +10,7 @@ import javax.swing.table.*;
 
 import carrental.model.*;
 import carrental.service.LogService;
+import carrental.service.VehicleStatusService;
 
 import com.jgoodies.forms.factories.*;
 import com.jgoodies.forms.layout.*;
@@ -188,7 +189,43 @@ public class ManageRentalsPanel extends JPanel {
         // 移除了不存在的方法调用
 
         buttonRentalAdd.addActionListener(e -> addRental());
-        buttonRentalReturn.addActionListener(e -> returnCar());
+        buttonRentalReturn.addActionListener(e -> {
+            int selectedRow = table1.getSelectedRow();
+            if (selectedRow == -1) {
+                JOptionPane.showMessageDialog(this, "请选择一条租赁记录");
+                return;
+            }
+
+            try {
+                // 获取选中的租赁记录ID
+                String rentalId = table1.getValueAt(selectedRow, 0).toString();
+
+                // 从数据库获取完整的租赁记录
+                RentalService rentalService = new RentalService();
+                List<Rental> rentals = rentalService.getAllRentals();
+
+                // 查找选中的租赁记录
+                Rental selectedRental = null;
+                for (Rental rental : rentals) {
+                    if (String.valueOf(rental.getRentalID()).equals(rentalId)) {
+                        selectedRental = rental;
+                        break;
+                    }
+                }
+
+                if (selectedRental == null) {
+                    JOptionPane.showMessageDialog(this, "无法找到选中的租赁记录");
+                    return;
+                }
+
+                // 打开还车窗口并传递选中的租赁记录
+                ReTurnCarFrame returnCarFrame = new ReTurnCarFrame(selectedRental);
+                returnCarFrame.setVisible(true);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "获取租赁记录失败: " + ex.getMessage());
+                ex.printStackTrace();
+            }
+        });
     }
 
     // 加载客户到下拉框
@@ -243,7 +280,7 @@ public class ManageRentalsPanel extends JPanel {
     }
 
     // 加载租赁记录
-    private void loadRentals() {
+    void loadRentals() {
         new SwingWorker<List<Rental>, Void>() {
             @Override
             protected List<Rental> doInBackground() throws Exception {
@@ -261,13 +298,25 @@ public class ManageRentalsPanel extends JPanel {
                     // 设置表格列名（根据实际需要调整）
                     model.setColumnIdentifiers(new String[]{
                             "租赁ID", "客户姓名", "车辆型号", "开始日期", "预计归还日期",
-                            "实际归还日期", "状态", "总费用"
+                            "实际归还日期", "租借状态", "车辆状态", "总费用"
                     });
 
                     model.setRowCount(0); // 清空表格现有数据
 
+                    // 创建车辆状态服务
+                    VehicleStatusService vehicleStatusService = new VehicleStatusService();
+
                     // 填充数据到表格
                     for (Rental rental : rentals) {
+                        // 获取车辆状态
+                        String vehicleStatus = "未记录";
+                        if (rental.getActualReturnDate() != null) {
+                            VehicleStatus status = vehicleStatusService.getLatestStatus(rental.getCar().getCarID());
+                            if (status != null) {
+                                vehicleStatus = status.getStatus();
+                            }
+                        }
+
                         model.addRow(new Object[]{
                                 rental.getRentalID(),
                                 rental.getCustomer().getcustomerName(), // 需确保Customer有getcustomerName()方法
@@ -276,6 +325,7 @@ public class ManageRentalsPanel extends JPanel {
                                 rental.getExpectedReturnDate(),
                                 rental.getActualReturnDate(),
                                 rental.getStatus(),
+                                vehicleStatus,
                                 rental.getTotalCost()
                         });
                     }

@@ -35,8 +35,8 @@ public class AddStaffFrame extends JFrame {
         textFieldtextFieldAddStaffName = new JTextField();
         buttonAddStaff = new JButton();
         buttonAddStaffCancel = new JButton();
-        textFieldtextFieldAddStaffPassword = new JTextField();
         label4 = new JLabel();
+        textFieldtextFieldAddStaffPassword = new JPasswordField();
 
         //======== this ========
         var contentPane = getContentPane();
@@ -70,19 +70,20 @@ public class AddStaffFrame extends JFrame {
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addGap(91, 91, 91)
                             .addComponent(label1))
-                        .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(contentPaneLayout.createSequentialGroup()
-                                .addGroup(contentPaneLayout.createParallelGroup()
-                                    .addComponent(label2)
-                                    .addComponent(label3))
-                                .addGap(45, 45, 45)
-                                .addGroup(contentPaneLayout.createParallelGroup()
-                                    .addComponent(textFieldtextFieldAddStaffName, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(textFieldAddStaffID, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(contentPaneLayout.createSequentialGroup()
-                                .addComponent(label4)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(textFieldtextFieldAddStaffPassword, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGroup(contentPaneLayout.createParallelGroup()
+                                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                                    .addGroup(contentPaneLayout.createParallelGroup()
+                                        .addComponent(label2)
+                                        .addComponent(label3))
+                                    .addGap(45, 45, 45))
+                                .addGroup(contentPaneLayout.createSequentialGroup()
+                                    .addComponent(label4)
+                                    .addGap(48, 48, 48)))
+                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                .addComponent(textFieldtextFieldAddStaffName, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                                .addComponent(textFieldAddStaffID, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                                .addComponent(textFieldtextFieldAddStaffPassword, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)))
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addComponent(buttonAddStaffCancel)
                             .addGap(87, 87, 87)
@@ -108,9 +109,9 @@ public class AddStaffFrame extends JFrame {
                             .addGap(18, 18, 18)
                             .addComponent(textFieldtextFieldAddStaffName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                     .addGap(18, 18, 18)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(textFieldtextFieldAddStaffPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(label4))
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addComponent(label4)
+                        .addComponent(textFieldtextFieldAddStaffPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(buttonAddStaff)
@@ -130,8 +131,8 @@ public class AddStaffFrame extends JFrame {
     private JTextField textFieldtextFieldAddStaffName;
     private JButton buttonAddStaff;
     private JButton buttonAddStaffCancel;
-    private JTextField textFieldtextFieldAddStaffPassword;
     private JLabel label4;
+    private JPasswordField textFieldtextFieldAddStaffPassword;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 
     // 设置事件监听器

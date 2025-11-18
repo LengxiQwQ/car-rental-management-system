@@ -6,7 +6,7 @@ CREATE DATABASE Car_Rental_Management_System_DB;
 USE Car_Rental_Management_System_DB;
 
 -- -------------------------------
--- 1. 用户表 (users)
+-- 1. Users Table (users)
 -- -------------------------------
 CREATE TABLE IF NOT EXISTS users (
                                      id INT PRIMARY KEY AUTO_INCREMENT,
@@ -41,7 +41,7 @@ INSERT INTO users (username, password, role) VALUES
 
 
 -- -------------------------------
--- 2. 车辆表 (cars)
+-- 2. Cars Table (cars)
 -- -------------------------------
 CREATE TABLE IF NOT EXISTS cars (
                                     id VARCHAR(20) PRIMARY KEY,
@@ -167,3 +167,21 @@ CREATE TABLE IF NOT EXISTS system_logs (
     operation_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     result VARCHAR(20) NOT NULL
     );
+
+
+-- -------------------------------
+-- 6. 车辆状态表 (vehicle_status)
+-- -------------------------------
+CREATE TABLE IF NOT EXISTS vehicle_status (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    car_id VARCHAR(50) NOT NULL,
+    rental_id INT,
+    status VARCHAR(50) NOT NULL COMMENT 'Vehicle status: good, damaged, needs_maintenance',
+    notes TEXT COMMENT 'Status notes',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (car_id) REFERENCES cars(id),
+    FOREIGN KEY (rental_id) REFERENCES rentals(id) ON DELETE SET NULL,
+    INDEX idx_car_id (car_id),
+    INDEX idx_rental_id (rental_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Vehicle status record table';

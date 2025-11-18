@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {space :::p, par l {seq {comp buttonPanel:::::x, space :::p, comp label1:::p::p, space :p:56:p, comp toggleButtonManageStaff:::p:130:p, space s:::p, comp toggleButtonManageCars:::p:130:p, space s:::p, comp toggleButtonReports:::p:130:p, space s:::p, comp toggleButtonSystemLogs:::p:130:p, space s:::p, comp comboBoxTheme:::p:68:p, space :p:26:p}, seq t {space :0:0:x, comp cardPanel:::p:1018:p}}, space :::p}}"
-			"$verticalGroup": "par l {seq {par l {seq {comp buttonPanel:::p::p, space :0:15:x}, seq t {space :0:21:x, par t {par b:t {comp comboBoxTheme::b:p:37:p, comp toggleButtonSystemLogs::b:p:41:p, comp toggleButtonReports::b:p:39:p, comp toggleButtonManageCars::b:p:41:p, comp toggleButtonManageStaff::b:p:41:p}, comp label1:::p::p}}}, space u:::p, comp cardPanel:::p:614:p, space :::p}}"
+			"$horizontalGroup": "par l {seq {space :::p, par l {seq {comp buttonPanel:::::x, space u:::p, comp label1:::p::p, space :p:93:p, comp toggleButtonManageStaff:::p:130:p, space s:::p, comp toggleButtonManageCars:::p:130:p, space s:::p, comp toggleButtonReports:::p:130:p, space s:::p, comp toggleButtonSystemLogs:::p:130:p, space s:::p, comp comboBoxTheme:::p:68:p, space :p:26:p}, seq t {space :0:0:x, comp cardPanel:::p:1018:p}}, space :::p}}"
+			"$verticalGroup": "par l {seq {par l {seq {comp buttonPanel:::p::p, space :0:15:x}, seq t {space :0:21:x, par l {par b:t {comp comboBoxTheme::b:p:37:p, comp toggleButtonSystemLogs::b:p:41:p, comp toggleButtonReports::b:p:39:p, comp toggleButtonManageCars::b:p:41:p, comp toggleButtonManageStaff::b:p:41:p}, comp label1::t:p::p}}}, space u:::p, comp cardPanel:::p:614:p, space :::p}}"
 		} ) {
 			name: "freamRoot"
 			"$locationPolicy": 1

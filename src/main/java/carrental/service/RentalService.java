@@ -104,9 +104,14 @@ public class RentalService {
 
             // 查询租车记录
             Rental rental = rentalDAO.findAll().stream()
-                    .filter(r -> r.getCar().getCarID() == rentalId)
+                    .filter(r -> String.valueOf(r.getRentalID()).equals(rentalId))
                     .findFirst()
                     .orElseThrow(() -> new RuntimeException("租车记录不存在"));
+
+            // 检查租赁记录状态，防止重复归还
+            if (rental.getActualReturnDate() != null) {
+                throw new RuntimeException("该车辆已经归还，不能重复归还");
+            }
 
             // 查询车辆日租金
             Car car = carDAO.findById(rental.getCar().getCarID());
@@ -114,6 +119,9 @@ public class RentalService {
                 conn.rollback();
                 throw new RuntimeException("车辆不存在");
             }
+
+            // 设置实际归还日期，以便正确计算费用
+            rental.setActualReturnDate(actualReturnDate);
 
             // 计算总费用
             double totalCost = rental.calculateTotalCost();
