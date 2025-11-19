@@ -11,6 +11,7 @@ import javax.swing.*;
 import javax.swing.GroupLayout;
 import carrental.dao.CarDAO;
 import carrental.model.Car;
+import carrental.service.LogService;
 import carrental.util.TimestampUtil;
 
 /**
@@ -18,6 +19,7 @@ import carrental.util.TimestampUtil;
  */
 public class AddCarFrame extends JFrame {
     private CarDAO carDAO;
+    private LogService logService = new LogService();
 
     public AddCarFrame() {
         initComponents();
@@ -207,6 +209,7 @@ public class AddCarFrame extends JFrame {
             licensePlate.isEmpty() || color.isEmpty() || status.isEmpty() || dailyFeeStr.isEmpty()) {
             System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Add car failed: Missing required fields");
             JOptionPane.showMessageDialog(this, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
+            logService.recordLog(getCurrentUser(), "Car Management", "Failed to add car: missing required fields", false);
             return;
         }
 
@@ -219,6 +222,7 @@ public class AddCarFrame extends JFrame {
         } catch (NumberFormatException ex) {
             System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Add car failed: Invalid number format");
             JOptionPane.showMessageDialog(this, "Please enter valid numbers for year and daily fee.", "Error", JOptionPane.ERROR_MESSAGE);
+            logService.recordLog(getCurrentUser(), "Car Management", "Failed to add car: invalid number format", false);
             return;
         }
 
@@ -235,6 +239,7 @@ public class AddCarFrame extends JFrame {
         } catch (IllegalArgumentException ex) {
             System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Add car failed: Invalid status - " + status);
             JOptionPane.showMessageDialog(this, "Invalid status. Please use: AVAILABLE, RENTED, or MAINTENANCE.", "Error", JOptionPane.ERROR_MESSAGE);
+            logService.recordLog(getCurrentUser(), "Car Management", "Failed to add car: invalid status - " + status, false);
             return;
         }
         newCar.setPrice(dailyFee);
@@ -246,6 +251,7 @@ public class AddCarFrame extends JFrame {
             if (success) {
                 System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Add car successful: ID=" + carId + ", Brand=" + brand + ", Model=" + model);
                 JOptionPane.showMessageDialog(this, "Car added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                logService.recordLog(getCurrentUser(), "Car Management", "Added car: ID=" + carId + ", Brand=" + brand + ", Model=" + model, true);
                 clearFields(); // 清空输入框
                 dispose(); // 关闭窗口
 
@@ -253,10 +259,12 @@ public class AddCarFrame extends JFrame {
             } else {
                 System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Add car failed: Database error for ID=" + carId + ", Brand=" + brand + ", Model=" + model);
                 JOptionPane.showMessageDialog(this, "Failed to add car. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                logService.recordLog(getCurrentUser(), "Car Management", "Failed to add car: database error for ID=" + carId, false);
             }
         } catch (Exception ex) {
             System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Add car error: " + ex.getMessage() + " for ID=" + carId + ", Brand=" + brand + ", Model=" + model);
             JOptionPane.showMessageDialog(this, "Error adding car: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            logService.recordLog(getCurrentUser(), "Car Management", "Error adding car: " + ex.getMessage() + " for ID=" + carId, false);
         }
     }
 
@@ -270,6 +278,13 @@ public class AddCarFrame extends JFrame {
         textFieldAddCarColor.setText("");
         comboBoxAddCarStatus.setSelectedIndex(0); // 重置为默认值
         textFieldAddCarDailyFee.setText("");
+    }
+
+    // 获取当前登录用户
+    private String getCurrentUser() {
+        // 这里应该从登录会话中获取当前用户名
+        // 暂时返回默认值
+        return "admin";
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off

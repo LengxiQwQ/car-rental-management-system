@@ -7,6 +7,8 @@ package carrental.ui.Staff;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.GroupLayout;
+
+import carrental.service.LogService;
 import com.toedter.calendar.*;
 import carrental.model.Rental;
 import carrental.model.User;
@@ -135,7 +137,7 @@ public class ReTurnCarFrame extends JFrame {
     // 处理还车
     private void processReturn() {
         if (selectedRental == null) {
-            JOptionPane.showMessageDialog(this, "没有选择租赁记录");
+            JOptionPane.showMessageDialog(this, "No rental record selected");
             return;
         }
 
@@ -143,7 +145,7 @@ public class ReTurnCarFrame extends JFrame {
             // 获取实际归还日期
             Date selectedDate = dateChooserActualReturnData.getDate();
             if (selectedDate == null) {
-                JOptionPane.showMessageDialog(this, "请选择归还日期");
+                JOptionPane.showMessageDialog(this, "Please select a return date");
                 return;
             }
 
@@ -154,7 +156,7 @@ public class ReTurnCarFrame extends JFrame {
             // 获取车辆状态
             String vehicleStatus = textVehicleStatus.getText().trim();
             if (vehicleStatus.isEmpty()) {
-                vehicleStatus = "良好"; // 默认状态
+                vehicleStatus = "Good"; // 默认状态
             }
 
             // 调用还车服务
@@ -172,15 +174,24 @@ public class ReTurnCarFrame extends JFrame {
                 carId, 
                 selectedRental.getRentalID(), 
                 vehicleStatus, 
-                "还车时记录", 
+                "Recorded at return", 
                 currentStaff
             );
 
             if (!statusRecorded) {
-                JOptionPane.showMessageDialog(this, "还车成功，但车辆状态记录失败");
+                JOptionPane.showMessageDialog(this, "Car returned successfully, but failed to record vehicle status");
             }
 
-            JOptionPane.showMessageDialog(this, "车辆归还成功！ 总费用: " + totalFee);
+            JOptionPane.showMessageDialog(this, "Car returned successfully! Total fee: " + totalFee);
+
+            // 记录还车日志
+            new LogService().recordLog(
+                    currentStaff != null ? currentStaff.getUsername() : "Unknown",
+                    "Car Return",
+                    "Returned car ID: " + carId + ", Rental ID: " + rentalId + 
+                    ", Total fee: " + totalFee + ", Vehicle status: " + vehicleStatus,
+                    true
+            );
 
             // 关闭窗口
             dispose();
@@ -189,7 +200,16 @@ public class ReTurnCarFrame extends JFrame {
             refreshParentTable();
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "还车失败: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Failed to return car: " + ex.getMessage());
+
+            // 记录错误日志
+            String rentalIdForLog = selectedRental != null ? String.valueOf(selectedRental.getRentalID()) : "Unknown";
+            new LogService().recordLog(
+                    getCurrentStaff() != null ? getCurrentStaff().getUsername() : "Unknown",
+                    "Car Return",
+                    "Error returning car with rental ID: " + rentalIdForLog + " - " + ex.getMessage(),
+                    false
+            );
             ex.printStackTrace();
         }
     }

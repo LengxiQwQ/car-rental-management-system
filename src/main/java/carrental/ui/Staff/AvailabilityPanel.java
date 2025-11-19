@@ -11,6 +11,7 @@ import javax.swing.table.*;
 
 import carrental.model.Car;
 import carrental.service.CarService;
+import carrental.service.LogService;
 import carrental.util.TimestampUtil;
 import com.jgoodies.forms.factories.*;
 import com.jgoodies.forms.layout.*;
@@ -149,12 +150,35 @@ public class AvailabilityPanel extends JPanel {
                                 car.getYear(), car.getColor(), car.getStatus(), car.getPrice()
                         });
                     }
+
+                    // 记录筛选日志
+                    new LogService().recordLog(
+                            getCurrentUser(),
+                            "Car Availability",
+                            "Filtered cars by status: " + status + ". Found " + cars.size() + " results.",
+                            true
+                    );
                 } catch (Exception ex) {
                     String errorMsg = "Failed to load cars: " + ex.getMessage();
                     JOptionPane.showMessageDialog(AvailabilityPanel.this, errorMsg);
                     System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + errorMsg);
+
+                    // 记录错误日志
+                    new LogService().recordLog(
+                            getCurrentUser(),
+                            "Car Availability",
+                            "Error loading cars with status: " + status + " - " + ex.getMessage(),
+                            false
+                    );
                 }
             }
         }.execute();
+    }
+
+    // 获取当前登录用户
+    private String getCurrentUser() {
+        // 这里应该从登录会话中获取当前用户名
+        // 暂时返回默认值
+        return "staff";
     }
 }

@@ -42,23 +42,23 @@ public class CustomerService {
 
         boolean isUpdate = customerDAO.findById(customer.getCustomerID()) != null;
         boolean result;
-        
+
         if (isUpdate) {
             result = customerDAO.update(customer);
             if (result) {
-                logService.recordLog("系统", "更新客户", "成功更新客户信息，客户ID：" + customer.getCustomerID(), true);
+                logService.recordLog("System", "Update Customer", "Successfully updated customer information, Customer ID: " + customer.getCustomerID(), true);
             } else {
-                logService.recordLog("系统", "更新客户", "更新客户信息失败，客户ID：" + customer.getCustomerID(), false);
+                logService.recordLog("System", "Update Customer", "Failed to update customer information, Customer ID: " + customer.getCustomerID(), false);
             }
         } else {
             result = customerDAO.insert(customer);
             if (result) {
-                logService.recordLog("系统", "新增客户", "成功添加新客户，客户ID：" + customer.getCustomerID(), true);
+                logService.recordLog("System", "Add Customer", "Successfully added new customer, Customer ID: " + customer.getCustomerID(), true);
             } else {
-                logService.recordLog("系统", "新增客户", "添加新客户失败，客户ID：" + customer.getCustomerID(), false);
+                logService.recordLog("System", "Add Customer", "Failed to add new customer, Customer ID: " + customer.getCustomerID(), false);
             }
         }
-        
+
         return result;
     }
 
@@ -72,3 +72,4 @@ public class CustomerService {
         return customerDAO.findById(id);
     }
 }
+

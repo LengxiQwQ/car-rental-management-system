@@ -282,6 +282,11 @@ public class CustomerPanel extends JPanel {
     // 搜索客户
     private void searchCustomer() {
         String keyword = textSearch.getText().trim();
+        if (keyword.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a search keyword");
+            return;
+        }
+
         new SwingWorker<List<Customer>, Void>() {
             @Override
             protected List<Customer> doInBackground() throws Exception {
@@ -290,9 +295,47 @@ public class CustomerPanel extends JPanel {
 
             @Override
             protected void done() {
-                // 与loadCustomerTable()类似，更新表格数据
+                try {
+                    List<Customer> customers = get();
+                    DefaultTableModel model = (DefaultTableModel) tableCustomerInfo.getModel();
+                    model.setColumnIdentifiers(new String[]{"ID", "Name", "Phone", "ID Card", "Email", "Address", "Driver License"});
+                    model.setRowCount(0); // 清空表格
+                    for (Customer c : customers) {
+                        model.addRow(new Object[]{
+                                c.getCustomerID(), c.getcustomerName(), c.getPhone(),
+                                c.getIdCardNumber(), c.getEmail(), c.getAddress(), c.getDriverLicenseNumber()
+                        });
+                    }
+
+                    // 记录搜索日志
+                    new LogService().recordLog(
+                            getCurrentUser(),
+                            "Customer Search",
+                            "Searched for customers with keyword: " + keyword + ". Found " + customers.size() + " results.",
+                            true
+                    );
+                } catch (Exception ex) {
+                    String errorMsg = "Failed to search customers: " + ex.getMessage();
+                    JOptionPane.showMessageDialog(CustomerPanel.this, errorMsg);
+                    System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + errorMsg);
+
+                    // 记录错误日志
+                    new LogService().recordLog(
+                            getCurrentUser(),
+                            "Customer Search",
+                            "Error searching with keyword: " + keyword + " - " + ex.getMessage(),
+                            false
+                    );
+                }
             }
         }.execute();
+    }
+
+    // 获取当前登录用户
+    private String getCurrentUser() {
+        // 这里应该从登录会话中获取当前用户名
+        // 暂时返回默认值
+        return "staff";
     }
 
     // 保存客户信息
@@ -304,16 +347,18 @@ public class CustomerPanel extends JPanel {
             customer.setPhone(textInputPhone.getText());
         } catch (NumberFormatException e) {
             String errorMsg = "Phone number format is incorrect";
-    JOptionPane.showMessageDialog(this, errorMsg);
-    System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + errorMsg);
+            JOptionPane.showMessageDialog(this, errorMsg);
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + errorMsg);
+            new LogService().recordLog(getCurrentUser(), "Customer Management", "Invalid phone format for customer: " + customer.getCustomerID(), false);
             return;
         }
         try {
             customer.setIdCardNumber(textInputIDCardNumber.getText());
         } catch (NumberFormatException e) {
             String errorMsg = "ID card number format is incorrect";
-    JOptionPane.showMessageDialog(this, errorMsg);
-    System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + errorMsg);
+            JOptionPane.showMessageDialog(this, errorMsg);
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + errorMsg);
+            new LogService().recordLog(getCurrentUser(), "Customer Management", "Invalid ID card format for customer: " + customer.getCustomerID(), false);
             return;
         }
         customer.setEmail(textInputEmail.getText());
@@ -322,8 +367,9 @@ public class CustomerPanel extends JPanel {
             customer.setDriverLicenseNumber(textInputDriverLicenseNumber.getText());
         } catch (NumberFormatException e) {
             String errorMsg = "Driver license number format is incorrect";
-    JOptionPane.showMessageDialog(this, errorMsg);
-    System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + errorMsg);
+            JOptionPane.showMessageDialog(this, errorMsg);
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + errorMsg);
+            new LogService().recordLog(getCurrentUser(), "Customer Management", "Invalid driver license format for customer: " + customer.getCustomerID(), false);
             return;
         }
 
@@ -336,36 +382,53 @@ public class CustomerPanel extends JPanel {
             @Override
             protected void done() {
                 try {
-                    if (get()) {
+                    boolean success = get();
+                    if (success) {
                         String successMsg = "Save successful";
-    JOptionPane.showMessageDialog(CustomerPanel.this, successMsg);
-    System.out.println(TimestampUtil.getCurrentTimestamp() + " [SUCCESS] " + successMsg + " for customer: " + customer.getCustomerID());
+                        JOptionPane.showMessageDialog(CustomerPanel.this, successMsg);
+                        System.out.println(TimestampUtil.getCurrentTimestamp() + " [SUCCESS] " + successMsg + " for customer: " + customer.getCustomerID());
+
+                        // 判断是新增还是更新
+                        boolean isNew = textInputCustomerID.getText().isEmpty() || 
+                                       new CustomerService().getCustomerById(textInputCustomerID.getText()) == null;
+
+                        // 记录日志
+                        new LogService().recordLog(
+                                getCurrentUser(),
+                                "Customer Management",
+                                (isNew ? "Added" : "Updated") + " customer ID: " + customer.getCustomerID(),
+                                true
+                        );
+
                         loadCustomerTable(); // 刷新表格
                     } else {
                         String failMsg = "Save failed";
-    JOptionPane.showMessageDialog(CustomerPanel.this, failMsg);
-    System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + failMsg + " for customer: " + customer.getCustomerID());
+                        JOptionPane.showMessageDialog(CustomerPanel.this, failMsg);
+                        System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + failMsg + " for customer: " + customer.getCustomerID());
+
+                        // 记录失败日志
+                        new LogService().recordLog(
+                                getCurrentUser(),
+                                "Customer Management",
+                                "Failed to save customer ID: " + customer.getCustomerID(),
+                                false
+                        );
                     }
                 } catch (Exception ex) {
                     String errorMsg = "Save error: " + ex.getMessage();
-    JOptionPane.showMessageDialog(CustomerPanel.this, errorMsg);
-    System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + errorMsg);
+                    JOptionPane.showMessageDialog(CustomerPanel.this, errorMsg);
+                    System.out.println(TimestampUtil.getCurrentTimestamp() + " [ERROR] " + errorMsg);
+
+                    // 记录错误日志
+                    new LogService().recordLog(
+                            getCurrentUser(),
+                            "Customer Management",
+                            "Error saving customer ID: " + customer.getCustomerID() + " - " + ex.getMessage(),
+                            false
+                    );
                 }
             }
         }.execute();
-        // 保存客户成功后
-        boolean success = false;
-        if (success) {
-            SystemLog currentUser = null;
-            boolean isNew = false;
-            new LogService().recordLog(
-                    currentUser.getUsername(),
-                    "客户管理",
-                    (isNew ? "新增" : "更新") + "客户ID: " + customer.getCustomerID(),
-
-                    true
-            );
-        }
     }
 
     // 填充表单（从选中的表格行）

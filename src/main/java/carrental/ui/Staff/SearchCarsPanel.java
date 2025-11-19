@@ -12,6 +12,7 @@ import java.util.Collections;
 import javax.swing.table.DefaultTableModel;
 import carrental.model.Car;
 import carrental.service.CarService;
+import carrental.service.LogService;
 /**
  * @author LengxiQwQ
  */
@@ -151,8 +152,24 @@ public class SearchCarsPanel extends JPanel {
                                 car.getColor(), car.getStatus()
                         });
                     }
+
+                    // 记录搜索日志
+                    new LogService().recordLog(
+                            getCurrentUser(),
+                            "Car Search",
+                            "Searched cars by " + searchType + ": " + content + ". Found " + cars.size() + " results.",
+                            true
+                    );
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(SearchCarsPanel.this, "搜索失败: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(SearchCarsPanel.this, "Search failed: " + ex.getMessage());
+
+                    // 记录错误日志
+                    new LogService().recordLog(
+                            getCurrentUser(),
+                            "Car Search",
+                            "Error searching cars by " + searchType + ": " + content + " - " + ex.getMessage(),
+                            false
+                    );
                 }
             }
         }.execute();
@@ -185,6 +202,13 @@ public class SearchCarsPanel extends JPanel {
                 }
             }
         }.execute();
+    }
+
+    // 获取当前登录用户
+    private String getCurrentUser() {
+        // 这里应该从登录会话中获取当前用户名
+        // 暂时返回默认值
+        return "staff";
     }
 
 }

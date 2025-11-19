@@ -6,6 +6,7 @@ package carrental.ui.Admin;
 
 import carrental.dao.CarDAO;
 import carrental.model.Car;
+import carrental.service.LogService;
 import carrental.util.TimestampUtil;
 
 import javax.swing.*;
@@ -27,6 +28,7 @@ import java.util.List;
 public class ManageCars extends JPanel {
     private CarDAO carDAO;
     private List<Car> carList;
+    private LogService logService = new LogService();
     
     public ManageCars() {
         initComponents();
@@ -146,6 +148,13 @@ public class ManageCars extends JPanel {
     private JButton buttonAddCar;
     private JButton buttonRefresh;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
+
+    // 获取当前登录用户
+    private String getCurrentUser() {
+        // 这里应该从登录会话中获取当前用户名
+        // 暂时返回默认值
+        return "admin";
+    }
     
     // 初始化表格
     private void initTable() {
@@ -263,6 +272,7 @@ public class ManageCars extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Add car: Opening add car dialog");
+                logService.recordLog(getCurrentUser(), "Car Management", "Opened add car dialog", true);
                 AddCarFrame addCarFrame = new AddCarFrame();
                 addCarFrame.setVisible(true);
 
@@ -323,12 +333,14 @@ public class ManageCars extends JPanel {
                     filteredList = searchByYear(year);
                 } catch (NumberFormatException ex) {
                     System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Search cars error: Invalid year format - " + searchText);
+                    logService.recordLog(getCurrentUser(), "Car Search", "Failed to search cars: invalid year format - " + searchText, false);
                     JOptionPane.showMessageDialog(this, "Please enter a valid year.", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             }
         } catch (SQLException ex) {
             System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Search cars error: " + ex.getMessage());
+            logService.recordLog(getCurrentUser(), "Car Search", "Error searching cars: " + ex.getMessage(), false);
             JOptionPane.showMessageDialog(this, "Error searching cars: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
         
@@ -411,14 +423,17 @@ public class ManageCars extends JPanel {
                 boolean success = deleteCar(carId);
                 if (success) {
                     System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Delete car successful: ID=" + carId + ", Model=" + carModel);
+                    logService.recordLog(getCurrentUser(), "Car Management", "Deleted car: ID=" + carId + ", Model=" + carModel, true);
                     JOptionPane.showMessageDialog(this, "Car deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
                     loadCarData(); // 重新加载数据
                 } else {
                     System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Delete car failed: Database error for ID=" + carId + ", Model=" + carModel);
+                    logService.recordLog(getCurrentUser(), "Car Management", "Failed to delete car: database error for ID=" + carId, false);
                     JOptionPane.showMessageDialog(this, "Failed to delete car.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (Exception ex) {
                 System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Delete car error: " + ex.getMessage() + " for ID=" + carId + ", Model=" + carModel);
+            logService.recordLog(getCurrentUser(), "Car Management", "Error deleting car: " + ex.getMessage() + " for ID=" + carId, false);
                 JOptionPane.showMessageDialog(this, "Error deleting car: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -429,6 +444,7 @@ public class ManageCars extends JPanel {
         // 首先检查该车辆是否在租赁记录中有引用
         if (hasRentalRecords(carId)) {
             JOptionPane.showMessageDialog(this, "Cannot delete this car because it has rental records.", "Error", JOptionPane.ERROR_MESSAGE);
+            logService.recordLog(getCurrentUser(), "Car Management", "Failed to delete car: has rental records for ID=" + carId, false);
             return false;
         }
         

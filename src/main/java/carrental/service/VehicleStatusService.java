@@ -26,43 +26,43 @@ public class VehicleStatusService {
      */
     public boolean recordReturnStatus(String carId, Integer rentalId, String status, String notes, User operator) {
         if (operator == null) {
-            throw new RuntimeException("请先登录");
+            throw new RuntimeException("Please login first");
         }
 
         if (carId == null || carId.isEmpty()) {
-            throw new IllegalArgumentException("车辆ID不能为空");
+            throw new IllegalArgumentException("Car ID cannot be empty");
         }
 
         if (status == null || status.isEmpty()) {
-            throw new IllegalArgumentException("车辆状态不能为空");
+            throw new IllegalArgumentException("Car status cannot be empty");
         }
 
         try {
-            // 创建车辆状态记录
+            // Create vehicle status record
             VehicleStatus vehicleStatus = new VehicleStatus(carId, rentalId, status, notes);
 
-            // 保存到数据库
+            // Save to database
             boolean success = vehicleStatusDAO.insert(vehicleStatus);
 
             if (success) {
-                // 记录系统日志
+                // Record system log
                 logService.recordLog(
                     operator.getUsername(),
-                    "车辆状态记录",
-                    "记录车辆ID: " + carId + 
-                    " (租赁ID: " + rentalId + ") 的还车状态为: " + status + 
-                    ", 备注: " + (notes != null ? notes : "无"),
+                    "Vehicle Status Record",
+                    "Recorded return status for Car ID: " + carId + 
+                    " (Rental ID: " + rentalId + ") as: " + status + 
+                    ", Notes: " + (notes != null ? notes : "None"),
                     true
                 );
 
                 System.out.println(TimestampUtil.getCurrentTimestamp() + 
-                    " 成功记录车辆状态，车辆ID: " + carId + 
-                    ", 状态: " + status);
+                    " Successfully recorded vehicle status, Car ID: " + carId + 
+                    ", Status: " + status);
             } else {
                 logService.recordLog(
                     operator.getUsername(),
-                    "车辆状态记录",
-                    "记录车辆ID: " + carId + " 的状态失败",
+                    "Vehicle Status Record",
+                    "Failed to record status for Car ID: " + carId,
                     false
                 );
             }
@@ -71,11 +71,11 @@ public class VehicleStatusService {
         } catch (Exception e) {
             logService.recordLog(
                 operator.getUsername(),
-                "车辆状态记录",
-                "记录车辆ID: " + carId + " 的状态时发生异常: " + e.getMessage(),
+                "Vehicle Status Record",
+                "Exception occurred while recording status for Car ID: " + carId + ": " + e.getMessage(),
                 false
             );
-            throw new RuntimeException("记录车辆状态失败: " + e.getMessage());
+            throw new RuntimeException("Failed to record vehicle status: " + e.getMessage());
         }
     }
 
@@ -88,7 +88,7 @@ public class VehicleStatusService {
         try {
             return vehicleStatusDAO.findLatestByCarId(carId);
         } catch (Exception e) {
-            throw new RuntimeException("获取车辆状态失败: " + e.getMessage());
+            throw new RuntimeException("Failed to get vehicle status: " + e.getMessage());
         }
     }
 
@@ -101,7 +101,7 @@ public class VehicleStatusService {
         try {
             return vehicleStatusDAO.findByRentalId(rentalId);
         } catch (Exception e) {
-            throw new RuntimeException("获取租赁状态记录失败: " + e.getMessage());
+            throw new RuntimeException("Failed to get rental status records: " + e.getMessage());
         }
     }
 }

@@ -38,34 +38,34 @@ public class RentalService {
         }
 
         if (rental.getStartDate().isAfter(rental.getExpectedReturnDate())){
-            throw new IllegalArgumentException("结束日期不能早于开始日期");
+            throw new IllegalArgumentException("End date cannot be earlier than start date");
         }
 
         Connection conn = null;
         try {
             conn = DBConnection.getConnection();
-            conn.setAutoCommit(false); // 开启事务
+            conn.setAutoCommit(false); // Start transaction
 
-            // 插入租车记录
+            // Insert rental record
             boolean rentalSuccess = rentalDAO.insert(rental);
             if (!rentalSuccess) {
                 conn.rollback();
-                throw new RuntimeException("租车记录创建失败");
+                throw new RuntimeException("Rental record creation failed");
             }
 
-            // 更新车辆状态为已租
+            // Update car status to rented
             boolean carStatusSuccess = carDAO.updateStatus(rental.getCar().getCarID(), Car.CarStatus.RENTED);
             if (!carStatusSuccess) {
                 conn.rollback();
-                throw new RuntimeException("车辆状态更新失败");
+                throw new RuntimeException("Car status update failed");
             }
 
             conn.commit();
-            System.out.println(TimestampUtil.getCurrentTimestamp() + " 租车成功！车辆ID：" + rental.getCar().getCarID());
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " Rental successful! Car ID: " + rental.getCar().getCarID());
             
-            // 记录系统日志
-            logService.recordLog(operator.getUsername(), "租车", "成功租车，车辆ID：" + rental.getCar().getCarID() + 
-                                "，客户ID：" + rental.getCustomer().getCustomerID(), true);
+            // Record system log
+            logService.recordLog(operator.getUsername(), "Car Rental", "Successfully rented car, Car ID: " + rental.getCar().getCarID() + 
+                                ", Customer ID: " + rental.getCustomer().getCustomerID(), true);
             
             return true;
         } catch (SQLException e) {
@@ -78,10 +78,10 @@ public class RentalService {
             }
             e.printStackTrace();
             
-            // 记录系统日志
-            logService.recordLog(operator.getUsername(), "租车", "租车失败：" + e.getMessage(), false);
+            // Record system log
+            logService.recordLog(operator.getUsername(), "Car Rental", "Rental failed: " + e.getMessage(), false);
             
-            throw new RuntimeException("租车失败：" + e.getMessage());
+            throw new RuntimeException("Rental failed: " + e.getMessage());
         } finally {
             DBConnection.closeConnection(conn);
         }
@@ -90,11 +90,11 @@ public class RentalService {
     // 还车操作（事务控制）
     public BigDecimal returnCar(String rentalId, LocalDate actualReturnDate, User operator) {
         if (operator == null) {
-            throw new RuntimeException("请先登录");
+            throw new RuntimeException("Please login first");
         }
 
         if (actualReturnDate == null) {
-            throw new IllegalArgumentException("实际归还日期不能为空");
+            throw new IllegalArgumentException("Actual return date cannot be empty");
         }
 
         Connection conn = null;
@@ -102,51 +102,51 @@ public class RentalService {
             conn = DBConnection.getConnection();
             conn.setAutoCommit(false);
 
-            // 查询租车记录
+            // Query rental record
             Rental rental = rentalDAO.findAll().stream()
                     .filter(r -> String.valueOf(r.getRentalID()).equals(rentalId))
                     .findFirst()
-                    .orElseThrow(() -> new RuntimeException("租车记录不存在"));
+                    .orElseThrow(() -> new RuntimeException("Rental record does not exist"));
 
-            // 检查租赁记录状态，防止重复归还
+            // Check rental record status to prevent duplicate returns
             if (rental.getActualReturnDate() != null) {
-                throw new RuntimeException("该车辆已经归还，不能重复归还");
+                throw new RuntimeException("The car has been returned, cannot return again");
             }
 
-            // 查询车辆日租金
+            // Query daily rental rate for the car
             Car car = carDAO.findById(rental.getCar().getCarID());
             if (car == null) {
                 conn.rollback();
-                throw new RuntimeException("车辆不存在");
+                throw new RuntimeException("Car does not exist");
             }
 
-            // 设置实际归还日期，以便正确计算费用
+            // Set actual return date to correctly calculate fees
             rental.setActualReturnDate(actualReturnDate);
 
-            // 计算总费用
+            // Calculate total fee
             double totalCost = rental.calculateTotalCost();
             BigDecimal totalFee = BigDecimal.valueOf(totalCost);
 
-            // 更新还车记录
+            // Update return record
             boolean rentalUpdateSuccess = rentalDAO.updateReturn(rentalId, actualReturnDate, totalFee);
             if (!rentalUpdateSuccess) {
                 conn.rollback();
-                throw new RuntimeException("还车记录更新失败");
+                throw new RuntimeException("Return record update failed");
             }
 
-            // 更新车辆状态为可用
+            // Update car status to available
             boolean carStatusSuccess = carDAO.updateStatus(rental.getCar().getCarID(), Car.CarStatus.AVAILABLE);
             if (!carStatusSuccess) {
                 conn.rollback();
-                throw new RuntimeException("车辆状态更新失败");
+                throw new RuntimeException("Car status update failed");
             }
 
             conn.commit();
-            System.out.println(TimestampUtil.getCurrentTimestamp() + " 还车成功！总费用：" + totalFee);
+            System.out.println(TimestampUtil.getCurrentTimestamp() + " Return successful! Total fee: " + totalFee);
             
-            // 记录系统日志
-            logService.recordLog(operator.getUsername(), "还车", "成功还车，租车记录ID：" + rentalId + 
-                                "，总费用：" + totalFee, true);
+            // Record system log
+            logService.recordLog(operator.getUsername(), "Car Return", "Successfully returned car, Rental ID: " + rentalId + 
+                                ", Total fee: " + totalFee, true);
             
             return totalFee;
         } catch (SQLException e) {
@@ -159,10 +159,10 @@ public class RentalService {
             }
             e.printStackTrace();
             
-            // 记录系统日志
-            logService.recordLog(operator.getUsername(), "还车", "还车失败：" + e.getMessage(), false);
+            // Record system log
+            logService.recordLog(operator.getUsername(), "Car Return", "Return failed: " + e.getMessage(), false);
             
-            throw new RuntimeException("还车失败：" + e.getMessage());
+            throw new RuntimeException("Return failed: " + e.getMessage());
         } finally {
             DBConnection.closeConnection(conn);
         }

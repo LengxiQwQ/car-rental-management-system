@@ -451,10 +451,10 @@ public class ManageRentalsPanel extends JPanel {
             User currentUser = getCurrentStaff();
             new LogService().recordLog(
                     currentUser != null ? currentUser.getUsername() : "Unknown",
-                    "租车操作",
-                    "租赁车辆ID: " + selectedCar.getCarID() +
-                            ", 客户ID: " + selectedCustomer.getCustomerID() +
-                            ", 租期: " + startDate + "至" + endDate,
+                    "Car Rental",
+                    "Rented car ID: " + selectedCar.getCarID() +
+                            ", Customer ID: " + selectedCustomer.getCustomerID() +
+                            ", Rental period: " + startDate + " to " + endDate,
 
                     true
             );

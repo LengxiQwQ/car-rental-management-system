@@ -7,6 +7,7 @@ package carrental.ui.Admin;
 import carrental.dao.UserDAO;
 import carrental.model.User;
 import carrental.model.userRole;
+import carrental.service.LogService;
 import carrental.util.TimestampUtil;
 
 import java.awt.*;
@@ -20,6 +21,7 @@ import javax.swing.GroupLayout;
  */
 public class AddStaffFrame extends JFrame {
     private UserDAO userDAO;
+    private LogService logService = new LogService();
 
     public AddStaffFrame() {
         initComponents();
@@ -165,6 +167,7 @@ public class AddStaffFrame extends JFrame {
         if (staffId.isEmpty() || username.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
             System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Add staff failed: Missing required fields");
+            logService.recordLog(getCurrentUser(), "Staff Management", "Failed to add staff: missing required fields", false);
             return;
         }
 
@@ -181,6 +184,7 @@ public class AddStaffFrame extends JFrame {
             if (success) {
                 System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Add staff successful: ID=" + staffId + ", Username=" + username);
                 JOptionPane.showMessageDialog(this, "Staff added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                logService.recordLog(getCurrentUser(), "Staff Management", "Added staff: ID=" + staffId + ", Username=" + username, true);
                 clearFields(); // 清空输入框
                 dispose(); // 关闭窗口
 
@@ -188,10 +192,12 @@ public class AddStaffFrame extends JFrame {
             } else {
                 System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Add staff failed: Database error for ID=" + staffId + ", Username=" + username);
                 JOptionPane.showMessageDialog(this, "Failed to add staff. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                logService.recordLog(getCurrentUser(), "Staff Management", "Failed to add staff: database error for ID=" + staffId, false);
             }
         } catch (Exception ex) {
             System.out.println(TimestampUtil.getCurrentTimestamp() + " [Admin] Add staff error: " + ex.getMessage() + " for ID=" + staffId + ", Username=" + username);
             JOptionPane.showMessageDialog(this, "Error adding staff: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            logService.recordLog(getCurrentUser(), "Staff Management", "Error adding staff: " + ex.getMessage() + " for ID=" + staffId, false);
         }
     }
 
@@ -200,5 +206,12 @@ public class AddStaffFrame extends JFrame {
         textFieldAddStaffID.setText("");
         textFieldtextFieldAddStaffName.setText("");
         textFieldtextFieldAddStaffPassword.setText("");
+    }
+
+    // 获取当前登录用户
+    private String getCurrentUser() {
+        // 这里应该从登录会话中获取当前用户名
+        // 暂时返回默认值
+        return "admin";
     }
 }

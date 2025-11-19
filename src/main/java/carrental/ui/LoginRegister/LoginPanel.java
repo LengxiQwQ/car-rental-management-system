@@ -20,7 +20,7 @@ import javax.swing.GroupLayout;
  */
 public class LoginPanel extends JPanel {
     private LoginRegisterFrame loginRegisterFrame;
-    
+
     public LoginPanel() {
         initComponents();
         addLoginListener();
@@ -32,7 +32,7 @@ public class LoginPanel extends JPanel {
             loginRegisterFrame.showRegisterPanel();
         }
     }
-    
+
     // 添加设置MainFrame引用的方法
     public void setMainFrame(LoginRegisterFrame loginRegisterFrame) {
         this.loginRegisterFrame = loginRegisterFrame;
@@ -62,8 +62,8 @@ public class LoginPanel extends JPanel {
 
         //---- comboBoxLoginRole ----
         comboBoxLoginRole.setModel(new DefaultComboBoxModel<>(new String[] {
-            "Staff",
-            "Admin"
+                "Staff",
+                "Admin"
         }));
 
         //---- label3 ----
@@ -82,53 +82,53 @@ public class LoginPanel extends JPanel {
         GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup()
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(81, 81, 81)
-                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                layout.createParallelGroup()
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(label4, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                            .addGap(59, 59, 59)
-                            .addComponent(comboBoxLoginRole, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(buttonGoToRegister, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(buttonLogin, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup()
-                                .addComponent(label3, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(label2))
-                            .addGap(32, 32, 32)
-                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                .addComponent(textLoginUserID, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                                .addComponent(textLoginPassword, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))))
-                    .addGap(87, 87, Short.MAX_VALUE))
-                .addComponent(label1, GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
+                                .addGap(81, 81, 81)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(label4, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                                                .addGap(59, 59, 59)
+                                                .addComponent(comboBoxLoginRole, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(buttonGoToRegister, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(buttonLogin, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup()
+                                                        .addComponent(label3, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(label2))
+                                                .addGap(32, 32, 32)
+                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(textLoginUserID, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                                                        .addComponent(textLoginPassword, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))))
+                                .addGap(87, 87, Short.MAX_VALUE))
+                        .addComponent(label1, GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup()
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(26, 26, 26)
-                    .addComponent(label1)
-                    .addGap(31, 31, 31)
-                    .addGroup(layout.createParallelGroup()
-                        .addComponent(label4, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(comboBoxLoginRole, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(15, 15, 15)
-                    .addGroup(layout.createParallelGroup()
+                layout.createParallelGroup()
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(3, 3, 3)
-                            .addComponent(label3))
-                        .addComponent(textLoginUserID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(7, 7, 7)
-                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(label2)
-                        .addComponent(textLoginPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(buttonGoToRegister)
-                        .addComponent(buttonLogin))
-                    .addGap(40, 40, 40))
+                                .addGap(26, 26, 26)
+                                .addComponent(label1)
+                                .addGap(31, 31, 31)
+                                .addGroup(layout.createParallelGroup()
+                                        .addComponent(label4, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(comboBoxLoginRole, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addGap(15, 15, 15)
+                                .addGroup(layout.createParallelGroup()
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(3, 3, 3)
+                                                .addComponent(label3))
+                                        .addComponent(textLoginUserID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addGap(7, 7, 7)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(label2)
+                                        .addComponent(textLoginPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(buttonGoToRegister)
+                                        .addComponent(buttonLogin))
+                                .addGap(40, 40, 40))
         );
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
@@ -155,11 +155,11 @@ public class LoginPanel extends JPanel {
                 }
             }
         });
-        
+
         // 使用原有代码中的实际按钮变量名 buttonLogin
         buttonLogin.addActionListener(e -> performLogin());
     }
-    
+
     // 将登录逻辑提取到独立方法中
     private void performLogin() {
         // 使用实际的组件变量名
@@ -216,8 +216,8 @@ public class LoginPanel extends JPanel {
         if (user != null) {
             new LogService().recordLog(
                     username,
-                    "用户登录",
-                    "登录成功，角色: " + user.getRole(),
+                    "User Login",
+                    "Login successful, Role: " + user.getRole(),
 
                     true
             );
@@ -225,8 +225,8 @@ public class LoginPanel extends JPanel {
             // 登录失败
             new LogService().recordLog(
                     username,
-                    "用户登录",
-                    "登录失败，用户名或密码错误",
+                    "User Login",
+                    "Login failed, Incorrect username or password",
 
                     false
             );
