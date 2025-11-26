@@ -1,65 +1,238 @@
-# Car Rental Management System  
-PRG2201 Object-Oriented Programming — Coursework #3  
-INTI International University • August 2025 Session  
+# 🚗 Car Rental Management System
+
+A desktop rental management application built with Java Swing + MySQL
+ PRG2201 Object-Oriented Programming · Group Project
+ INTI International University · August 2025 Semester
 
 📘 **English | [简体中文](README_CN.md)**
 
----
+------
 
-## 📌 Project Overview
-This project is a **Java GUI application** designed to manage a car rental service.  
-The system covers inventory management, rentals, user accounts, data storage, and reporting.  
-It is developed as part of **Coursework #3 (30%)** for the module **PRG2201 Object-Oriented Programming**.
+## 📌 1. Project Introduction
 
-## 👥 User Roles & Features
+The Car Rental Management System is a complete desktop application built using **Java Swing + JDBC + MySQL**, designed to help car rental companies digitize their operations.
 
-### 🔑 Admin
-- Manage Users (add/edit/remove/view)
-- Manage Cars (make, model, year, plate, color, status)
-- View Reports (rental history, availability, revenue)
-- View System Logs
+The system includes:
 
-### 👤 Staff Member
-- Manage Rentals (check-out, returns, rental dates)
-- Update Car Availability
-- Search Cars (make/model/license plate)
-- Manage Customer Details
+- **Admin functionalities**
+- **Staff functionalities**
+- Full **rental lifecycle management**
+- Modern Swing-based GUI
+- Complete database support and logging system
 
-## 🗄️ Data Management
-- **Relational Database required** (MySQL / PostgreSQL / SQLite)  
-- Stores:  
-  - Cars  
-  - Users  
-  - Rentals  
+Originally created as the final assignment for **PRG2201 — Object-Oriented Programming**, this project is now released as an open-source reference suitable for:
 
-If database cannot be implemented, a justification must be provided for using file storage.
+- Java beginners
+- Swing GUI development learners
+- JDBC + MySQL learning
+- Layered architecture demonstration
 
-## 📦 Deliverables
-### 1. Software ZIP
-- Java GUI project  
-- Source files  
-- JDBC drivers  
-- Database files (if SQLite)
+------
 
-### 2. Documentation (PDF/Word)
-- Introduction & assumptions  
-- UML/Flowchart/Pseudocode  
-- ER diagram  
-- Implementation explanation  
-- GUI screenshots  
-- Reflection  
-- References  
-- Workload matrix  
+## ✨ 2. Key System Features
 
-### 3. Presentation
-- 10-minute group presentation  
-- 5-minute screen-recorded demo  
+### 👑 Admin
 
-## 🏆 Grading Criteria
-- **Distinction (80–100%)**: Complete, advanced Java features, strong documentation  
-- **Credit (65–79%)**: Functional, clear logic  
-- **Pass (50–64%)**: Basic requirements met  
-- **Fail (<50%)**: Incomplete or major issues  
+- Staff account management (create, update, delete, view)
+- Vehicle inventory management (brand/model/plate/rate/status)
+- View all rental records
+- View reports and statistics (rental count, vehicle availability, revenue)
+- View system logs (filter by user or operation type)
+- Search vehicles (brand/model/license plate)
 
-## 📚 Learning Outcome
-**CLO3:** Demonstrate lifelong learning skills in creating programming solutions for real-world problems.
+### 👨‍💼 Staff
+
+- Handle rental creation (automatic fee calculation)
+- Process vehicle returns (including condition reports)
+- Update vehicle availability status
+- Manage customer information
+- View available vehicles in real time
+- Quickly search vehicles and customers
+
+------
+
+## 📂 3. Basic Project Structure
+
+```
+src/main/java/carrental/
+ ├── model/         # Data model classes (Car/User/Rental)
+ ├── db/            # Database connection
+ ├── dao/           # Database CRUD operations
+ ├── service/       # Business logic
+ ├── ui/            # Swing GUI & Main entry point
+ ├── util/          # Utility classes
+database/init.sql   # Database initialization script
+```
+
+------
+
+## 🛠️ 4. Tech Stack
+
+- **Java - JDK 21**
+- **Swing + FlatLaf UI**
+- **MySQL**
+- **JDBC**
+- **IntelliJ IDEA**
+- **Cross-platform support (Windows / macOS / Linux)**
+
+------
+
+## 📸 5. System Screenshots
+
+| Login Page                 | Registration Page             |
+| -------------------------- | ----------------------------- |
+| ![img](./images/Login.png) | ![img](./images/Register.png) |
+
+| Staff Page                          | Admin Page                       |
+| ----------------------------------- | -------------------------------- |
+| ![img](./images/StaffDashboard.png) | ![img](./images/AdminReport.png) |
+
+------
+
+## 🗄️ 6. Database Design (MySQL)
+
+Core tables:
+
+| Table Name       | Description                           |
+| ---------------- | ------------------------------------- |
+| `users`          | Admin and staff accounts              |
+| `cars`           | Vehicle information & availability    |
+| `customers`      | Customer records                      |
+| `rentals`        | Rental transaction records            |
+| `vehicle_status` | Vehicle condition details upon return |
+| `system_logs`    | System operation logs                 |
+
+### ER Diagram
+
+![ER Diagram](./images/ER diagram with database.png)
+
+### Key Design Features
+
+- Foreign key constraints
+- State machine (available / unavailable / maintenance)
+- Secure SQL using PreparedStatement
+- Logging of all critical operations
+
+------
+
+## 🚀 7. Getting Started
+
+### ✔ Step 1 — Clone the repository
+
+```
+git clone https://github.com/LengxiQwQ/Car-Rental-Management-System.git
+```
+
+------
+
+### ✔ Step 2 — Create the database
+
+```
+CREATE DATABASE Car_Rental_Management_System_DB;
+```
+
+Import the SQL file afterward.
+
+------
+
+### ✔ Step 3 — Configure database connection
+
+Edit `DBConnection.java`:
+
+```
+private static final String URL = "jdbc:mysql://localhost:3306/Car_Rental_Management_System_DB";
+private static final String USER = "root";
+private static final String PASSWORD = "your_password";
+```
+
+------
+
+### ✔ Step 4 — Run the program
+
+Run:
+
+```
+src/main/java/carrental/ui/Main.java
+```
+
+------
+
+## 📂 8. Full Project Directory Explanation
+
+```
+└─src
+   └─main
+       ├─java
+       │  └─carrental
+       │      │
+       │      ├─dao                     # Data Access Layer — handles database CRUD operations
+       │      │      CarDAO.java        # CRUD operations for car data (update stock, change status…)
+       │      │      CustomerDAO.java   # Handles customer info (add, update, search)
+       │      │      LogDAO.java        # Insert/query system logs
+       │      │      RentalDAO.java     # CRUD for rental transactions
+       │      │      UserDAO.java       # CRUD for user accounts, login validation
+       │      │      VehicleStatusDAO.java # Operations for vehicle condition upon return
+       │      │
+       │      ├─db                      # Database configuration layer
+       │      │      DBConnection.java  # JDBC connection manager (getConnection + close)
+       │      │      Information.java   # Stores DB configuration constants (URL, username, password)
+       │      │
+       │      ├─model                   # Model Layer — Java POJOs mapping database tables
+       │      │      Car.java           # Entity for car records (cars table)
+       │      │      Customer.java      # Entity for customers (customers table)
+       │      │      Rental.java        # Entity for rental transactions (rentals table)
+       │      │      SystemLog.java     # Entity for log records (system_logs table)
+       │      │      User.java          # Entity for system users (users table)
+       │      │      userRole.java      # Enum/constant defining user roles
+       │      │      VehicleStatus.java # Entity for vehicle return condition (vehicle_status table)
+       │      │
+       │      ├─service                 # Business Logic Layer
+       │      │      AuthService.java   # Authentication (login validation, registration logic)
+       │      │      CarService.java    # Vehicle availability checks, filtering logic
+       │      │      CustomerService.java # Validating and maintaining customer data
+       │      │      LogService.java    # Centralized log writing logic
+       │      │      RentalService.java # Core rental workflow (create order, update stock, etc.)
+       │      │      VehicleStatusService.java # Handles vehicle condition during return
+       │      │
+       │      ├─ui                      # User Interface Layer (Swing)
+       │      │  │   Main.java          # Program entry point
+       │      │  │
+       │      │  ├─Admin                # Admin module components
+       │      │  │      AddCarFrame.java
+       │      │  │      AddStaffFrame.java
+       │      │  │      AdminDashboardFrame.java
+       │      │  │      ManageCars.java
+       │      │  │      ManageStaff.java
+       │      │  │      Reports.java
+       │      │  │      SystemLogs.java
+       │      │  │
+       │      │  ├─LoginRegister        # Login & Registration module
+       │      │  │      LoginPanel.java
+       │      │  │      LoginRegisterFrame.java
+       │      │  │      RegisterPanel.java
+       │      │  │
+       │      │  └─Staff                # Staff module components
+       │      │         AvailabilityPanel.java
+       │      │         CustomerPanel.java
+       │      │         ManageRentalsPanel.java
+       │      │         ReTurnCarFrame.java
+       │      │         SearchCarsPanel.java
+       │      │         StaffDashboardFrame.java
+       │      │
+       │      └─util                    # Utility Layer
+       │             DateUtil.java
+       │             DBUtil.java
+       │             TimestampUtil.java
+       │             Validator.java
+       │
+       └─resources
+```
+
+------
+
+## 👥 9. Collaborators
+
+| Member         | Responsibilities                                             |
+| -------------- | ------------------------------------------------------------ |
+| **Qiu Zixun**  | Project initialization, UI design & implementation, admin module logic, GitHub management |
+| **Yu Chongqi** | Database design & connection, DAO/Service/Model implementation, staff module logic |
