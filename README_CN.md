@@ -107,7 +107,7 @@ database/init.sql   # 数据库初始化数据
 
 ### 实体关系图
 
-![实体关系图](./images/ER diagram with database.png)
+![实体关系图](./images/ER_diagram_with_database.png)
 
 ### 设计特点
 

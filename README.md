@@ -104,7 +104,7 @@ Core tables:
 
 ### ER Diagram
 
-![ER Diagram](./images/ER diagram with database.png)
+![ER Diagram](./images/ER_diagram_with_database.png)
 
 ### Key Design Features
 
