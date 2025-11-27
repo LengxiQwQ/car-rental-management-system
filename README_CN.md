@@ -325,6 +325,143 @@ classDiagram
 
 ```
 
+
+### 精简版核心逻辑架构（UML类图）
+
+```mermaid
+classDiagram
+    direction TB
+    %% Layout Direction: Top to Bottom
+
+    %% =============================================
+    %% 1. UI Layer (Presentation)
+    %% =============================================
+    class LoginPanel {
+        +performLogin()
+    }
+    class AdminDashboard {
+        +manageCars()
+        +viewReports()
+    }
+    class StaffDashboard {
+        +rentCar()
+        +returnCar()
+        +searchCars()
+    }
+
+    %% =============================================
+    %% 2. Service Layer (Business Logic)
+    %% =============================================
+    class AuthService {
+        +login(username, password)
+        +register(user)
+        +isAdmin(user)
+    }
+    class RentalService {
+        +checkoutCar(rental, staff)
+        +returnCar(rentalId, date)
+        +calculateFee()
+    }
+    class CarService {
+        +getAvailableCars()
+        +updateCarStatus(id, status)
+    }
+    class CustomerService {
+        +saveCustomer(customer)
+        +searchCustomers(keyword)
+    }
+
+    %% =============================================
+    %% 3. DAO Layer (Data Access)
+    %% =============================================
+    class UserDAO {
+        +findByUsername()
+        +insert()
+    }
+    class RentalDAO {
+        +insert()
+        +updateReturn()
+    }
+    class CarDAO {
+        +findAll()
+        +updateStatus()
+    }
+    class CustomerDAO {
+        +insert()
+        +update()
+    }
+
+    %% =============================================
+    %% 4. Model Layer (Core Entities)
+    %% Populated with key attributes from your code
+    %% =============================================
+    class User {
+        -String userID
+        -String username
+        -String password
+        -userRole role
+    }
+    class Rental {
+        -int rentalID
+        -Car car
+        -Customer customer
+        -LocalDate startDate
+        -double totalCost
+        +calculateTotalCost()
+    }
+    class Car {
+        -String carID
+        -String brand
+        -String model
+        -String status
+        -double price
+        -int stock
+        +isAvailable()
+    }
+    class Customer {
+        -String customerID
+        -String name
+        -String phone
+        -String driverLicense
+        +updateContactInfo()
+    }
+
+    %% =============================================
+    %% Core Relationships & Call Flow
+    %% =============================================
+
+    %% 1. Login Flow
+    LoginPanel ..> AuthService : calls
+    AuthService --> UserDAO : calls
+    UserDAO ..> User : returns
+
+    %% 2. Admin Flow
+    AdminDashboard ..> CarService : manages cars
+    AdminDashboard ..> RentalService : views reports
+
+    %% 3. Staff Flow (Rent/Return)
+    StaffDashboard ..> RentalService : processes rental
+    StaffDashboard ..> CarService : checks availability
+    StaffDashboard ..> CustomerService : manages customers
+
+    %% 4. Service -> DAO
+    RentalService --> RentalDAO : saves order
+    RentalService --> CarDAO : updates stock
+    CarService --> CarDAO : queries info
+    CustomerService --> CustomerDAO : persists info
+
+    %% 5. DAO -> Model
+    RentalDAO ..> Rental : returns
+    CarDAO ..> Car : returns
+    CustomerDAO ..> Customer : returns
+
+    %% 6. Model Associations
+    Rental --> Car : contains
+    Rental --> Customer : contains
+```
+
+
+
 -----
 
 ## 🛠️ 5. 技术栈
