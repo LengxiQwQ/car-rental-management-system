@@ -70,124 +70,259 @@ database/init.sql   # 数据库初始化脚本
 
 ```mermaid
 classDiagram
-    %% ==========================
-    %% 1. Model Layer (模型层)
-    %% ==========================
-    class Car {
-        +int id
-        +String brand
-        +String model
-        +String status
-        +BigDecimal price
+    direction TB
+
+    %% =============================================
+    %% 1. UI Layer (界面层)
+    %% =============================================
+    class LoginRegisterFrame {
+        -LoginPanel loginPanel
+        -RegisterPanel registerPanel
     }
-    class User {
-        +int id
-        +String username
-        +String password
-        +String role
+    class AdminDashboardFrame {
+        -ManageCars manageCars
+        -ManageStaff manageStaff
+        -Reports reports
+        -SystemLogs systemLogs
     }
-    class Rental {
-        +int rentalID
-        +int customerId
-        +int carId
-        +LocalDate startDate
-        +LocalDate endDate
-        +BigDecimal totalCost
-    }
-    class Customer {
-        +String name
-        +String licenseNumber
-        +String phone
-    }
-    class SystemLog {
-        +String username
-        +String operationType
-        +LocalDateTime time
-        +String result
+    class StaffDashboardFrame {
+        -ManageRentalsPanel rentalPanel
+        -AvailabilityPanel availabilityPanel
+        -CustomerPanel customerPanel
+        -SearchCarsPanel searchPanel
     }
 
-    %% ==========================
-    %% 2. DAO Layer (数据访问层)
-    %% ==========================
-    class CarDAO {
-        +updateStatus(carId, status)
-        +updateStock(carId, count)
-        +findAllAvailable()
+    %% UI 组件/弹窗
+    class ManageRentalsPanel {
+        +addRental()
+        +loadRentals()
     }
-    class UserDAO {
-        +findByUsername(username)
-        +save(User)
+    class ReTurnCarFrame {
+        +processReturn()
     }
-    class RentalDAO {
-        +save(Rental)
-        +findById(id)
-        +updateReturnDate(rentalId)
+    class ManageCars {
+        +loadCarData()
+        +addCar()
+        +deleteSelectedCar()
     }
-    class LogDAO {
-        +insertLog(SystemLog)
+    class AddCarFrame {
+        +addCar()
+    }
+    class AddStaffFrame {
+        +addStaff()
+    }
+    class Reports {
+        +generateReport()
+    }
+    class LoginPanel {
+        +performLogin()
     }
 
-    %% ==========================
-    %% 3. Service Layer (业务层)
-    %% ==========================
+    %% =============================================
+    %% 2. Service Layer (业务逻辑层)
+    %% =============================================
     class AuthService {
-        +login(username, password)
-        +register(User)
+        +login(username, password) User
+        +register(User) boolean
+        +isAdmin(User) boolean
     }
     class RentalService {
-        +createRental(customer, car, dates)
-        +returnCar(rentalId, status)
-        +calculateFee(rental)
+        +getAllRentals() List~Rental~
+        +checkoutCar(Rental, User) boolean
+        +returnCar(rentalId, returnDate, User) BigDecimal
     }
     class CarService {
-        +getAvailableCars()
-        +updateCarInfo(Car)
+        +getAllCars() List~Car~
+        +getAvailableCars() List~Car~
+        +getCarById(id) Car
+        +getCarsByStatus(status) List~Car~
+        +updateCarStatus(id, status) boolean
+    }
+    class CustomerService {
+        +getAllCustomers() List~Customer~
+        +searchCustomers(keyword) List~Customer~
+        +saveCustomer(Customer) boolean
+    }
+    class VehicleStatusService {
+        +recordReturnStatus(carId, status, notes) boolean
+        +getLatestStatus(carId) VehicleStatus
+    }
+    class LogService {
+        +recordLog(user, type, details, success) void
     }
 
-    %% ==========================
-    %% 4. UI Layer (界面层)
-    %% ==========================
-    class AdminDashboard {
-        +showManageCars()
-        +showReports()
+    %% =============================================
+    %% 3. DAO Layer (数据层)
+    %% =============================================
+    class UserDAO {
+        +findByUsername(username) User
+        +login(username, password) User
+        +register(User) boolean
+        +insert(User) boolean
+        +updateRole(userId, role) boolean
     }
-    class StaffDashboard {
-        +showManageRentals()
-        +showCarSearch()
+    class RentalDAO {
+        +findAll() List~Rental~
+        +findById(id) Rental
+        +insert(Rental) boolean
+        +updateReturn(id, date, fee) boolean
     }
-    class ManageRentalsPanel {
-        +selectCustomer()
-        +selectCar()
-        +submitRental()
+    class CarDAO {
+        +findAll() List~Car~
+        +search(keyword) List~Car~
+        +findByStatus(status) List~Car~
+        +findById(id) Car
+        +updateStatus(id, status) boolean
+        +insert(Car) boolean
+        +updateBrand(id, brand) boolean
+    }
+    class CustomerDAO {
+        +findAll() List~Customer~
+        +findById(id) Customer
+        +search(keyword) List~Customer~
+        +insert(Customer) boolean
+        +update(Customer) boolean
+    }
+    class VehicleStatusDAO {
+        +insert(VehicleStatus) boolean
+        +findLatestByCarId(carId) VehicleStatus
+    }
+    class LogDAO {
+        +insert(SystemLog) boolean
+        +getAllLogs() List~SystemLog~
     }
 
-    %% ==========================
-    %% Relationships (关系连线)
-    %% ==========================
-    
-    %% UI -> Service
-    AdminDashboard ..> CarService : uses
-    AdminDashboard ..> AuthService : uses
-    StaffDashboard ..> RentalService : uses
+    %% =============================================
+    %% 4. Model Layer (模型层)
+    %% =============================================
+    class User {
+        -String UserID
+        -String username
+        -String Password
+        -userRole Role
+        +toString() String
+    }
+    class Rental {
+        -int rentalID
+        -Customer customer
+        -Car car
+        -int staffId
+        -LocalDate startDate
+        -LocalDate expectedReturnDate
+        -LocalDate actualReturnDate
+        -double totalCost
+        +calculateRentalDays() long
+        +calculateTotalCost() double
+        +completeRental() void
+        +isOverdue() boolean
+    }
+    class Car {
+        -String CarID
+        -String Model
+        -String Brand
+        -String Color
+        -String Status
+        -String licensePlate
+        -double Price
+        -int stock
+        +isAvailable() boolean
+        +rentCar() void
+        +returnCar() void
+        +calculateRentalCost(int days) double
+    }
+    class Customer {
+        -String customerID
+        -String customerName
+        -String phone
+        -String driverLicenseNumber
+        +updateContactInfo(phone, email, addr) void
+    }
+    class SystemLog {
+        -String username
+        -String operationType
+        -String result
+    }
+    class VehicleStatus {
+        -String carId
+        -Integer rentalId
+        -String status
+        -String notes
+    }
+    %% 枚举类
+    class userRole {
+        <<enumeration>>
+        admin
+        staff
+    }
+    class CarStatus {
+        <<enumeration>>
+        AVAILABLE
+        RENTED
+        MAINTENANCE
+    }
+
+    %% =============================================
+    %% 关系连线 (Relationships)
+    %% =============================================
+
+    %% UI 包含关系 (Composition)
+    LoginRegisterFrame *-- LoginPanel
+    AdminDashboardFrame *-- ManageCars
+    AdminDashboardFrame *-- Reports
+    AdminDashboardFrame *-- SystemLogs
+    StaffDashboardFrame *-- ManageRentalsPanel
+    StaffDashboardFrame *-- AvailabilityPanel
+
+    %% UI 弹窗依赖 (Dependency)
+    ManageRentalsPanel ..> ReTurnCarFrame : opens
+    ManageCars ..> AddCarFrame : opens
+    AdminDashboardFrame ..> AddStaffFrame : opens
+
+    %% UI 调用 Service / DAO
+    LoginPanel ..> AuthService : uses
     ManageRentalsPanel ..> RentalService : uses
     ManageRentalsPanel ..> CarService : uses
+    ManageRentalsPanel ..> CustomerService : uses
+    ReTurnCarFrame ..> RentalService : uses
+    ReTurnCarFrame ..> VehicleStatusService : uses
+    ManageCars ..> CarDAO : uses (Direct)
+    ManageCars ..> LogService : uses
+    Reports ..> RentalService : uses
+    AvailabilityPanel ..> CarService : uses
 
-    %% Service -> DAO
+    %% Service 调用 DAO
+    AuthService --> UserDAO : calls
+    AuthService ..> LogService : logs
+
     RentalService --> RentalDAO : calls
     RentalService --> CarDAO : calls
-    RentalService --> LogDAO : calls
+    RentalService ..> LogService : logs
+
     CarService --> CarDAO : calls
-    AuthService --> UserDAO : calls
+    CarService ..> LogService : logs
 
-    %% DAO -> Model (Dependency)
-    CarDAO ..> Car : returns/modifies
-    UserDAO ..> User : returns/modifies
-    RentalDAO ..> Rental : returns/modifies
-    RentalDAO ..> Customer : uses
+    CustomerService --> CustomerDAO : calls
+    CustomerService ..> LogService : logs
 
-    %% Model Relationships
-    Rental "1" -- "1" Car : contains
-    Rental "1" -- "1" Customer : associated with
+    VehicleStatusService --> VehicleStatusDAO : calls
+    VehicleStatusService ..> LogService : logs
+
+    LogService --> LogDAO : calls
+
+    %% DAO 返回 Model
+    UserDAO ..> User : returns
+    RentalDAO ..> Rental : returns
+    CarDAO ..> Car : returns
+    CustomerDAO ..> Customer : returns
+    LogDAO ..> SystemLog : returns
+    VehicleStatusDAO ..> VehicleStatus : returns
+
+    %% Model 内部关联
+    Rental --> Car : has
+    Rental --> Customer : has
+    User --> userRole : type
+    Car ..> CarStatus : status type
+
 ```
 
 -----
