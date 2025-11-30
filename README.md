@@ -75,8 +75,6 @@ database/init.sql   # Database initialization script
 
 ------
 
-------
-
 ## 🏗️ 4. System Architecture (UML Class Diagram)
 
 The following diagram illustrates the interaction between the **Model**, **DAO**, **Service**, and **UI** layers, demonstrating the standard layered architecture pattern used in this project.
