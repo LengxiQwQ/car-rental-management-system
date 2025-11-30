@@ -488,11 +488,11 @@ classDiagram
 
 | 登录界面 | 注册界面 |
 | :---: | :---: |
-| ![img](./images/Login.png) | ![img](./images/Register.png) |
+| ![img](https://raw.githubusercontent.com/LengxiQwQ/Car-Rental-Management-System/main/images/Login.png) | ![img](https://raw.githubusercontent.com/LengxiQwQ/Car-Rental-Management-System/main/images/Register.png) |
 
 | 员工工作台 | 管理员报表 |
 | :---: | :---: |
-| ![img](./images/StaffDashboard.png) | ![img](./images/AdminReport.png) |
+| ![img](https://raw.githubusercontent.com/LengxiQwQ/Car-Rental-Management-System/main/images/StaffDashboard.png) | ![img](https://raw.githubusercontent.com/LengxiQwQ/Car-Rental-Management-System/main/images/AdminReport.png) |
 
 -----
 

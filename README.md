@@ -485,13 +485,13 @@ classDiagram
 
 ## 📸 6. System Screenshots
 
-| Login Page                 | Registration Page             |
-| -------------------------- | ----------------------------- |
-| ![img](./images/Login.png) | ![img](./images/Register.png) |
+| Login Page                                                   | Registration Page                                            |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| ![img](https://raw.githubusercontent.com/LengxiQwQ/Car-Rental-Management-System/main/images/Login.png) | ![img](https://raw.githubusercontent.com/LengxiQwQ/Car-Rental-Management-System/main/images/Register.png) |
 
-| Staff Page                          | Admin Page                       |
-| ----------------------------------- | -------------------------------- |
-| ![img](./images/StaffDashboard.png) | ![img](./images/AdminReport.png) |
+| Staff Page                                                   | Admin Page                                                   |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| ![img](https://raw.githubusercontent.com/LengxiQwQ/Car-Rental-Management-System/main/images/StaffDashboard.png) | ![img](https://raw.githubusercontent.com/LengxiQwQ/Car-Rental-Management-System/main/images/AdminReport.png) |
 
 ------
 
