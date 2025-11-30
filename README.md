@@ -739,7 +739,7 @@ src/main/java/carrental/ui/Main.java
 
 ## 👥 10. Collaborators
 
-| Member         | Responsibilities                                             |
-| -------------- | ------------------------------------------------------------ |
+| Members        | Responsibilities                                             |
+|----------------| ------------------------------------------------------------ |
 | **Qiu Zixun**  | Project initialization, UI design & implementation, admin module logic, GitHub management |
 | **Yu Chongqi** | Database design & connection, DAO/Service/Model implementation, staff module logic |
