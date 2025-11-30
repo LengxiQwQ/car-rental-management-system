@@ -5,13 +5,15 @@ A desktop rental management application built with Java Swing + MySQL
  INTI International University · August 2025 Semester
 
  [![Project Status](https://img.shields.io/badge/Status-Complete-brightgreen)](https://github.com/LengxiQwQ/Car-Rental-Management-System)
-[![GitHub Actions CI](https://github.com/LengxiQwQ/Car-Rental-Management-System/actions/workflows/maven.yml/badge.svg)](https://github.com/LengxiQwQ/Car-Rental-Management-System/actions/workflows/maven.yml)
 [![Maven](https://img.shields.io/badge/Build-Maven-C71A36?style=flat&logo=apache-maven&logoColor=white)](https://maven.apache.org/)
 [![MySQL](https://img.shields.io/badge/Database-MySQL-4479A1?style=flat&logo=mysql&logoColor=white)](https://www.mysql.com/)
 [![GUI](https://img.shields.io/badge/GUI-Java%20Swing-blue?style=flat)](https://www.java.com/)
 [![Theme](https://img.shields.io/badge/UI%20Theme-FlatLaf-3c5b96?style=flat&logo=eclipse&logoColor=white)](https://www.formdev.com/flatlaf/)
 
-📘 **English | [简体中文](README_CN.md)**
+[![GitHub Repository](https://img.shields.io/badge/Repo-LengxiQwQ%2FCar--Rental--Management--System-5441A5?style=flat&logo=github&logoColor=white)](https://github.com/LengxiQwQ/Car-Rental-Management-System)
+[![Authors](https://img.shields.io/badge/Authors-LengxiQwQ%20%26%20Awei63-B83E58?style=flat)](https://github.com/LengxiQwQ/Car-Rental-Management-System#%E5%B7%A8%E5%B3%B0%E6%8A%80%E6%9C%AF)
+
+📘 **English | [简体中文](README_CN.md)** 
 
 ------
 
