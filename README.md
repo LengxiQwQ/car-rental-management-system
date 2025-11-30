@@ -4,6 +4,14 @@ A desktop rental management application built with Java Swing + MySQL
  PRG2201 Object-Oriented Programming · Group Project
  INTI International University · August 2025 Semester
 
+ [![Project Status](https://img.shields.io/badge/Status-Complete-brightgreen)](https://github.com/LengxiQwQ/Car-Rental-Management-System)
+[![GitHub Actions CI](https://github.com/LengxiQwQ/Car-Rental-Management-System/actions/workflows/maven.yml/badge.svg)](https://github.com/LengxiQwQ/Car-Rental-Management-System/actions/workflows/maven.yml)
+[![JDK Version](https://img.shields.io/badge/JDK-21+-orange.svg)](https://www.oracle.com/java/technologies/javase/jdk21-index.html)
+[![Maven](https://img.shields.io/badge/Build-Maven-C71A36?style=flat&logo=apache-maven&logoColor=white)](https://maven.apache.org/)
+[![MySQL](https://img.shields.io/badge/Database-MySQL-4479A1?style=flat&logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![GUI](https://img.shields.io/badge/GUI-Java%20Swing-blue?style=flat)](https://www.java.com/)
+[![Theme](https://img.shields.io/badge/UI%20Theme-FlatLaf-3c5b96?style=flat&logo=eclipse&logoColor=white)](https://www.formdev.com/flatlaf/)
+
 📘 **English | [简体中文](README_CN.md)**
 
 ------
