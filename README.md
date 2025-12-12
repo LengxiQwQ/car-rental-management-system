@@ -506,7 +506,7 @@ Core tables:
 | `vehicle_status` | Vehicle condition details upon return |
 | `system_logs`    | System operation logs                 |
 
-### ER Diagram
+### Entity Relationship Diagram (ERD)
 
 ```mermaid
 erDiagram
